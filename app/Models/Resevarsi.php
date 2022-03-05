@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * @property integer $id
  * @property integer $fasilitas_kamar_id
@@ -21,16 +22,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Resevarsi extends Model
 {
+    // use Notifiable;
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'resevarsi';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';

@@ -14,7 +14,7 @@ class ResepsionisController extends Controller
      */
     public function index()
     {
-        //
+        return view('resepsionis.dashboard');
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property integer $id
@@ -15,18 +17,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property FasilitasKamar[] $fasilitasKamars
  * @property Kamar[] $kamars
  */
-class Admin extends Model
+class Admin extends Authenticatable
 {
+    use Notifiable;
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'admin';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -36,6 +39,7 @@ class Admin extends Model
      */
     protected $fillable = ['username', 'email', 'password', 'created_at', 'updated_at'];
 
+    protected $guard = 'admin';
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
