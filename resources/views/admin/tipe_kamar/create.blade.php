@@ -32,9 +32,10 @@
             @csrf
             <div class="row">
                 <div class="col-md-6">
+                    <label for="">Nama Tipe</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-user"></i></div>
+                            <div class="input-group-text"><i class="fa fa-bed"></i></div>
                         </div>
                         <input type="text" name="nama_tipe" value="{{ old('nama_tipe') }}" class="form-control @error('nama_tipe')
                             is-invalid
@@ -48,7 +49,9 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <label for="">Gambar</label>
                     <div class="input-group mb-2">
+
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-file"></i></div>
                         </div>

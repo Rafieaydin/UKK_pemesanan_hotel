@@ -40,17 +40,17 @@
                     <i class="fas fa-bed"></i>
                     <span>Kamar</span></a>
                 </a>
-            </li>  
+            </li>
         @endif
         @if (Auth::guard('resepsionis')->check())
         <ul class="sidebar-menu">
-            <li class="menu-header">DASHBOARD</li>
+            {{-- <li class="menu-header">DASHBOARD</li>
             <li class="@if (Request::is('resepsionis/dashboard')) active @endif">
                 <a href="{{ route('resepsionis.dashboard') }}" class="nav-link">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
                 </a>
-            </li>
+            </li> --}}
             <li class="menu-header">MASTER</li>
             <li class="@if (Request::is('resepsionis/resevarsi','resepsionis/resevarsi/*')) active @endif">
                 <a href="{{ route('resepsionis.resevarsi.index') }}" class="nav-link">

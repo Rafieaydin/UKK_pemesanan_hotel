@@ -31,7 +31,7 @@
         <form action="{{ route('admin.fasilitas_hotel.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
-               
+
                 <div class="col-md-6">
                     <label for="">Nama Tamu</label>
                     <div class="input-group mb-2">
@@ -64,7 +64,7 @@
                     </div>
                 @enderror
                     </div>
-                 
+
                 </div>
                     <div class="col-md-12">
                         <label for="">Keterangan</label>

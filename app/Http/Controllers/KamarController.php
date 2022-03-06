@@ -20,7 +20,7 @@ class KamarController extends Controller
 
     public function ajax(Request $request){
         if ($request->ajax()) {
-            $kamar = kamar::all();
+            $kamar = kamar::orderby('created_at','desc')->get();
             return datatables()->of($kamar)
             ->editColumn('nama_tipe', function ($data) {
                 return $data->tipekamar->nama_tipe;
@@ -127,9 +127,9 @@ class KamarController extends Controller
      * @param  \App\Models\kamar  $kamar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kamar $kamar)
+    public function destroy($id)
     {
-        kamar::destroy($kamar->id);
+        kamar::destroy($id);
         return response()->json(['success' => 'Berhasil Dihapus']);
     }
 }

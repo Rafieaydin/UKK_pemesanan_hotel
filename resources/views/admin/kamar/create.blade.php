@@ -35,7 +35,7 @@
                     <label for="">Tipe Kamar</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-user"></i></div>
+                            <div class="input-group-text"><i class="fa fa-bed"></i></div>
                         </div>
 
                         <select name="tipe_id" value="{{ old('tipe_id') }}" class="form-control @error('tipe_id')
@@ -58,7 +58,7 @@
                     <label for="">Jumlah Kamar</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-user"></i></div>
+                            <div class="input-group-text"><i class="fa fa-bed"></i></div>
                         </div>
                         <input type="number" name="jumlah_kamar" value="{{ old('jumlah_kamar') }}" class="form-control @error('jumlah_kamar')
                             is-invalid
@@ -70,7 +70,7 @@
                         @enderror
                     </div>
                 </div>
-               
+
             </div>
             <div class="row">
                 <a href="{{ route('admin.kamar.index') }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 " type="submit">Kembali</a>

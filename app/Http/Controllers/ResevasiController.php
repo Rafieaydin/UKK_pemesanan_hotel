@@ -24,14 +24,14 @@ class ResevasiController extends Controller
                 $resevarsi = Resevarsi::whereDate('tanggal_checkin','>=',$request->check_in)->whereDate('tanggal_checkout','<=',$request->check_out)->get();
             }else
             if(!empty($request->check_in)){
-                $resevarsi = Resevarsi::whereDate('tanggal_checkin', '=', $request->check_in)->get();
+                $resevarsi = Resevarsi::whereDate('tanggal_checkin', '=', $request->check_in)->orderby('created_at','desc')->get();
             }else if(!empty($request->check_out)){
-                $resevarsi = Resevarsi::whereDate('tanggal_checkout', '=', $request->check_out)->get();
-            }else 
+                $resevarsi = Resevarsi::whereDate('tanggal_checkout', '=', $request->check_out)->orderby('created_at','desc')->get();
+            }else
             {
-                $resevarsi = Resevarsi::all();
+                $resevarsi = Resevarsi::orderby('created_at','desc')->get();
             }
-        
+
             return datatables()->of($resevarsi)
                 ->addcolumn('fasilitas', function($data){
                     return $data->tipeKamar->nama_tipe;
