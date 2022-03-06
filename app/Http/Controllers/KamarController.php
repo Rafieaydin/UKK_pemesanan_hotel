@@ -20,8 +20,11 @@ class KamarController extends Controller
 
     public function ajax(Request $request){
         if ($request->ajax()) {
-            $kamar = TipeKamar::all();
+            $kamar = kamar::all();
             return datatables()->of($kamar)
+            ->editColumn('nama_tipe', function ($data) {
+                return $data->tipekamar->nama_tipe;
+            })
                 ->editColumn('gambar', function ($data) {
                     return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
                 })
@@ -45,7 +48,8 @@ class KamarController extends Controller
      */
     public function create()
     {
-        //
+        $tipe = TipeKamar::all();
+        return view('admin.kamar.create', compact('tipe'));
     }
 
     /**
@@ -56,7 +60,18 @@ class KamarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'jumlah_kamar' => 'required',
+            'tipe_id' => "required"
+        ]);
+
+        Kamar::create([
+            'jumlah_kamar' => $request->jumlah_kamar,
+            'tipe_id' => $request->tipe_id,
+            'admin_id' => auth()->id(),
+            'status' => 1
+        ]);
+        return redirect('/admin/kamar')->with('success', 'Data Kamar Berhasil Ditambahkan');
     }
 
     /**
@@ -65,9 +80,10 @@ class KamarController extends Controller
      * @param  \App\Models\kamar  $kamar
      * @return \Illuminate\Http\Response
      */
-    public function show(kamar $kamar)
+    public function show($id)
     {
-        //
+        $kamar = kamar::find($id);
+        return view('admin.kamar.detail', compact('kamar'));
     }
 
     /**
@@ -76,9 +92,11 @@ class KamarController extends Controller
      * @param  \App\Models\kamar  $kamar
      * @return \Illuminate\Http\Response
      */
-    public function edit(kamar $kamar)
+    public function edit($id)
     {
-        //
+        $tipe = TipeKamar::all();
+        $kamar = kamar::find($id);
+        return view('admin.kamar.edit', compact('kamar', 'tipe'));
     }
 
     /**
@@ -88,9 +106,19 @@ class KamarController extends Controller
      * @param  \App\Models\kamar  $kamar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kamar $kamar)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'jumlah_kamar' => 'required',
+            'tipe_id' => "required"
+        ]);
+
+        Kamar::where('id',$id)->update([
+            'jumlah_kamar' => $request->jumlah_kamar,
+            'tipe_id' => $request->tipe_id,
+            'admin_id' => auth()->id()
+        ]);
+        return redirect('/admin/kamar')->with('success', 'Data Kamar Berhasil update');
     }
 
     /**
@@ -101,6 +129,7 @@ class KamarController extends Controller
      */
     public function destroy(kamar $kamar)
     {
-        //
+        kamar::destroy($kamar->id);
+        return response()->json(['success' => 'Berhasil Dihapus']);
     }
 }

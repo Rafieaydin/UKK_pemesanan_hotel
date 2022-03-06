@@ -17,13 +17,19 @@ return new class extends Migration
             $table->id();
             $table->string('nama_tipe');
             // $table->string('keterangan');
-            $table->integer('jumlah_kamar')->default(0);
+            $table->integer('total_jumlah_kamar')->default(0);
             $table->string('gambar');
             $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 
         Schema::table('fasilitas_kamar', function (Blueprint $table) {
+            $table->foreignId('tipe_id')->constrained('tipe_kamar')->onDelete('cascade')->onUpdate('cascade');
+        });
+        Schema::table('kamar', function (Blueprint $table) {
+            $table->foreignId('tipe_id')->constrained('tipe_kamar')->onDelete('cascade')->onUpdate('cascade');
+        });
+        Schema::table('resevarsi', function (Blueprint $table) {
             $table->foreignId('tipe_id')->constrained('tipe_kamar')->onDelete('cascade')->onUpdate('cascade');
         });
     }

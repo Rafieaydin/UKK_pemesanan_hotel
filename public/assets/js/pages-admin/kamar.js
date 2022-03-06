@@ -29,8 +29,24 @@ $(document).ready( function () {
         { data: 'action',name:'action'}
         ],
     });
+
+    var detailtable = $('#table2').DataTable({
+        dom:
+        "<'row'<'ol-sm-12 col-md-6 btn-back'><'col-sm-12 col-md-6  pdf-button'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        bLengthChange: false,
+        ordering:false,
+        info: true,
+        filtering:false,
+        searching: true,
+    });
+
     $('.btn-table').append(
         '<a href="'+root+'/admin/kamar/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'
+    );
+    $('.btn-back').append(
+        '<a href="'+root+'/admin/kamar"class="btn btn-primary "> <i class="fas fa-arrow-left"></i> kembali</i></button></a>'
     );
 
 // search engine
@@ -54,7 +70,7 @@ $('body').on('click','#hapus', function () {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                    url: root+"/admin/guru/delete/"+ id,
+                    url: root+"/api/admin/kamar/delete/"+ id,
                     type: "DELETE",
 
                     data:'',

@@ -93,14 +93,14 @@ $(document).ready(function () {
             });
 
             $('.btn-back').append(
-                '<a href="' + root + '/admin/resevarsi"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </button></a>' 
+                '<a href="' + root + '/resepsionis/resevarsi"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </button></a>' 
             );
 
             $('.btn-table').append(
              
                 '<div class="row">' +
                 '<div class="col-md-3 mt-2">' +
-                '<a href="' + root + '/admin/resevarsi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+                '<a href="' + root + '/resepsionis/resevarsi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
                 '</div>' +
                 '<div class="col-md-4">' +
                 '<label for="" class="d-inline">Filter Check-in</label>' +

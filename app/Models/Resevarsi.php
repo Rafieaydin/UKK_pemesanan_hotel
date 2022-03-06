@@ -40,15 +40,15 @@ class Resevarsi extends Model
     /**
      * @var array
      */
-    protected $fillable = ['fasilitas_kamar_id', 'tamu_id', 'nama_pemesan', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at'];
+    protected $fillable = ['tipe_id', 'tamu_id', 'nama_pemesan', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at'];
 
     protected $dates = ['tanggal_checkin', 'tanggal_checkout'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function fasilitas_Kamar()
+    public function tipekamar()
     {
-        return $this->belongsTo(FasilitasKamar::class, 'fasilitas_kamar_id');
+        return $this->belongsTo(TipeKamar::class, 'tipe_id');
     }
 
     /**

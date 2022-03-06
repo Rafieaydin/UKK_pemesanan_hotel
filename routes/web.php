@@ -51,13 +51,20 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
     Route::get('fasilitas_kamar/edit/{id}', [FasilitasKamarController::class, 'edit'])->name('fasilitas_kamar.edit');
     Route::patch('fasilitas_kamar/update/{id}', [FasilitasKamarController::class, 'update'])->name('fasilitas_kamar.update');
 
-    Route::get('kamar', [KamarController::class, 'index'])->name('kamar.index');
     Route::get('tipe_kamar', [TipeKamarController::class, 'index'])->name('tipe_kamar.index');
     Route::get('tipe_kamar/create', [TipeKamarController::class, 'create'])->name('tipe_kamar.create');
     Route::post('tipe_kamar/store', [TipeKamarController::class, 'store'])->name('tipe_kamar.store');
     Route::get('tipe_kamar/detail/{id}', [TipeKamarController::class, 'detail'])->name('tipe_kamar.detail');
     Route::get('tipe_kamar/edit/{id}', [TipeKamarController::class, 'edit'])->name('tipe_kamar.edit');
     Route::patch('tipe_kamar/update/{id}', [TipeKamarController::class, 'update'])->name('tipe_kamar.update');
+
+    Route::get('kamar', [KamarController::class, 'index'])->name('kamar.index');
+    Route::get('kamar', [KamarController::class, 'index'])->name('kamar.index');
+    Route::get('kamar/create', [KamarController::class, 'create'])->name('kamar.create');
+    Route::post('kamar/store', [KamarController::class, 'store'])->name('kamar.store');
+    Route::get('kamar/detail/{id}', [KamarController::class, 'show'])->name('kamar.detail');
+    Route::get('kamar/edit/{id}', [KamarController::class, 'edit'])->name('kamar.edit');
+    Route::patch('kamar/update/{id}', [KamarController::class, 'update'])->name('kamar.update');
 });
 
 Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsionis.')->group(function () {
@@ -66,7 +73,7 @@ Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsioni
     Route::get('resevarsi', [ResevasiController::class, 'index'])->name('resevarsi.index');
     Route::get('resevarsi/create', [ResevasiController::class, 'create'])->name('resevarsi.create');
     Route::post('resevarsi/store', [ResevasiController::class, 'store'])->name('resevarsi.store');
-    Route::get('resevarsi/detail/{id}', [ResevasiController::class, 'detail'])->name('resevarsi.detail');
+    Route::get('resevarsi/detail/{id}', [ResevasiController::class, 'show'])->name('resevarsi.detail');
     Route::get('resevarsi/edit/{id}', [ResevasiController::class, 'edit'])->name('resevarsi.edit');
     Route::patch('resevarsi/update/{id}', [ResevasiController::class, 'update'])->name('resevarsi.update');
     Route::delete('resevarsi/delete/{id}', [ResevasiController::class, 'destroy'])->name('resevarsi.destroy');

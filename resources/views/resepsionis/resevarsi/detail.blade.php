@@ -11,15 +11,25 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Tipe Kamar</th>
-                    <th scope="col">Gambar</th>
+                    <th scope="col">Fasilitas Kamar</th>
+                    <th scope="col">Nama Pemesan</th>
+                    <th scope="col">Email Pemesan</th>
+                    <th scope="col">No Hp Pemesan</th>
+                    <th scope="col">Tanggal Check-in</th>
+                    <th scope="col">Tanggal Check-out</th>
+                    <th scope="col">jumlah kamar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>{{ $tipe_kamar->nama_tipe }}</td>
-                    <td><img src='{{ asset("assets/images/".$tipe_kamar->gambar) }}' width="200px" alt=""></td>
+                    <td scope="col">{{ $res->tipekamar->nama_kamar }}</td>
+                    <td scope="col">{{ $res->nama_pemesan }}</td>
+                    <td scope="col">{{ $res->email_pemesan }}</td>
+                    <td scope="col">{{ $res->nomor_hp_pemesan }}</td>
+                    <td scope="col">{{ $res->tanggal_checkin->format('d-m-Y') }}</td>
+                    <td scope="col">{{ $res->tanggal_checkout->format('d-m-Y') }}</td>
+                    <td scope="col">{{ $res->jumlah_kamar }}</td>
                 </tr>               
             </tbody>
         </table>
@@ -28,5 +38,5 @@
 
 @endsection
 @push('js')
-<script src="{{ asset('assets/js/pages-admin/tipe_kamar.js') }}"></script>
+<script src="{{ asset('assets/js/pages-resepsionis/resevarsi.js') }}"></script>
 @endpush

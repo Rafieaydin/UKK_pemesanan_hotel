@@ -13,7 +13,7 @@
 @endsection
 @section('content')
 <div class="card">
-    <div class="container  mt-3">
+    <div class="container  mt-3 mb-3">
         @if (session('success'))
             <div class="alert alert-success   
             alert-dismissible fade show" role="alert">

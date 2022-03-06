@@ -1,7 +1,7 @@
 <div class="main-sidebar position-fixed">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{'/'}}" style="color:#6777ef;">DATA PRAKERIN</a>
+            <a href="{{'/'}}" style="color:#6777ef;">Hotel ***</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a style="color:#6777ef;" href="{{'/'}}">DP</a>

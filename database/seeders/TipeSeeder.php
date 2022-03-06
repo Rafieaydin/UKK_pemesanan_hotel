@@ -38,7 +38,7 @@ class TipeSeeder extends Seeder
             DB::table('tipe_kamar')->insert([
                 'nama_tipe' => $data[$i]['nama'],
                 'gambar'=> $data[$i]['gambar'],
-                'jumlah_kamar'=> 30,
+                // 'jumlah_kamar'=> 30,
                 'admin_id'=> 1,
             ]);
         }

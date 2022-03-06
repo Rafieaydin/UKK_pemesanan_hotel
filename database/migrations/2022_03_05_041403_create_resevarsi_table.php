@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tanggal_checkin');
             $table->date('tanggal_checkout');
             $table->integer('jumlah_kamar');
-            $table->foreignId('fasilitas_kamar_id')->constrained('fasilitas_kamar')->onDelete('cascade')->onUpdate('cascade');
+       
             $table->timestamps();
         });
     }
