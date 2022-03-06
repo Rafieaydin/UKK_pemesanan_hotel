@@ -52,4 +52,8 @@ class FasilitasKamar extends Model
     {
         return $this->hasMany('App\Models\Resevarsi');
     }
+
+    public function tipeKamar(){
+        return $this->belongsTo(TipeKamar::class, 'tipe_id','id');
+    }
 }

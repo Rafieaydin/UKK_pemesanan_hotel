@@ -42,12 +42,13 @@ class Resevarsi extends Model
      */
     protected $fillable = ['fasilitas_kamar_id', 'tamu_id', 'nama_pemesan', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at'];
 
+    protected $dates = ['tanggal_checkin', 'tanggal_checkout'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function fasilitasKamar()
+    public function fasilitas_Kamar()
     {
-        return $this->belongsTo('App\Models\FasilitasKamar');
+        return $this->belongsTo(FasilitasKamar::class, 'fasilitas_kamar_id');
     }
 
     /**

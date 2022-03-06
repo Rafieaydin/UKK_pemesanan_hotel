@@ -19,23 +19,25 @@ class FasilitasKamarSeeder extends Seeder
             [
             'nama'=> 'Supperior',
             'gambar'=>  'kamar_supperior.jpg',
+            'nama_fasilitas' => "TV 32 ichi",
             ],
             [
             'nama'=> 'Deluxe',
             'gambar'=>  'kamar_deluxe.jpg',
+            'nama_fasilitas' => "TV 32 ichi",
             ],
             [
             'nama'=> 'Condotel One Bedroom',
             'gambar'=>  'kamar_one_bedroom.jpg',
+            'nama_fasilitas' => "TV 32 ichi",
             ],
         ];
         $faker = Faker::create('id_ID');
         for($i=0;$i<count($data);$i++){
             DB::table('fasilitas_kamar')->insert([
-                'nama_fasilitas'=> $data[$i]['nama'],
+                'tipe_id'=>$i+1,
+                'nama_fasilitas' => $data[$i]['nama_fasilitas'],
                 'gambar'=> $data[$i]['gambar'],
-                'detail_fasilitas' => $faker->text($maxNbChars = 3000),
-                'jumlah_kamar'=> 0,
                 'admin_id'=> 1,
             ]);
         }

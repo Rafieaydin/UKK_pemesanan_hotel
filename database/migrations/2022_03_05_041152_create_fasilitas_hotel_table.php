@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('fasilitas_hotel', function (Blueprint $table) {
             $table->id();
             $table->string('nama_fasilitas');
+            $table->string('keterangan');
             $table->string('gambar');
             $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

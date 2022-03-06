@@ -1,6 +1,11 @@
-<h1>ini resepsionis {{ Auth::getDefaultDriver() }}</h1>
+@extends('template.master')
+@section('breadcrump')
+<div class="breadcrumb-item "><i class="fas fa-tachometer-alt"></i> DASBOARD</a></div>
+@endsection
+@section('judul','Dashboard')
+@section('content')
 
-<form action="{{ route('auth.logout') }}" method="POST">
-    @csrf
-    <button class="btn btn-primary" type="submit">Logout</button>
-</form>
+@endsection
+@push('js')
+
+@endpush
