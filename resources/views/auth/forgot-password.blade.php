@@ -34,10 +34,10 @@
 
                     <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
-                        <form style="width: 23rem;" action="{{ route('auth.Postlogin') }}" method="POST">
+                        <form style="width: 23rem;" action="{{ route('auth.forgot_password') }}" method="POST">
                             @csrf
-                            <h3 class="fw-normal " style="letter-spacing: 1px;">Log in</h3>
-                            <p class="fw-normal pb-3">Masukan Email & Password untuk login</p>
+                            <h3 class="fw-normal " style="letter-spacing: 1px;">Reset Password</h3>
+                            <p class="fw-normal pb-3">Masukan email untuk reset password</p>
                             @if (session('error'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 {{ session('error') }}
@@ -45,11 +45,10 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-
                             @endif
-                            @if (session('success'))
+                            @if (session('status'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
+                                {{ session('status') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -60,7 +59,7 @@
                                 <label class="form-label" for="form2Example18">Email address</label>
                                 <input type="email" id="form2Example18"
                                     class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                    placeholder="Masukan Email" name="email" value="{{ old('email') }}"
+                                    placeholder="Email" name="email" value="{{ old('email') }}"
                                     autocomplete="email" autofocus value="{{ old('email') }}">
                                 @error('email')
                                 <div class="invalid-feedback">
@@ -68,21 +67,12 @@
                                 </div>
                                 @enderror
                             </div>
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="form2Example28">Password</label>
-                                <input type="password" id="form2Example28" placeholder="Masukan Password" name="password"
-                                    class="form-control form-control-lg @error('password') is-invalid @enderror" value="{{ old('password') }}" />
-                                @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
                             <div class="pt-1 mb-4">
-                                <button class="btn btn-info btn-lg btn-block" type="submit">Login</button>
+                                <button class="btn btn-info btn-lg btn-block" type="submit">Submit</button>
                             </div>
-                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="{{ route('auth.forgot_password') }}">Lupa Password?</a></p>
-                            <p>Belum Punya akun? <a href="{{ route('auth.register') }}" class="link-info">Register Disini</a></p>
+                            {{-- <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p> --}}
+                            <p>Sudah Punya akun? <a href="{{ route('auth.login') }}" class="link-info">Login Disni</a></p>
+                            <p>Belum Punya Akun? <a href="{{ route('auth.register') }}" class="link-info">Register Disini</a></p>
 
                         </form>
 

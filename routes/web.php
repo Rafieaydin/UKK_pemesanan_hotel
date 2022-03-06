@@ -23,10 +23,8 @@ Route::get('/', function () {
     return view('home');
 });
 
-
-Route::get('/login',[AuthController::class,'login'])->name('auth.login');
-Route::post('/Postlogin',[AuthController::class,'PostLogin'])->name('auth.Postlogin');
-Route::post('/logout',[AuthController::class,'logout'])->name('auth.logout');
+// call auth route
+require __DIR__.'/auth.php';
 
 Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.index');

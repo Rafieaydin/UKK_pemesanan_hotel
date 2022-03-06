@@ -34,10 +34,11 @@
 
                     <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
-                        <form style="width: 23rem;" action="{{ route('auth.Postlogin') }}" method="POST">
+                        <form style="width: 23rem;" action="{{ route('auth.reset_password') }}" method="POST">
+                            <input type="text" class="d-none" value="{{ request()->token }}" name="token">
                             @csrf
-                            <h3 class="fw-normal " style="letter-spacing: 1px;">Log in</h3>
-                            <p class="fw-normal pb-3">Masukan Email & Password untuk login</p>
+                            <h3 class="fw-normal " style="letter-spacing: 1px;">Reset Password</h3>
+                            <p class="fw-normal pb-3">Isi form untuk reset password</p>
                             @if (session('error'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 {{ session('error') }}
@@ -60,8 +61,8 @@
                                 <label class="form-label" for="form2Example18">Email address</label>
                                 <input type="email" id="form2Example18"
                                     class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                    placeholder="Masukan Email" name="email" value="{{ old('email') }}"
-                                    autocomplete="email" autofocus value="{{ old('email') }}">
+                                    placeholder="Email" name="email" value="{{ old('email',request()->email) }}"
+                                    autocomplete="email" autofocus readonly>
                                 @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -69,20 +70,34 @@
                                 @enderror
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="form2Example28">Password</label>
-                                <input type="password" id="form2Example28" placeholder="Masukan Password" name="password"
-                                    class="form-control form-control-lg @error('password') is-invalid @enderror" value="{{ old('password') }}" />
+                                <label class="form-label" for="form2Example18">New Password</label>
+                                <input type="password" id="form2Example18"
+                                    class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                    placeholder="password" name="password" value="{{ old('password') }}"
+                                    autocomplete="password" autofocus value="{{ old('password') }}">
                                 @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                                 @enderror
                             </div>
-                            <div class="pt-1 mb-4">
-                                <button class="btn btn-info btn-lg btn-block" type="submit">Login</button>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example18">Konfirmasi Password</label>
+                                <input type="password" id="form2Example18"
+                                    class="form-control form-control-lg @error('password_confirmation') is-invalid @enderror"
+                                    placeholder="Konfirmasi password" name="password_confirmation" value="{{ old('password_confirmation') }}"
+                                    autocomplete="password_confirmation" autofocus value="{{ old('password_confirmation') }}">
+                                @error('password_confirmation')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
-                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="{{ route('auth.forgot_password') }}">Lupa Password?</a></p>
-                            <p>Belum Punya akun? <a href="{{ route('auth.register') }}" class="link-info">Register Disini</a></p>
+                            <div class="pt-1 mb-4">
+                                <button class="btn btn-info btn-lg btn-block" type="submit">Reset Password</button>
+                            </div>
+                            {{-- <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
+                            <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p> --}}
 
                         </form>
 

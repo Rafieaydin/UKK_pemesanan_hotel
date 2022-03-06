@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Password;
+
+
 /**
  * @property integer $id
  * @property string $username
@@ -22,6 +25,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Tamu extends Authenticatable
 {
     use Notifiable;
+
     /**
      * The table associated with the model.
      *
@@ -42,6 +46,7 @@ class Tamu extends Authenticatable
     protected $fillable = ['username', 'password', 'nama_tamu', 'email', 'no_hp', 'alamat', 'jk', 'status', 'created_at', 'updated_at'];
 
     protected $guard = 'tamu';
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
