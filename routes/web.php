@@ -26,10 +26,9 @@ use App\Models\Resepsionis;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
+Route::get('/',[HomeController::class,'index']);
+Route::get('fasilitas-kamar',[HomeController::class,'fasilitas_kamar']);
+Route::get('fasilitas-hotel',[HomeController::class,'fasilitas_hotel']);
 // call auth route
 require __DIR__.'/auth.php';
 

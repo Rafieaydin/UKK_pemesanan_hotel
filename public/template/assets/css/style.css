@@ -1519,13 +1519,7 @@ h6 .badge {
     padding-right: 5px; }
 
 /* 3.18 Navbar */
-.navbar {
-  height: 70px;
-  left: 250px;
-  right: 5px;
-  position: absolute;
-  z-index: 890;
-  background-color: transparent; }
+
   .navbar.active {
     background-color: #6777ef;
     box-shadow: rgba(103, 119, 239, 0.2) rgba(0, 0, 0, 0.03); }
