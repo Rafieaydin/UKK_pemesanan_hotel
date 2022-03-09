@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="" class="label-input mt-3">Bukti Resevarsi Kamar</label>
-                            <button class="btn btn-primary pesan-button" >Download PDF</button>
+                            <a href="{{ route('pdfresevarsi',$resevarsi->uuid) }}" class="btn btn-primary pesan-button" >Download PDF</a>
                         </div>
 
                     </div>

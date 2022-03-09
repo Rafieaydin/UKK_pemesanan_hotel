@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             // $table->string('tipe_fasilitas');
             $table->longText('nama_fasilitas');
-            $table->string('incon_fasilitas');
+            $table->string('icon_fasilitas');
             // $table->string('gambar');
             // $table->string('incon_fasilitas');
             $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade')->onUpdate('cascade');

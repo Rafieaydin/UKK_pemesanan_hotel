@@ -1,7 +1,7 @@
 <div class="main-sidebar position-fixed">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{'/'}}" style="color:#6777ef;">Hotel ***</a>
+            <a href="{{'/'}}" style="color:#6777ef;">ASTON<a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a style="color:#6777ef;" href="{{'/'}}">DP</a>
@@ -22,7 +22,7 @@
                     <span>Fasilitas Hotel</span></a>
                 </a>
             </li>
-            <li class="@if (Request::is('admin/fasilitas_kamar','admin/fasilitas_kamar')) active @endif">
+            <li class="@if (Request::is('admin/fasilitas_kamar','admin/fasilitas_kamar/*')) active @endif">
                 <a href="{{ route('admin.fasilitas_kamar.index') }}" class="nav-link">
                     <i class="fas fa-hotel"></i>
                     <span>Fasilitas Kamar</span></a>

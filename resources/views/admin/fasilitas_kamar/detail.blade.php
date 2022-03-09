@@ -13,7 +13,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Tipe</th>
                     <th scope="col">Nama Fasilitas</th>
-                    <th scope="col">Gambar</th>
+                    <th scope="col">Icon</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,8 +21,8 @@
                     <td>1</td>
                     <td>{{ $fasilitasKamar->tipekamar->nama_tipe }}</td>
                     <td>{{ $fasilitasKamar->nama_fasilitas }}</td>
-                    <td><img src='{{ asset("assets/images/".$fasilitasKamar->gambar) }}' width="200px" alt=""></td>
-                </tr>               
+                    <td><i class="{{ $fasilitasKamar->icon_fasilitas }}"></i></td>
+                </tr>
             </tbody>
         </table>
     </div>

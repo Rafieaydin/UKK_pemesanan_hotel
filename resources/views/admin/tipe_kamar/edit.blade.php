@@ -65,6 +65,38 @@
                 @enderror
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <label for="">harga</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-dollar" aria-hidden="true"></i></div>
+                        </div>
+                        <input type="text" name="harga" value="{{ old('harga',$tipe->harga) }}" class="form-control @error('harga')
+                            is-invalid
+                        @enderror"
+                            id="inlineFormInputGroup" placeholder="Nama Tamu">
+                            @error('harga')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="">Keterangan</label>
+                     {{-- <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-user"></i></div>
+                        </div> --}}
+                        <textarea id="cke" type="text" name="keterangan" class="form-control @error('keterangan')
+                            is-invalid
+                        @enderror"
+                            id="inlineFormInputGroup" placeholder="Nama Tamu">{{ old('keterangan',$tipe->keterangan) }}</textarea>
+                            @error('keterangan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                </div>
             </div>
             <div class="row">
                 <a href="{{ route('admin.tipe_kamar.index') }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 " type="submit">Kembali</a>
@@ -80,6 +112,8 @@
 
 
 @endsection
-@push('script')
-<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+@push('js')
+<script>
+    CKEDITOR.replace('cke');
+    </script>
 @endpush

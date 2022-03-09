@@ -30,6 +30,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tipe Kamar</th>
+                    <th scope="col">harga</th>
                     <th scope="col">Gambar</th>
                     <th scope="col">action</th>
                 </tr>

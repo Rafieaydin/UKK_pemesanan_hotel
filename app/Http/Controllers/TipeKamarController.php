@@ -42,12 +42,16 @@ class TipeKamarController extends Controller
         $request->validate([
             'nama_tipe' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'harga' => 'required',
+            'keterangan' => 'required',
         ]);
         $file = $request->file('gambar')->getClientOriginalName();
         $request->file('gambar')->move('assets/images/',$file);
         $tipe_kamar = new TipeKamar;
         $tipe_kamar->nama_tipe = $request->nama_tipe;
         $tipe_kamar->gambar =$file;
+        $tipe_kamar->harga = $request->harga;
+        $tipe_kamar->keterangan = $request->keterangan;
         $tipe_kamar->admin_id = Auth::user()->id;
         $tipe_kamar->save();
         return redirect()->route('admin.tipe_kamar.index')->with('success','Data berhasil ditambahkan');
@@ -67,6 +71,8 @@ class TipeKamarController extends Controller
         $request->validate([
             'nama_tipe' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'harga' => 'required',
+            'keterangan' => 'required',
         ]);
         $file = $request->file('gambar')->getClientOriginalName();
         $request->file('gambar')->move('assets/images/',$file);
@@ -74,6 +80,8 @@ class TipeKamarController extends Controller
             'nama_tipe' => $request->nama_tipe,
             'gambar' => $file,
             'admin_id' => Auth::user()->id,
+            'harga' => $request->harga,
+            'keterangan' => $request->keterangan,
         ]);
         return redirect()->route('admin.tipe_kamar.index')->with('success','Data berhasil edit');
     }

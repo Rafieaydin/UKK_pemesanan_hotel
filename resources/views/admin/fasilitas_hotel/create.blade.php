@@ -33,16 +33,16 @@
             <div class="row">
 
                 <div class="col-md-6">
-                    <label for="">Nama Tamu</label>
+                    <label for="">Nama Fasilitas</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-user"></i></div>
                         </div>
-                        <input type="text" name="nama_tipe" value="{{ old('nama_tipe') }}" class="form-control @error('nama_tipe')
+                        <input type="text" name="nama_fasilitas" value="{{ old('nama_fasilitas') }}" class="form-control @error('nama_fasilitas')
                             is-invalid
                         @enderror"
-                            id="inlineFormInputGroup" placeholder="Nama Tamu">
-                            @error('nama_tipe')
+                            id="inlineFormInputGroup" placeholder="Nama Fasilitas">
+                            @error('nama_fasilitas')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -68,20 +68,18 @@
                 </div>
                     <div class="col-md-12">
                         <label for="">Keterangan</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
+                         {{-- <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fa fa-user"></i></div>
-                            </div>
-                            <textarea type="text" name="nama_tipe" value="{{ old('nama_tipe') }}" class="form-control @error('nama_tipe')
+                            </div> --}}
+                            <textarea id="cke" type="text" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan')
                                 is-invalid
                             @enderror"
                                 id="inlineFormInputGroup" placeholder="Nama Tamu"> </textarea>
-                                @error('nama_tipe')
+                                @error('keterangan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
-                        </div>
                     </div>
             </div>
             <div class="row">
@@ -98,6 +96,8 @@
 
 
 @endsection
-@push('script')
-<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+@push('js')
+<script>
+    CKEDITOR.replace('cke');
+    </script>
 @endpush

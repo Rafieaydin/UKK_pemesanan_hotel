@@ -23,8 +23,8 @@ $(document).ready( function () {
         },
         columns:[
         { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+        { data: 'harga', name:'harga'},
         { data: 'nama_tipe', name:'nama_tipe'},
-        // { data: 'jumlah_kamar', name:'jumlah_kamar'},
         { data: 'gambar', name:'gambar'},
         { data: 'action',name:'action'}
         ],

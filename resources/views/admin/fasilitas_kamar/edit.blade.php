@@ -72,16 +72,16 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="">Gambar</label>
+                    <label for="">Icon</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-file"></i></div>
+                            <div class="input-group-text"><i class="fa fa-bars" aria-hidden="true"></i></div>
                         </div>
-                        <input type="file" class="form-control @error('gambar')
+                        <input type="text" class="form-control @error('icon_fasilitas')
                         is-invalid
-                    @enderror" id="inlineFormInputGroup" name="gambar" value="{{ old('gambar') }}"
-                            placeholder="Masukan image">
-                        @error('gambar')
+                    @enderror" id="inlineFormInputGroup" name="icon_fasilitas" value="{{ old('icon_fasilitas',$fasilitasKamar->icon_fasilitas) }}"
+                            placeholder="fa fa-bars">
+                        @error('icon_fasilitas')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -89,6 +89,7 @@
                     </div>
 
                 </div>
+
 
                 <div class="col-md-6">
                     <div class="row">

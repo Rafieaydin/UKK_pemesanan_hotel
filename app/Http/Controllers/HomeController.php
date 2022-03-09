@@ -6,6 +6,7 @@ use App\Models\FasilitasHotel;
 use App\Models\FasilitasKamar;
 use App\Models\Resevarsi;
 use App\Models\TipeKamar;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -26,17 +27,16 @@ class HomeController extends Controller
         return view('fasilitas_hotel', compact('fasilitas_hotel'));
      }
 
-     public function databooking(){
+     public function resevarsi(){
         $tipe_kamar = TipeKamar::all();
-        return view('tamu.booking_kamar',compact('tipe_kamar'));
+        return view('resevarsi',compact('tipe_kamar'));
      }
 
      public function detailresevarsi($id){
          $resevarsi = Resevarsi::where('uuid',$id)->first();
          return view('detailresevarsi',compact('resevarsi'));
      }
-     public function postbooking(Request $request){
-        //  dd($request->all());
+     public function postresevarsi(Request $request){
         $request->validate([
             'tipe_id' => 'required',
             'nama_tamu' => 'required',
@@ -60,6 +60,11 @@ class HomeController extends Controller
             'nama_tamu' => $request->nama_tamu
         ]);
         // dd($request->all());
-        return redirect('/pesanan/'.$resev->uuid);
+        return redirect('/resevarsi/detail/'.$resev->uuid);
      }
+     public function pdfresevarsi($id){
+        $resevarsi = Resevarsi::where('uuid',$id)->first();
+        $pdf = Pdf::loadView('PDF.detailresevarsi', compact('resevarsi'));
+        return $pdf->stream('joko.pdf');
+    }
 }

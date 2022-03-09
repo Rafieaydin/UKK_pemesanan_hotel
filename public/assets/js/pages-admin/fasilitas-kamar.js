@@ -26,7 +26,7 @@ $(document).ready( function () {
         // { data: 'jumlah_kamar', name:'jumlah_kamar'},
         { data: 'nama_tipe', name:'nama_tipe'},
         { data: 'nama_fasilitas', name:'nama_fasilitas'},
-        { data: 'gambar', name:'gambar'},
+        { data: 'icon_fasilitas', name:'icon_fasilitas'},
         { data: 'action',name:'action'}
         ],
     });

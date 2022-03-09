@@ -24,8 +24,8 @@ class FasilitasKamarController extends Controller
         if ($request->ajax()) {
             $fasilitas_kamar = FasilitasKamar::all();
             return datatables()->of($fasilitas_kamar)
-                ->editColumn('gambar', function ($data) {
-                    return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
+                ->addColumn('icon_fasilitas', function ($data) {
+                    return '<i class="'.$data->icon_fasilitas.'" ></i>';
                 })
                 ->addColumn('nama_tipe', function ($data) {
                     return $data->tipeKamar->nama_tipe;
@@ -45,7 +45,7 @@ class FasilitasKamarController extends Controller
                     $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
                     return $button;
                 })
-                ->rawColumns(['action','gambar'])
+                ->rawColumns(['action','icon_fasilitas'])
                 ->addIndexColumn()->make(true);
         }
     }
@@ -57,7 +57,7 @@ class FasilitasKamarController extends Controller
     public function create()
     {
         $tipe = TipeKamar::all();
-        return view('admin.fasilitas_kamar.create', compact('tipe'));   
+        return view('admin.fasilitas_kamar.create', compact('tipe'));
     }
 
     /**
@@ -71,15 +71,17 @@ class FasilitasKamarController extends Controller
         $request->validate([
             'nama_fasilitas' => 'required',
             'tipe_id' => 'required',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon_fasilitas' => 'required',
         ]);
-        $file = $request->file('gambar')->getClientOriginalName();
-        $request->file('gambar')->move('assets/images/',$file);
+        // $file = $request->file('gambar')->getClientOriginalName();
+        // $request->file('gambar')->move('assets/images/',$file);
         $tipe_kamar = new FasilitasKamar();
         $tipe_kamar->nama_fasilitas = $request->nama_fasilitas;
-        $tipe_kamar->gambar =$file;
+        // $tipe_kamar->gambar =$file;
         $tipe_kamar->tipe_id = $request->tipe_id;
         $tipe_kamar->admin_id = Auth::user()->id;
+        $tipe_kamar->icon_fasilitas = $request->icon_fasilitas;
         $tipe_kamar->save();
         return redirect()->route('admin.fasilitas_kamar.index')->with('success','Data berhasil ditambahkan');
     }
@@ -121,15 +123,17 @@ class FasilitasKamarController extends Controller
         $request->validate([
             'nama_fasilitas' => 'required',
             'tipe_id' => 'required',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon_fasilitas' => 'required',
         ]);
-        $file = $request->file('gambar')->getClientOriginalName();
-        $request->file('gambar')->move('assets/images/',$file);
+        // $file = $request->file('gambar')->getClientOriginalName();
+        // $request->file('gambar')->move('assets/images/',$file);
         FasilitasKamar::where('id',$id)->update([
             'nama_fasilitas' => $request->nama_fasilitas,
             'tipe_id' => $request->tipe_id,
-            'gambar' => $file,
+            // 'gambar' => $file,
             'admin_id' => Auth::user()->id,
+            'icon_fasilitas' => $request->icon_fasilitas,
         ]);
         return redirect()->route('admin.fasilitas_kamar.index')->with('success','Data berhasil edit');
     }

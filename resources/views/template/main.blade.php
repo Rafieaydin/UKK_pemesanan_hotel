@@ -122,7 +122,15 @@ input.form-control:focus::-webkit-input-placeholder {
 
         .invalid-feedback{
             position: absolute !important;
+            width: 20%;
+            font-size: 13px;
         }
+        /* .is-invalid:focus{
+            outline: none !important;
+            box-shadow: none;
+            color: #27272A;
+            background-color: transparent;
+        } */
     </style>
     <link rel="shortcut icon" href="{{ asset('assets/images/title-image.png') }}" type="image/x-icon" style="width: 2px">
     <title>Aston</title>

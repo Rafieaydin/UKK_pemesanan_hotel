@@ -6,9 +6,9 @@
 @endsection
 @section('content')
 <div class="card">
-    <div class="container  mt-5">
+    <div class="container  mt-3">
         @if (session('success'))
-        <div class="alert alert-success   
+        <div class="alert alert-success
         alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -31,7 +31,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Tipe Kamar</th>
                     <th scope="col">Nama Fasilitas</th>
-                    <th scope="col">Gambar</th>
+                    <th scope="col">Icon</th>
                     <th scope="col">action</th>
                 </tr>
             </thead>

@@ -69,20 +69,15 @@
                 </div>
                     <div class="col-md-12">
                         <label for="">Keterangan</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fa fa-user"></i></div>
-                            </div>
-                            <textarea type="text" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan')
+                            <textarea type="text" id="cke" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan')
                                 is-invalid
                             @enderror"
-                                id="inlineFormInputGroup" placeholder="Nama Tamu">{{ $fasilitas_hotel->keterangan }}</textarea>
+                                id="inlineFormInputGroup" placeholder="Nama Tamu">{!! $fasilitas_hotel->keterangan !!}</textarea>
                                 @error('keterangan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
-                        </div>
                     </div>
             </div>
             <div class="row">
@@ -101,4 +96,9 @@
 @endsection
 @push('script')
 <script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+@endpush
+@push('js')
+<script>
+    CKEDITOR.replace('cke');
+    </script>
 @endpush

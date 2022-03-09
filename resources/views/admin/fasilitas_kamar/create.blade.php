@@ -16,6 +16,7 @@
         color: rgb(82, 82, 255);
     }
 
+
 </style>
 @endpush
 @section('judul','Tambah Fasilitas Kamar')
@@ -38,9 +39,9 @@
                             <div class="input-group-text"><i class="fa fa-bed"></i></div>
                         </div>
 
-                        <select name="tipe_id" value="{{ old('tipe_id') }}" class="form-control @error('tipe_id')
+                        <select name="tipe_id" value="{{ old('tipe_id') }}" class="form-select @error('tipe_id')
                                 is-invalid
-                            @enderror">
+                            @enderror" style="width: 90%" >
                             @foreach ($tipe as $value)
                             <option value="{{ $value->id }}" @if (old('tipe_id') == $value->id)
                                 selected
@@ -71,16 +72,16 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="">Gambar</label>
+                    <label for="">Icon</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-file"></i></div>
+                            <div class="input-group-text"><i class="fa fa-bars" aria-hidden="true"></i></div>
                         </div>
-                        <input type="file" class="form-control @error('gambar')
+                        <input type="text" class="form-control @error('icon_fasilitas')
                         is-invalid
-                    @enderror" id="inlineFormInputGroup" name="gambar" value="{{ old('gambar') }}"
-                            placeholder="Masukan image">
-                        @error('gambar')
+                    @enderror" id="inlineFormInputGroup" name="icon_fasilitas" value="{{ old('icon_fasilitas') }}"
+                            placeholder="fa fa-bars">
+                        @error('icon_fasilitas')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -88,7 +89,6 @@
                     </div>
 
                 </div>
-
                 <div class="col-md-6">
                     <div class="row">
                         <a href="{{ route('admin.fasilitas_kamar.index') }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 " type="submit">Kembali</a>
@@ -107,6 +107,10 @@
 
 
 @endsection
-@push('script')
-<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+@push('js')
+
 @endpush
+{{-- @push('script')
+<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+
+@endpush --}}
