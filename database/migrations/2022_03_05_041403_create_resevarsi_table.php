@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('resevarsi', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
             $table->string('nama_pemesan');
             $table->string('nama_tamu');
             $table->string('email_pemesan');

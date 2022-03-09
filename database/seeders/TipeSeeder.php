@@ -37,8 +37,9 @@ class TipeSeeder extends Seeder
         for($i=0;$i<count($data);$i++){
             DB::table('tipe_kamar')->insert([
                 'nama_tipe' => $data[$i]['nama'],
+                'keterangan' => $faker->text($maxNbChars = 50),
                 'gambar'=> $data[$i]['gambar'],
-                // 'jumlah_kamar'=> 30,
+                'harga'=> '$2',
                 'admin_id'=> 1,
             ]);
         }

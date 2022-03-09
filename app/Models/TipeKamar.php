@@ -19,14 +19,14 @@ class TipeKamar extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'tipe_kamar';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -39,10 +39,10 @@ class TipeKamar extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function fasilitasKamars()
-    {
-        return $this->hasMany('App\Models\FasilitasKamar', 'fasilitas_id');
-    }
+    // public function fasilitasKamars()
+    // {
+    //     return $this->hasMany('App\Models\FasilitasKamar', 'fasilitas_id');
+    // }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

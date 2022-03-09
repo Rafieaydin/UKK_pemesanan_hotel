@@ -116,21 +116,20 @@
         </div>
         <div class="swiper mySwiper mt-4">
             <div class="swiper-wrapper">
-                @for ($i = 0 ; $i <= 10 ; $i++) <div class="swiper-slide" style="hight:auto">
+                @foreach ($fasilitas_kamar as $value) <div class="swiper-slide" style="hight:auto">
                     <div class="card h-100" style="border-radius: 20px;">
                         <img class="pt-3 ps-3 pe-3" style="border-radius: 25px;"
                             src="{{ asset('assets/images/hotel.jfif') }}">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold " style="color: #130f40;font-size:25px">Deluxe Class</h5>
-                            <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px">Lorem ipsum dolor sit
-                                amet consectetur adipisicing elit. Iure explicabo consectetur sed eos sint fuga.</p>
-                            <p class="card-text fw-bold mb-2" style="margin: 0px;color:#130f40;font-size:25px;">$2
+                            <h5 class="card-title fw-bold " style="color: #130f40;font-size:25px">{{ $value->nama_tipe }}</h5>
+                            <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px">{{ $value->keterangan }}</p>
+                            <p class="card-text fw-bold mb-2" style="margin: 0px;color:#130f40;font-size:25px;">{{ !$value->harga ? '$0' : $value->harga }}
                             </p>
                             <p class="card-text d-inline fw-bold">Fasilitas :</p> <br>
-                            @for ($j = 0 ; $j <= 3 ; $j++) <span class="badge p-2 mb-2"
-                                style="background-color: #30336b;"> <i class="fa fa-bed" aria-hidden="true"></i>
-                                Kasur</span>
-                                @endfor
+                            @foreach ($value->fasilitas as $val) <span class="badge p-2 mb-2"
+                                style="background-color: #30336b;"> <i class="{{ $val->incon_fasilitas }}" aria-hidden="true"></i>
+                                {{ $val->nama_fasilitas }}</span>
+                                @endforeach
                                 {{-- <br> --}}
                                 {{-- <p class="card-text d-inline ">Some quick example text to build on the card title and make up the
                                   bulk of the card's content.</p> --}}
@@ -139,7 +138,7 @@
                     </div>
             </div>
 
-            @endfor
+            @endforeach
 
         </div>
 

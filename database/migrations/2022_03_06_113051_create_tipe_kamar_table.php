@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('tipe_kamar', function (Blueprint $table) {
             $table->id();
             $table->string('nama_tipe');
-            // $table->string('keterangan');
+            $table->string('keterangan');
             $table->integer('total_jumlah_kamar')->default(0);
             $table->string('gambar');
+            $table->string('harga');
             $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

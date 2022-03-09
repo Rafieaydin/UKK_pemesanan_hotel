@@ -37,8 +37,9 @@ class FasilitasKamarSeeder extends Seeder
             DB::table('fasilitas_kamar')->insert([
                 'tipe_id'=>$i+1,
                 'nama_fasilitas' => $data[$i]['nama_fasilitas'],
-                'gambar'=> $data[$i]['gambar'],
+                // 'gambar'=> $data[$i]['gambar'],
                 'admin_id'=> 1,
+                'incon_fasilitas' => 'fa fa-television'
             ]);
         }
     }

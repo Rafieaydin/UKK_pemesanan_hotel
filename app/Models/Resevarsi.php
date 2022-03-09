@@ -40,7 +40,7 @@ class Resevarsi extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tipe_id', 'tamu_id', 'nama_pemesan', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at','nama_tamu'];
+    protected $fillable = ['uuid','tipe_id', 'tamu_id', 'nama_pemesan', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at','nama_tamu'];
 
     protected $dates = ['tanggal_checkin', 'tanggal_checkout'];
     /**

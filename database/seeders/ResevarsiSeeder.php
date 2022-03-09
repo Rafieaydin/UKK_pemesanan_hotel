@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
+use Illuminate\Support\Str;
 class ResevarsiSeeder extends Seeder
 {
     /**
@@ -19,6 +20,7 @@ class ResevarsiSeeder extends Seeder
         $faker = Faker::create('id_ID');
         for ($i=0; $i < 20 ; $i++) {
             DB::table('resevarsi')->insert([
+                'uuid' => Str::uuid(),
                 'nama_pemesan' => $faker->name,
                 'email_pemesan' => $faker->email,
                 'nomor_hp_pemesan' => $faker->phoneNumber,

@@ -7,12 +7,13 @@ use App\Models\FasilitasKamar;
 use App\Models\Resevarsi;
 use App\Models\TipeKamar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
     public function index(){
         $fasilitas_hotel = FasilitasHotel::all();
-        $fasilitas_kamar = TipeKamar::all();
+        $fasilitas_kamar = TipeKamar::with('fasilitas')->get();
         $tipe_kamar = TipeKamar::all();
         return view('home', compact('fasilitas_hotel', 'fasilitas_kamar', 'tipe_kamar'));
     }
@@ -31,7 +32,7 @@ class HomeController extends Controller
      }
 
      public function detailresevarsi($id){
-         $resevarsi = Resevarsi::find($id);
+         $resevarsi = Resevarsi::where('uuid',$id)->first();
          return view('detailresevarsi',compact('resevarsi'));
      }
      public function postbooking(Request $request){
@@ -48,6 +49,7 @@ class HomeController extends Controller
         ]);
 
         $resev = Resevarsi::create([
+            'uuid' => Str::uuid(),
             'tipe_id' => $request->tipe_id,
             'nama_pemesan' => $request->nama_pemesan,
             'email_pemesan' => $request->email_pemesan,
@@ -58,6 +60,6 @@ class HomeController extends Controller
             'nama_tamu' => $request->nama_tamu
         ]);
         // dd($request->all());
-        return redirect('/pesanan/'.$resev->id);
+        return redirect('/pesanan/'.$resev->uuid);
      }
 }
