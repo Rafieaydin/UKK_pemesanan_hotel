@@ -24,7 +24,11 @@
 
     <title>Pemenasan Hotel</title>
     @stack('css')
-
+    <style>
+        .main-content{
+            padding-top: 20px;
+        }
+    </style>
   </head>
   <body>
     <div id="app">

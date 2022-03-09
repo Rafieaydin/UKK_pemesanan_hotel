@@ -38,8 +38,9 @@
 
                         <div class="col-md-6">
                             <label for="" class="label-input">Tipe kamar</label>
-                            <select name="tipe_id" class="form-control  " id="" placeholder="Tipe Kamar">
+                            <select name="tipe_id" class="form-control   @error('tipe_id') is-invalid @enderror" id="" placeholder="Tipe Kamar">
                                 @foreach ($tipe_kamar as $value)
+                                <option value="">Pilih Tipe</option>
                                 <option value="{{ $value->id }}">{{ $value->nama_tipe }}</option>
                                 @endforeach
 
@@ -47,7 +48,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="" class="label-input">Jumlah Kamar</label>
-                            <input type="number" class="form-control   @error('jumlah_kamar') is-invalid @enderror" name="jumlah_kamar" placeholder="Jumlah kamar">
+                            <input type="number" class="form-control is-invalid   @error('jumlah_kamar') is-invalid @enderror" name="jumlah_kamar" placeholder="Jumlah kamar">
                             @error('jumlah_kamar')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -77,9 +78,9 @@
                         </div>
                         <div class="col-md-6">
                             <label for="" class="label-input mt-4">Nama Tamu</label>
-                            <input type="input" class="form-control" name="nama_tamu" @error('nama_tamu')
-                                is-invalid
-                            @enderror placeholder="Nama Tamu">
+                            <input type="input" class="form-control @error('nama_tamu')
+                            is-invalid
+                        @enderror" name="nama_tamu"  placeholder="Nama Tamu">
                         </div>
                         <div class="col-md-6">
                             <label for="" class="label-input mt-4">email Pemesan</label>
@@ -102,7 +103,7 @@
             </div>
         </div>
 </section>
-<section class="py-5 section-1 bg-img">
+<section class="py-5 section-1 bg-img" id="kamar">
     <div class="container py-3 ">
         <div class="row">
             <div class="col-9 col-md-10 col-lg-11">
@@ -121,9 +122,9 @@
                         <img class="pt-3 ps-3 pe-3" style="border-radius: 25px;"
                             src="{{ asset('assets/images/hotel.jfif') }}">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold " style="color: #130f40;font-size:25px">{{ $value->nama_tipe }}</h5>
-                            <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px">{{ $value->keterangan }}</p>
-                            <p class="card-text fw-bold mb-2" style="margin: 0px;color:#130f40;font-size:25px;">{{ !$value->harga ? '$0' : $value->harga }}
+                            <h5 class="card-title fw-bold " style="color: #130f40;font-size:18px">{{ $value->nama_tipe }}</h5>
+                            <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px;height:80px">{{ substr($value->keterangan, 0, 70) }}</p>
+                            <p class="card-text fw-bold mb-2" style="margin: 0px;color:#130f40;font-size:25px;height">{{ !$value->harga ? '$0' : $value->harga }}
                             </p>
                             <p class="card-text d-inline fw-bold">Fasilitas :</p> <br>
                             @foreach ($value->fasilitas as $val) <span class="badge p-2 mb-2"
@@ -153,8 +154,9 @@
     </div>
 </section>
 
-<section class="py-5 section-1 bg-img" style="background: #F0F0f0">
-    <div class="container py-3 ">
+
+<section class="py-5 section-1 bg-img" style="background: #F0F0f0"  id="fasilitas" >
+    <div class="container py-3 " >
         <div class="row">
             <div class="col-9 col-md-10 col-lg-11">
                 <p class="room-title text-left judul-section">Fasilitas Hotel</p>
@@ -171,7 +173,7 @@
                                     {{-- <div class="card"> --}}
                                     <div class="row">
                                         <img src='{{ asset("assets/images/$value->gambar") }}' alt="" class="img-fluid"
-                                            style="border-radius:15px;height:130px;background-size:cover">
+                                            style="border-radius:15px;height:140px;background-size:cover">
                                         <p class="text-center"
                                             style="color: #130f40;font-weight:bold;font-size:15px;text-transform:uppercase;">
                                             {{ $value->nama_fasilitas }}</p>

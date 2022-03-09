@@ -120,8 +120,12 @@ input.form-control:focus::-webkit-input-placeholder {
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         }
 
+        .invalid-feedback{
+            position: absolute !important;
+        }
     </style>
-    <title>Hotel [name]</title>
+    <link rel="shortcut icon" href="{{ asset('assets/images/title-image.png') }}" type="image/x-icon" style="width: 2px">
+    <title>Aston</title>
 </head>
 
 <body>

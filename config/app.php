@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -69,7 +68,7 @@ return [
     |
     */
 
-    'timezone' =>  'Asia/Jakarta',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'id_ID',
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -135,7 +134,6 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-
     'providers' => [
 
         /*
