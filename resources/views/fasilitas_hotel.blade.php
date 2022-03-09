@@ -54,43 +54,19 @@
                     <div class="row">
                         @foreach ($fasilitas_hotel as $value)
                         <div class="col-md-4">
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" height="200px" src='{{ asset("assets/images/$value->gambar") }}' alt="Card image cap">
-                                <div class="card-body">
-                                  <h5 class="card-title">{{ $value->nama_fasilitas }}</h5>
-                                  <p class="card-text">{{ $value->keterangan }}</p>
-                                  {{-- <a href="#" class="btn btn-primary">Book</a> --}}
-                                </div>
-                              </div>
+                            <img class="card-img-top" height="200px" src='{{ asset("assets/images/$value->gambar") }}' alt="Card image cap" style="border-radius: 15px">
+                            <div class="row">
+                                <label for="" class="text-dark mr-auto ml-3" style="font-size:20px;font-weight:bold">{{ $value->nama_fasilitas }}</label>
+                            </div>
+
                             </div>
                         @endforeach
-                       
-                      
-                        {{-- <div class="col-md-4">
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" height="200px" src="{{ asset('assets/images/kamar_deluxe.jpg') }}" alt="Card image cap">
-                                <div class="card-body">
-                                  <h5 class="card-title">Deluve title</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                              </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" height="200px" src="{{ asset('assets/images/kamar_one_bedroom.jpg') }}" alt="Card image cap">
-                                <div class="card-body">
-                                  <h5 class="card-title">One Contended bedroom</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                              </div>
-                        </div> --}}
                         </div>
             </div>
-               
+
         </div>
     </div>
 </section>
+
 
 @endsection

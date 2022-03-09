@@ -92,7 +92,7 @@ class ResevasiController extends Controller
             'tanggal_checkout' => $request->tanggal_checkout,
             'jumlah_kamar' => $request->jumlah_kamar,
         ]);
-        return redirect()->route('resepsionis.resevarsi.index')->with('success', 'Data berhasil ditambahkan');
+        return redirect('/')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**

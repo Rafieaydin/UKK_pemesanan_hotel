@@ -1,184 +1,204 @@
 @extends('template.main')
-@push('css')
-<style>
-    /*
-*
-* ==========================================
-* FOR DEMO PURPOSES
-* ==========================================
-*
-*/
-.text-small {
-    font-size: 0.9rem !important;
-}
-
-/* .header {
-    background-color: #00d2ff;
-    background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 100%);
-} */
-
-.section-1 {
-    /* background: linear-gradient(to right, #649173, #dbd5a4); */
-    /* background-image: url('{{ asset('assets/images/cccc.jpg')}}'); */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* height: 90vh; */
-}
-
-.section-2 {
-    background: #F1F1F1;
-}
-
-.section-3 {
-    background: #EAEAEA;
-}
-
-.section-4 {
-    background: #E5E5E5;
-}
-footer {
-  background: #212529;
-}
-
-</style>
-@endpush
 @section('content')
-
-
-
-
-
-
-<!-- Demo content-->
 <section class="py-5 section-1 bg-img mh-100">
     <div class="container-fluid py-3 text-center">
         <div class="row">
 
-            <div class="col-lg-5 mx-auto text-left">
+            <div class="col-lg-6 col-md-6 col-sm-0 mx-auto my-5 ps-5 pt-3 text-start">
                 {{-- <div class="card"> --}}
-                    <h2 class="text-dark">Selamat Datang di hotel-O,</h2>
-                    <h2 class="text-dark">Kami akan menyediakan yang terbaik untuk anda</h2>
-                    <p class="text-dark"> Hanya berjarak 30 menit dari Station Kereta Api Bogor dan 50 menit berkendaraan dari Jakarta melalui Jalan Toll Jagorawi, Hotel ASTON Bogor bertempat di lokasi strategis di Pusat Pengembangan Bogor Nirwana Residence Area. </p>
+                <h2 class="pt-2 fw-bold" style="color: #30336b;font-size:40px">Selamat Datang <br> di Hotel Aston
+                    Bogor,</h2>
+                {{-- <h2 class="text-white">Kami akan menyediakan yang terbaik untuk anda</h2> --}}
+                <p class="text-dark my-4"> Hanya berjarak 30 menit dari Station Kereta Api Bogor dan 50 menit
+                    berkendaraan
+                    dari Jakarta melalui Jalan Toll Jagorawi, Hotel ASTON Bogor bertempat di lokasi strategis di
+                    Pusat
+                    Pengembangan Bogor Nirwana Residence Area. </p>
                 {{-- </div> --}}
-
+                <button class="btn btn-primary login-bottom">BOOK NOW</button>
             </div>
-            <div class="col-lg-5 mx-auto text-left">
-                {{-- <h2>Image here</h2>
-                <p class="text-muted lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</p> --}}
-                    <div class="card rounded">
+            <div class="col-lg-6 col-md-6 col-sm-0 mx-auto text-left">
+                <img src="{{ asset('assets/images/hotel.jfif') }}" alt=""
+                    style="width: 80%; height:400px;border-radius:15px; background-size: cover;">
+            </div>
+</section>
+<section class="py-5 section-1 bg-img mh-100">
+    <div class="container">
+        <div class="form-input">
+            <div class="row">
+                <div class="col-md-5">
+                    <img src="{{ asset('assets/images/hotel.jfif') }}" alt=""
+                        style="width: 100%; height:400px;border-radius:15px; background-size: cover;">
+                </div>
+                <div class="col-md-7">
+                    <h1 class="label-color label-header">resevarsi kamar</h1>
+                    <form action="{{ route('postbooking') }}" method="POST">
+                        @csrf
+                    <div class="row pt-3">
 
-                        <div class="container-fluid mt-3 mb-3">
-                            <h3 class="header">
-                                Booking Room?
-                            </h3>
-                            <hr>
-                            <form>
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">Tipe Kamar</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Check-in</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                          </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Check-out</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                          </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="exampleInputPassword1">Jumlah Kamar</label>
-                                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input">Tipe kamar</label>
+                            <select name="tipe_id" class="form-control  " id="" placeholder="Tipe Kamar">
+                                @foreach ($tipe_kamar as $value)
+                                <option value="{{ $value->id }}">{{ $value->nama_tipe }}</option>
+                                @endforeach
 
-                                <button type="submit" class="btn btn-primary">Book now</button>
-                              </form>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input">Jumlah Kamar</label>
+                            <input type="number" class="form-control   @error('jumlah_kamar') is-invalid @enderror" name="jumlah_kamar" placeholder="Jumlah kamar">
+                            @error('jumlah_kamar')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6 ">
+                            <label for="" class="label-input mt-4">check-in</label>
+                            <input type="date" class="form-control @error('tanggal_checkin')
+                            is-invalid
+                            @enderror"  name="tanggal_checkin">
+                            {{-- <div class="invalid-feedback d-inline" >
+                                halo
+                             </div> --}}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">check-out</label>
+                            <input type="date" class="form-control @error('tanggal_checkout')
+                                is-invalid
+                            @enderror" name="tanggal_checkout">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">Nama Pemesan</label>
+                            <input type="input" class="form-control @error('nama_pemesan')
+                                is-invalid
+                            @enderror" name="nama_pemesan" placeholder="Nama Pemesan">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">Nama Tamu</label>
+                            <input type="input" class="form-control" name="nama_tamu" @error('nama_tamu')
+                                is-invalid
+                            @enderror placeholder="Nama Tamu">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">email Pemesan</label>
+                            <input type="input" class="form-control @error('email_pemesan')
+                            is-invalid
+                            @enderror" name="email_pemesan" placeholder="Email Pemesan">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">no hp pemesan</label>
+                            <input type="input" class="form-control @error('nomor_hp_pemesan')
+                                is-invalid
+                            @enderror" name="nomor_hp_pemesan" placeholder="No hp Pemesan">
+                        </div>
+                        <div class="col-md-6 mt-3 ">
+                            <button class="btn btn-primary pesan-button" type="submit" style="width: 30%">Pesan</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+</section>
+<section class="py-5 section-1 bg-img">
+    <div class="container py-3 ">
+        <div class="row">
+            <div class="col-9 col-md-10 col-lg-11">
+                <p class="room-title text-left judul-section">Best Room For You</p>
+            </div>
+            <div class="col-3 col-md-2 col-lg-1" style="position: relative;">
+                <div class="swiper-button-next" style="color: #130f40;font-size:5px;"></div>
+                <div class="swiper-button-prev" style="color: #130f40;"></div>
+            </div>
+
+        </div>
+        <div class="swiper mySwiper mt-4">
+            <div class="swiper-wrapper">
+                @for ($i = 0 ; $i <= 10 ; $i++) <div class="swiper-slide" style="hight:auto">
+                    <div class="card h-100" style="border-radius: 20px;">
+                        <img class="pt-3 ps-3 pe-3" style="border-radius: 25px;"
+                            src="{{ asset('assets/images/hotel.jfif') }}">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold " style="color: #130f40;font-size:25px">Deluxe Class</h5>
+                            <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px">Lorem ipsum dolor sit
+                                amet consectetur adipisicing elit. Iure explicabo consectetur sed eos sint fuga.</p>
+                            <p class="card-text fw-bold mb-2" style="margin: 0px;color:#130f40;font-size:25px;">$2
+                            </p>
+                            <p class="card-text d-inline fw-bold">Fasilitas :</p> <br>
+                            @for ($j = 0 ; $j <= 3 ; $j++) <span class="badge p-2 mb-2"
+                                style="background-color: #30336b;"> <i class="fa fa-bed" aria-hidden="true"></i>
+                                Kasur</span>
+                                @endfor
+                                {{-- <br> --}}
+                                {{-- <p class="card-text d-inline ">Some quick example text to build on the card title and make up the
+                                  bulk of the card's content.</p> --}}
+                                {{-- <a href="#" class="btn btn-primary mt-3">Go somewhere</a> --}}
                         </div>
                     </div>
             </div>
+
+            @endfor
+
         </div>
+
+        {{-- <div class="swiper-slide">Slide 2</div>
+                  <div class="swiper-slide">Slide 3</div>
+                  <div class="swiper-slide">Slide 4</div>
+                  <div class="swiper-slide">Slide 5</div>
+                  <div class="swiper-slide">Slide 6</div>
+                  <div class="swiper-slide">Slide 7</div>
+                  <div class="swiper-slide">Slide 8</div>
+                  <div class="swiper-slide">Slide 9</div> --}}
     </div>
 </section>
 
-<section class="py-5 section-2">
-    <div class="container py-5 text-center">
+<section class="py-5 section-1 bg-img" style="background: #F0F0f0">
+    <div class="container py-3 ">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h1 class="fw-bold text-dark pb-5">Tentang Kami</h2>
-                <p class="text-dark lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</p>
+            <div class="col-9 col-md-10 col-lg-11">
+                <p class="room-title text-left judul-section">Fasilitas Hotel</p>
             </div>
-        </div>
-    </div>
-</section>
+            <div class="col-3 col-md-2 col-lg-1" style="position: relative;">
 
-<section class="py-5 section-3">
-    <div class="container-fluid py-5 text-center">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h1 class="fw-bold text-dark pb-5">Fasilitas Hotel</h2>
-                    <div class="row">
-                        @foreach ($fasilitas_hotel as $value)
-                        <div class="col-md-4">
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" height="200px" src='{{ asset("assets/images/$value->gambar") }}' alt="Card image cap">
-                                <div class="card-body">
-                                  <h5 class="card-title">{{ $value->nama_fasilitas }}</h5>
-                                  <p class="card-text">{{ $value->keterangan }}</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                              </div>
-                            </div>
-                        @endforeach
-                        </div>
             </div>
-               
-        </div>
-    </div>
-</section>
-
-<section class="py-5 section-4">
-    <div class="container-fluid py-5 text-center">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h1 class="fw-bold text-dark pb-5">Fasilitas Kamar</h2>
-                    <div class="row">
-                        @foreach ($fasilitas_kamar as $item)
-                        <div class="col-md-4">
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" height="200px"
-                                    src='{{ asset("assets/images/$item->gambar") }}' alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $item->nama_tipe }}</h5>
-                                    <div class="text-left">
-                                        <div class="card-text"> fasilitas :</div>
-                                    <ul>
-                                        @foreach ($item->fasilitas as $value)
-                                       
-                                            <li>{{ $value->nama_fasilitas }}</li>
-                                    
-                                        @endforeach
-                                    </ul>
+            <div class="row">
+                <div class="swiper  mt-4 fasilitas">
+                    <div class="swiper-wrapper">
+                        @foreach ($fasilitas_hotel as $value) <div class="swiper-slide">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{-- <div class="card"> --}}
+                                    <div class="row">
+                                        <img src='{{ asset("assets/images/$value->gambar") }}' alt="" class="img-fluid"
+                                            style="border-radius:15px;height:130px;background-size:cover">
+                                        <p class="text-center"
+                                            style="color: #130f40;font-weight:bold;font-size:15px;text-transform:uppercase;">
+                                            {{ $value->nama_fasilitas }}</p>
                                     </div>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    {{-- </div> --}}
                                 </div>
                             </div>
-                        </div>
-                        @endforeach
                     </div>
+                    @endforeach
+
+                    {{-- <div class="swiper-slide">Slide 2</div>
+                            <div class="swiper-slide">Slide 3</div>
+                            <div class="swiper-slide">Slide 4</div>
+                            <div class="swiper-slide">Slide 5</div>
+                            <div class="swiper-slide">Slide 6</div>
+                            <div class="swiper-slide">Slide 7</div>
+                            <div class="swiper-slide">Slide 8</div>
+                            <div class="swiper-slide">Slide 9</div> --}}
+                </div>
+                {{-- <div class="swiper-pagination"></div> --}}
             </div>
+
         </div>
+
+    </div>
+    </div>
     </div>
 </section>
-
-
 @endsection

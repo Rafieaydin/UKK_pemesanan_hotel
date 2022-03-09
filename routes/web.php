@@ -26,9 +26,14 @@ use App\Models\Resepsionis;
 |
 */
 
+
 Route::get('/',[HomeController::class,'index']);
 Route::get('fasilitas-kamar',[HomeController::class,'fasilitas_kamar']);
 Route::get('fasilitas-hotel',[HomeController::class,'fasilitas_hotel']);
+Route::get('/databooking',[HomeController::class,'databooking']);
+Route::get('/pesanan/{slug}',[HomeController::class,'detailresevarsi'])->name('detailresevarsi');
+Route::post('/postbooking',[HomeController::class,'postbooking'])->name('postbooking');
+
 // call auth route
 require __DIR__.'/auth.php';
 

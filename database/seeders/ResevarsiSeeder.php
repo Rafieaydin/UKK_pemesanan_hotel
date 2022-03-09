@@ -26,6 +26,7 @@ class ResevarsiSeeder extends Seeder
                 'tanggal_checkout'=> Carbon::now()->addDay(1)->format('Y-m-d'),
                 'jumlah_kamar' => 20,
                 'tipe_id' => $faker->randomElement([1,2,3]),
+                'nama_tamu' => $faker->name,
                 // 'tamu_id' => $faker->randomElement([1,2,3,4]),
             ]);
         }
