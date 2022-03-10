@@ -28,7 +28,7 @@ class HomeController extends Controller
      }
 
      public function resevarsi(){
-        $tipe_kamar = TipeKamar::all();
+        $tipe_kamar = TipeKamar::where('total_jumlah_kamar', '>', '0')->get();
         return view('resevarsi',compact('tipe_kamar'));
      }
 
@@ -44,7 +44,7 @@ class HomeController extends Controller
             'email_pemesan' => 'required|email',
             'nomor_hp_pemesan' => 'required',
             'tanggal_checkin' => 'required',
-            'tanggal_checkout' => 'required',
+            'tanggal_checkout' => 'required|after:tanggal_checkin',
             'jumlah_kamar' => 'required',
         ]);
 

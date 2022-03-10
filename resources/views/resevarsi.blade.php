@@ -17,8 +17,8 @@
                         <div class="col-md-6">
                             <label for="" class="label-input">Tipe kamar</label>
                             <select name="tipe_id" class="form-control   @error('tipe_id') is-invalid @enderror" id="" placeholder="Tipe Kamar">
-                                @foreach ($tipe_kamar as $value)
                                 <option value="">Pilih Tipe</option>
+                                @foreach ($tipe_kamar as $value)
                                 <option value="{{ $value->id }}">{{ $value->nama_tipe }}</option>
                                 @endforeach
 

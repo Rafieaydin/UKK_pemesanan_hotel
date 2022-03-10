@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FasilitasHotel;
 use App\Models\FasilitasKamar;
 use App\Models\Kamar;
+use App\Models\Admin;
 use App\Models\TipeKamar;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,10 @@ class AdminController extends Controller
                 ->editColumn('gambar', function ($data) {
                     return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
                 })
+                
                 ->rawColumns(['gambar'])
                 ->addIndexColumn()->make(true);
         }
+        }
 }
-}
+

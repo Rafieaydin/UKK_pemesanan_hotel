@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\FasilitasHotelController;
 use App\Http\Controllers\FasilitasKamarController;
 use App\Http\Controllers\KamarController;
+use App\Http\Controllers\ResepsionisController;
+use App\Http\Controllers\ResepsionisUserController;
 use App\Http\Controllers\ResevasiController;
 use App\Http\Controllers\TipeKamarController;
 use Illuminate\Http\Request;
@@ -34,3 +37,6 @@ Route::get('/admin/tipe_kamar/ajax/',[TipeKamarController::class,'ajax']);
 Route::delete('admin/tipe_kamar/delete/{id}',[TipeKamarController::class,'destroy']);
 Route::post('/admin/resevarsi/ajax/',[ResevasiController::class,'ajax']);
 Route::delete('admin/resevarsi/delete/{id}',[ResevasiController::class,'destroy']);
+
+Route::post('/admin/resepsionis/ajax/',[ResepsionisUserController::class,'ajax']);
+Route::delete('admin/resepsionis/delete/{id}',[ResepsionisUserController::class,'destroy']);

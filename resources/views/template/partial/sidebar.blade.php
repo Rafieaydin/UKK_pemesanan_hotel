@@ -15,15 +15,15 @@
                     <span>Dashboard</span></a>
                 </a>
             </li>
-            <li class="menu-header">User</li>
+            <li class="menu-header">MASTER</li>
             <li class="@if (Request::is('admin/user','admin/user/*')) active @endif">
-                <a href="" class="nav-link">
+                <a href="{{ route('admin.user.index') }}" class="nav-link">
                     <i class="fas fa-user"></i>
                     <span>Admin</span></a>
                 </a>
             </li>
             <li class="@if (Request::is('admin/resepsionis','admin/resepsionis/*')) active @endif">
-                <a href="" class="nav-link">
+                <a href="{{ route('admin.resepsionis.index') }}" class="nav-link">
                     <i class="fas fa-user"></i>
                     <span>Resepsionis</span></a>
                 </a>

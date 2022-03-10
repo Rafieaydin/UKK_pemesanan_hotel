@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FasilitasHotelController;
 use App\Http\Controllers\FasilitasKamarController;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\ResepsionisController;
+use App\Http\Controllers\ResepsionisUserController;
 use App\Http\Controllers\ResevasiController;
 use App\Http\Controllers\TamuController;
 use App\Http\Controllers\TipeKamarController;
@@ -70,6 +72,12 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
     Route::get('kamar/detail/{id}', [KamarController::class, 'show'])->name('kamar.detail');
     Route::get('kamar/edit/{id}', [KamarController::class, 'edit'])->name('kamar.edit');
     Route::patch('kamar/update/{id}', [KamarController::class, 'update'])->name('kamar.update');
+
+    Route::post('user/ajax/',[AdminUserController::class,'userajax']);
+    Route::delete('user/delete/{id}',[AdminUserController::class,'destroy']);
+    Route::resource('user', AdminUserController::class);
+
+    Route::resource('resepsionis', ResepsionisUserController::class);
 });
 
 Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsionis.')->group(function () {
