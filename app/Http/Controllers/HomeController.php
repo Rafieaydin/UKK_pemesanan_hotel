@@ -37,6 +37,7 @@ class HomeController extends Controller
          return view('detailresevarsi',compact('resevarsi'));
      }
      public function postresevarsi(Request $request){
+        // $after_date = $request->tanggal_checkin.' +1 day';
         $request->validate([
             'tipe_id' => 'required',
             'nama_tamu' => 'required',
@@ -48,6 +49,14 @@ class HomeController extends Controller
             'jumlah_kamar' => 'required',
         ]);
 
+        $tipe_kamar = TipeKamar::where('id',$request->tipe_id)->first();
+        $jumlah_kamar = $tipe_kamar->total_jumlah_kamar;
+        $jumlah_kamar_tersedia = $tipe_kamar->jumlah_kamar_tersedia;
+        $jumlah_kamar_tersedia = $jumlah_kamar_tersedia - $request->jumlah_kamar;
+
+        if($jumlah_kamar_tersedia <= 0){
+            return redirect()->back()->with('status', 'Maaf, jumlah kamar yang tersedia tidak mencukupi');
+        }
         $resev = Resevarsi::create([
             'uuid' => Str::uuid(),
             'tipe_id' => $request->tipe_id,

@@ -121,8 +121,8 @@ input.form-control:focus::-webkit-input-placeholder {
         }
 
         .invalid-feedback{
-            position: absolute !important;
-            width: 20%;
+            /* position: absolute !important; */
+            width: 80%;
             font-size: 13px;
         }
         /* .is-invalid:focus{
