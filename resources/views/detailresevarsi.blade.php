@@ -7,7 +7,7 @@
                 <div class="col-md-5">
                     <img src="{{ asset('assets/images/hotel.jfif') }}" alt=""
                         style="width: 100%; height:400px;border-radius:15px; background-size: cover;">
-                        <a href="/" class="btn btn-primary pesan-button mt-3" ><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                        <a href="/resevarsi" class="btn btn-primary pesan-button mt-3" ><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
                 </div>
                 <div class="col-md-7">
                     <h1 class="label-color label-header">Detail resevarsi kamar</h1>

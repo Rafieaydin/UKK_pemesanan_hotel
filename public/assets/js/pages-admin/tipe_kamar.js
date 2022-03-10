@@ -25,6 +25,7 @@ $(document).ready( function () {
         { data: 'DT_RowIndex', name: 'DT_RowIndex'},
         { data: 'harga', name:'harga'},
         { data: 'nama_tipe', name:'nama_tipe'},
+        { data: 'total_jumlah_kamar', name:'total_jumlah_kamar'},
         { data: 'gambar', name:'gambar'},
         { data: 'action',name:'action'}
         ],
@@ -47,7 +48,7 @@ $(document).ready( function () {
     $('.btn-back').append(
         '<a href="'+root+'/admin/tipe_kamar"class="btn btn-primary "><i class="fas fa-arrow-left"></i> kembali</button></a>'
     );
-    
+
 
 // search engine
 $("#search").keyup(function () {

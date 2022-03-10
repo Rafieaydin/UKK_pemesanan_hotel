@@ -39,11 +39,11 @@
             <div class="swiper-wrapper">
                 @foreach ($fasilitas_kamar as $value) <div class="swiper-slide" style="hight:auto">
                     <div class="card h-100" style="border-radius: 20px;">
-                        <img class="pt-3 ps-3 pe-3" style="border-radius: 25px;"
-                            src="{{ asset('assets/images/hotel.jfif') }}">
+                        <img class="pt-3 ps-3 pe-3" style="border-radius: 25px;height:150px"
+                            src='{{ asset("assets/images/$value->gambar") }}'>
                         <div class="card-body">
                             <h5 class="card-title fw-bold " style="color: #130f40;font-size:18px">{{ $value->nama_tipe }}</h5>
-                            <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px;height:80px">{{ substr($value->keterangan, 0, 70) }}</p>
+                            <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px;height:80px">{!! substr($value->keterangan, 0, 70) !!}</p>
                             <p class="card-text fw-bold mb-2" style="margin: 0px;color:#130f40;font-size:25px;height">{{ !$value->harga ? '$0' : $value->harga }}
                             </p>
                             <p class="card-text d-inline fw-bold">Fasilitas :</p> <br>
@@ -93,7 +93,7 @@
                                     {{-- <div class="card"> --}}
                                     <div class="row">
                                         <img src='{{ asset("assets/images/$value->gambar") }}' alt="" class="img-fluid"
-                                            style="border-radius:15px;height:140px;background-size:cover">
+                                            style="border-radius:15px;height:150px;background-size:cover">
                                         <p class="text-center"
                                             style="color: #130f40;font-weight:bold;font-size:15px;text-transform:uppercase;">
                                             {{ $value->nama_fasilitas }}</p>

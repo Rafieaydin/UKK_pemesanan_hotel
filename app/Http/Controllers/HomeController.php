@@ -50,11 +50,7 @@ class HomeController extends Controller
         ]);
 
         $tipe_kamar = TipeKamar::where('id',$request->tipe_id)->first();
-        $jumlah_kamar = $tipe_kamar->total_jumlah_kamar;
-        $jumlah_kamar_tersedia = $tipe_kamar->jumlah_kamar_tersedia;
-        $jumlah_kamar_tersedia = $jumlah_kamar_tersedia - $request->jumlah_kamar;
-
-        if($jumlah_kamar_tersedia <= 0){
+        if(($tipe_kamar->total_jumlah_kamar - $request->jumlah_kamar) < 0){
             return redirect()->back()->with('status', 'Maaf, jumlah kamar yang tersedia tidak mencukupi');
         }
         $resev = Resevarsi::create([
