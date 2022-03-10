@@ -29,15 +29,15 @@
     <title>Pemenasan Hotel</title>
     @stack('css')
     <style>
-        .main-content{
-            padding-top: 20px;
-        }
+     
 
     </style>
   </head>
   <body>
     <div id="app">
+        <div class="navbar-bg"></div>
         <div class="main-wrapper main-wrapper-1">
+            
           @include('template.partial.navbar')
 
             @include('template.partial.sidebar')
@@ -57,7 +57,7 @@
                 </section>
             </div>
     </div>
-
+    
     <!-- Optional JavaScript; choose one of the two! -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-loading-overlay/2.1.7/loadingoverlay.min.js" integrity="sha512-hktawXAt9BdIaDoaO9DlLp6LYhbHMi5A36LcXQeHgVKUH6kJMOQsAtIw2kmQ9RERDpnSTlafajo6USh9JUXckw==" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -76,7 +76,7 @@
     {{-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script> --}}
     {{-- template --}}
-    <script src="{{ asset('template/assets/js/stisla.js') }}"></script>
+    {{-- <script src="{{ asset('template/assets/js/stisla.js') }}"></script> --}}
     {{-- <script src="{{ asset('assets/js/sweetalert.all.js') }}"></script> --}}
     {{-- <script src="{{ asset('assets/js/auth/time_log.js') }}"></script>
     <script src="{{ asset('assets/js/auth/logout.js') }}"></script> --}}

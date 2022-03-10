@@ -23,7 +23,7 @@ class AuthController extends Controller
 
     public function postlogin(Request $request){
         $validated = $request->validate([
-            'email' => 'required|email|unique:tamu|unique:admin|unique:resepsionis',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
         if(Auth::guard('admin')->attempt(['email'=>$request->email,'password'=>$request->password])){
@@ -45,7 +45,7 @@ class AuthController extends Controller
     public function postregister(Request $request){
         $validated = $request->validate([
             'nama_tamu' => 'required',
-            'email' => 'required|email|unique:tamu,email',
+            'email' => 'required|email|unique:tamu|unique:admin|unique:resepsionis',
             'no_hp' => 'required|min:8|max:12',
             'alamat' => 'required',
             'jk' => 'required',

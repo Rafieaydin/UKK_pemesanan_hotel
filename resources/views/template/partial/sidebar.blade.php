@@ -15,6 +15,19 @@
                     <span>Dashboard</span></a>
                 </a>
             </li>
+            <li class="menu-header">User</li>
+            <li class="@if (Request::is('admin/user','admin/user/*')) active @endif">
+                <a href="" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Admin</span></a>
+                </a>
+            </li>
+            <li class="@if (Request::is('admin/resepsionis','admin/resepsionis/*')) active @endif">
+                <a href="" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Resepsionis</span></a>
+                </a>
+            </li>
             <li class="menu-header">Fasilitas</li>
             <li class="@if (Request::is('admin/fasilitas_hotel','admin/fasilitas_hotel/*')) active @endif">
                 <a href="{{ route('admin.fasilitas_hotel.index') }}" class="nav-link">
