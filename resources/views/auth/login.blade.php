@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login V18</title>
+    <title>Aston | Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,89 +11,85 @@
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pakage/animate/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pakage/css-hamburgers/hamburgers.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pakage/animsition/css/animsition.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/pakage/select2/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/pakage/daterangepicker/daterangepicker.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/auth/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/pakage/daterangepicker/daterangepicker.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/auth/style.css') }}">
 </head>
 
 <body>
-    <section class="vh-100">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6 px-0 d-none d-sm-block">
-                    <img src="{{ asset('assets/images/bg-01.jpg') }}"
-                        alt="Login image" class="w-100" style="object-fit: cover; object-position: left;">
-                </div>
-                <div class="col-sm-6 text-black">
 
 
+  <div class="d-lg-flex half">
+    <div class="bg order-1 order-md-2" style='background-image: url("{{ asset('assets/images/bg-10.jpg') }}");'></div>
+    <div class="contents order-2 order-md-1">
 
-                    <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-
-                        <form style="width: 23rem;" action="{{ route('auth.Postlogin') }}" method="POST">
-                            @csrf
-                            <h3 class="fw-normal " style="letter-spacing: 1px;">Log in</h3>
-                            <p class="fw-normal pb-3">Masukan Email & Password untuk login</p>
-                            @if (session('error'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ session('error') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            @endif
-                            @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            @endif
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="form2Example18">Email address</label>
-                                <input type="email" id="form2Example18"
-                                    class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                    placeholder="Masukan Email" name="email" value="{{ old('email') }}"
-                                    autocomplete="email" autofocus value="{{ old('email') }}">
-                                @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="form2Example28">Password</label>
-                                <input type="password" id="form2Example28" placeholder="Masukan Password" name="password"
-                                    class="form-control form-control-lg @error('password') is-invalid @enderror" value="{{ old('password') }}" />
-                                @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="pt-1 mb-4">
-                                <button class="btn btn-info btn-lg btn-block" type="submit">Login</button>
-                            </div>
-                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="{{ route('auth.forgot_password') }}">Lupa Password?</a></p>
-                            <p>Belum Punya akun? <a href="{{ route('auth.register') }}" class="link-info">Register Disini</a></p>
-
-                        </form>
-
-                    </div>
-
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7">
+            <h3 style="color:#30336b">Login to <strong style="color:#130f40">ASTON</strong></h3>
+            <p class="mb-4">The login form is only for admin, recepsionis & costumer</p>
+            <form action="{{ route('auth.Postlogin') }}" method="post">
+                @csrf
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
-            </div>
+                @endif
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                @endif
+              <div class="form-group first">
+                <label for="username">Email</label>
+                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="your-email@gmail.com" id="email" value="{{ old('email') }}">
+                @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+              </div>
+              <div class="form-group last mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control  @error('password') is-invalid @enderror" name="password" placeholder="Your Password" id="password" value="{{ old('password') }}">
+                @error('password')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+              </div>
+
+              <div class="d-flex mb-3 align-items-center">
+                <label class="control control--checkbox mb-0" ><span class="caption">Remember me</span>
+                  <input type="checkbox" checked="checked" name="remeberme"  />
+                  <div class="control__indicator"  style="background-color: #30336b"></div>
+                </label>
+                <span class="ml-auto"><a href="{{ route('auth.forgot_password') }}" class="forgot-pass">Forgot Password</a></span>
+              </div>
+              <p class="mb-3">Dont have account? <a href="{{ route('auth.register') }}" class="forgot-pass">Register Now</a></p>
+
+              <input type="submit" value="Log In" class="btn btn-block btn-primary" style="background-color: #30336b">
+
+            </form>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
 
+
+  </div>
 
     {{-- <script src="{{ asset('assets/pakage/jquery/jquery-3.2.1.min.jsq') }}"></script> --}}
     <script src="{{ asset('assets/pakage/animsition/js/animsition.min.js') }}"></script>
@@ -103,10 +99,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
-    <script src="{{ asset('assets/pakage/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/pakage/daterangepicker/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/pakage/daterangepicker/daterangepicker.js') }}"></script>
-    <script src="{{ asset('assets/pakage/countdowntime/countdowntime.js') }}"></script>
+    <script src="{{ asset('assets/js/auth/main.js') }}"></script>
 
 </body>
 

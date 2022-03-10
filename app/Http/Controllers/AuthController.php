@@ -23,7 +23,7 @@ class AuthController extends Controller
 
     public function postlogin(Request $request){
         $validated = $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|unique:tamu|unique:admin|unique:resepsionis',
             'password' => 'required'
         ]);
         if(Auth::guard('admin')->attempt(['email'=>$request->email,'password'=>$request->password])){
@@ -80,7 +80,7 @@ class AuthController extends Controller
         );
 
         return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => 'Link Reset Password Telah Dikirim ke Email Anda'])
+                    ? back()->with(['status' => __($status)])
                     : back()->withErrors(['email' => __($status)]);
     }
 
