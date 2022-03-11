@@ -1,6 +1,6 @@
 <footer class="w-100 py-4 flex-shrink-0">
     <div class="container py-4">
-        <div class="row gy-4 gx-5">
+        <div class="row gy-4 ">
             <div class="col-lg-4 col-md-6">
                 <h5 class="h1 text-white">ASTON</h5>
                 {{-- <img src="{{ asset('assets/images/logo-1.png') }}" alt="" style="width: 40%"> --}}
