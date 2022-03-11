@@ -27,7 +27,7 @@
                                     id="" placeholder="Tipe Kamar">
                                     <option value="">Pilih Tipe</option>
                                     @foreach ($tipe_kamar as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nama_tipe }}</option>
+                                    <option value="{{ $value->id }}" @if($value->total_jumlah_kamar <= 0) disabled @endif>{{ ($value->total_jumlah_kamar <= 0) ? $value->nama_tipe.' | Kosong' : $value->nama_tipe }}</option>
                                     @endforeach
 
                                 </select>

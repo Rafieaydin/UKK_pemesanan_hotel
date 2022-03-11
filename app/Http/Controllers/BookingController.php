@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class BookingController extends Controller
 {
      public function resevarsi(){
-        $tipe_kamar = TipeKamar::where('total_jumlah_kamar', '>', '0')->get();
+        $tipe_kamar = TipeKamar::all();
         return view('resevarsi',compact('tipe_kamar'));
      }
 
