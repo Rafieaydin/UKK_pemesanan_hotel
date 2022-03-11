@@ -21,9 +21,9 @@ class TipeKamarController extends Controller
                     return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
                 })
                 ->addColumn('action', function ($data) {
-                    $button = '<a href="/admin/tipe_kamar/detail/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
+                    $button = '<a href="/admin/tipe_kamar/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
                     $button .= '&nbsp';
-                    $button .='<a  href="/admin/tipe_kamar/edit/' . $data->id . '" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
+                    $button .='<a  href="/admin/tipe_kamar/' . $data->id . '/edit" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
                     $button .= '&nbsp';
                     $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
                     return $button;
@@ -33,7 +33,7 @@ class TipeKamarController extends Controller
         }
     }
 
- 
+
     public function create(){
         return view('admin.tipe_kamar.create');
     }
@@ -57,7 +57,7 @@ class TipeKamarController extends Controller
         return redirect()->route('admin.tipe_kamar.index')->with('success','Data berhasil ditambahkan');
     }
 
-    public function detail($id){
+    public function show($id){
         $tipe_kamar = TipeKamar::find($id);
         return view('admin.tipe_kamar.detail',compact('tipe_kamar'));
     }

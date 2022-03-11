@@ -19,7 +19,7 @@ class ResevarsiSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         for ($i=0; $i < 20 ; $i++) {
-            DB::table('resevarsi')->insert([
+            DB::table('reservasi')->insert([
                 'uuid' => Str::uuid(),
                 'nama_pemesan' => $faker->name,
                 'email_pemesan' => $faker->email,

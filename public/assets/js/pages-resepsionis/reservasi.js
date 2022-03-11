@@ -7,7 +7,7 @@ $(document).ready(function () {
                 table.draw();
             });
 
-            $(document).on('change','.check-in',function () {
+            $(document).on('change','.check-out',function () {
                 table.draw();
             });
 
@@ -20,6 +20,8 @@ $(document).ready(function () {
                 var year = date.getFullYear();
                 return year + "-" + month + "-" + day;
             }
+
+
             var table = $('#table1').DataTable({
                 dom: "<'row'<'ol-sm-12 col-md-8 btn-table'><'col-sm-12 mt-3 col-md-4  pdf-button'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
@@ -35,7 +37,7 @@ $(document).ready(function () {
                 "responsive": true,
                 "autoWidth": false,
                 ajax: {
-                    url: root + "/api/admin/resevarsi/ajax/",
+                    url: root + "/api/resepsionis/reservasi/ajax/",
                     type: "post",
                     data: function (e) {
                         e.check_in = dates(new Date($('.check-in').val()));
@@ -93,14 +95,14 @@ $(document).ready(function () {
             });
 
             $('.btn-back').append(
-                '<a href="' + root + '/resepsionis/resevarsi"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </button></a>' 
+                '<a href="' + root + '/resepsionis/reservasi"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </button></a>'
             );
 
             $('.btn-table').append(
-             
+
                 '<div class="row">' +
                 '<div class="col-md-3 mt-2">' +
-                '<a href="' + root + '/resepsionis/resevarsi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+                '<a href="' + root + '/resepsionis/reservasi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
                 '</div>' +
                 '<div class="col-md-4">' +
                 '<label for="" class="d-inline">Filter Check-in</label>' +
@@ -134,7 +136,7 @@ $(document).ready(function () {
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
-                            url: root + "/api/admin/resevarsi/delete/" + id,
+                            url: root + "/api/resepsionis/reservasi/delete/" + id,
                             type: "DELETE",
                             data: '',
                             success: function (data) {

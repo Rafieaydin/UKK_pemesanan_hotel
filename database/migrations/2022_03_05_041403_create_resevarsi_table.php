@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('resevarsi', function (Blueprint $table) {
+        Schema::create('reservasi', function (Blueprint $table) {
             $table->uuid();
             $table->string('nama_pemesan');
             $table->string('nama_tamu');

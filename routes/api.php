@@ -35,8 +35,9 @@ Route::get('/admin/kamar/ajax/',[KamarController::class,'ajax']);
 Route::delete('/admin/kamar/delete/{id}',[KamarController::class,'destroy']);
 Route::get('/admin/tipe_kamar/ajax/',[TipeKamarController::class,'ajax']);
 Route::delete('admin/tipe_kamar/delete/{id}',[TipeKamarController::class,'destroy']);
-Route::post('/admin/resevarsi/ajax/',[ResevasiController::class,'ajax']);
-Route::delete('admin/resevarsi/delete/{id}',[ResevasiController::class,'destroy']);
+
+Route::post('/resepsionis/reservasi/ajax/',[ResevasiController::class,'ajax']);
+Route::delete('resepsionis/reservasi/delete/{id}',[ResevasiController::class,'destroy']);
 
 Route::post('/admin/resepsionis/ajax/',[ResepsionisUserController::class,'ajax']);
 Route::delete('admin/resepsionis/delete/{id}',[ResepsionisUserController::class,'destroy']);

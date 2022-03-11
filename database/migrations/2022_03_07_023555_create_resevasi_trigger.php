@@ -15,24 +15,24 @@ return new class extends Migration
     public function up()
     {
         DB::unprepared('
-        CREATE TRIGGER resevarsi_kurang_jumlah_kamar
-        AFTER INSERT ON resevarsi
+        CREATE TRIGGER reservasi_kurang_jumlah_kamar
+        AFTER INSERT ON reservasi
         FOR EACH ROW
         BEGIN
         UPDATE tipe_kamar SET total_jumlah_kamar = total_jumlah_kamar - new.jumlah_kamar WHERE id = new.tipe_id;
         END'
         );
         DB::unprepared('
-        CREATE TRIGGER resevarsi_tambah_jumlah_resevarsi
-        AFTER DELETE ON resevarsi
+        CREATE TRIGGER reservasi_tambah_jumlah_reservasi
+        AFTER DELETE ON reservasi
         FOR EACH ROW
         BEGIN
         UPDATE tipe_kamar SET total_jumlah_kamar = total_jumlah_kamar + old.jumlah_kamar WHERE id = old.tipe_id;
         END'
         );
         DB::unprepared('
-        CREATE TRIGGER resevarsi_update_jumlah_resevarsi
-        AFTER UPDATE ON resevarsi
+        CREATE TRIGGER reservasi_update_jumlah_reservasi
+        AFTER UPDATE ON reservasi
         FOR EACH ROW
         BEGIN
         IF old.jumlah_kamar > new.jumlah_kamar THEN
@@ -52,8 +52,8 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER `resevarsi_kurang_jumlah_kamar`');
-        DB::unprepared('DROP TRIGGER `resevarsi_tambah_jumlah_resevarsi`');
-        DB::unprepared('DROP TRIGGER `resevarsi_update_jumlah_resevarsi`');
+        DB::unprepared('DROP TRIGGER `reservasi_kurang_jumlah_kamar`');
+        DB::unprepared('DROP TRIGGER `reservasi_tambah_jumlah_reservasi`');
+        DB::unprepared('DROP TRIGGER `reservasi_update_jumlah_reservasi`');
     }
 };

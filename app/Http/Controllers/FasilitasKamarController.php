@@ -38,9 +38,9 @@ class FasilitasKamarController extends Controller
                 //     return $list;
                 // })
                 ->addColumn('action', function ($data) {
-                    $button = '<a href="/admin/fasilitas_kamar/detail/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
+                    $button = '<a href="/admin/fasilitas_kamar/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
                     $button .= '&nbsp';
-                    $button .='<a  href="/admin/fasilitas_kamar/edit/' . $data->id . '" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
+                    $button .='<a  href="/admin/fasilitas_kamar/' . $data->id . '/edit" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
                     $button .= '&nbsp';
                     $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
                     return $button;
@@ -92,7 +92,7 @@ class FasilitasKamarController extends Controller
      * @param  \App\Models\FasilitasKamar  $fasilitasKamar
      * @return \Illuminate\Http\Response
      */
-    public function detail($id)
+    public function show($id)
     {
         $fasilitasKamar = FasilitasKamar::find($id);
         return view('admin.fasilitas_kamar.detail',compact('fasilitasKamar'));

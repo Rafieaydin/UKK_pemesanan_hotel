@@ -65,10 +65,10 @@
                 </a>
             </li> --}}
             <li class="menu-header">MASTER</li>
-            <li class="@if (Request::is('resepsionis/resevarsi','resepsionis/resevarsi/*')) active @endif">
-                <a href="{{ route('resepsionis.resevarsi.index') }}" class="nav-link">
+            <li class="@if (Request::is('resepsionis/reservasi','resepsionis/reservasi/*')) active @endif">
+                <a href="{{ route('resepsionis.reservasi.index') }}" class="nav-link">
                     <i class="fas fa-hotel"></i>
-                    <span>Resevarsi Hotel</span></a>
+                    <span>Reservasi Hotel</span></a>
                 </a>
             </li>
         @endif

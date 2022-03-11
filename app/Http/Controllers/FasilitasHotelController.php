@@ -27,9 +27,9 @@ class FasilitasHotelController extends Controller
                 return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
             })
                 ->addColumn('action', function ($data) {
-                    $button = '<a href="/admin/fasilitas_hotel/detail/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
+                    $button = '<a href="/admin/fasilitas_hotel/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
                     $button .= '&nbsp';
-                    $button .='<a  href="/admin/fasilitas_hotel/edit/' . $data->id . '" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
+                    $button .='<a  href="/admin/fasilitas_hotel/' . $data->id . '/edit" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
                     $button .= '&nbsp';
                     $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
                     return $button;
@@ -78,7 +78,7 @@ class FasilitasHotelController extends Controller
      * @param  \App\Models\FasilitasHotel  $fasilitasHotel
      * @return \Illuminate\Http\Response
      */
-    public function detail($id)
+    public function show($id)
     {
         $fasilitas_hotel = FasilitasHotel::find($id);
         return view('admin.fasilitas_hotel.detail', compact('fasilitas_hotel'));

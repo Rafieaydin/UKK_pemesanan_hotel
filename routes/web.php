@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FasilitasHotelController;
 use App\Http\Controllers\FasilitasKamarController;
 use Illuminate\Support\Facades\Route;
@@ -30,49 +31,20 @@ use App\Models\Resepsionis;
 
 
 Route::get('/',[HomeController::class,'index']);
-Route::get('fasilitas-kamar',[HomeController::class,'fasilitas_kamar']);
-Route::get('fasilitas-hotel',[HomeController::class,'fasilitas_hotel']);
-Route::get('/resevarsi',[HomeController::class,'resevarsi'])->name('resevarsi');;
-Route::get('/resevarsi/detail/{slug}',[HomeController::class,'detailresevarsi'])->name('detailresevarsi');
-Route::get('/resevarsi/pdf/{slug}',[HomeController::class,'pdfresevarsi'])->name('pdfresevarsi');
-Route::post('/postresevarsi',[HomeController::class,'postresevarsi'])->name('postresevarsi');
+Route::get('/resevarsi',[BookingController::class,'resevarsi'])->name('resevarsi');;
+Route::get('/resevarsi/detail/{slug}',[BookingController::class,'detailresevarsi'])->name('detailresevarsi');
+Route::get('/resevarsi/pdf/{slug}',[BookingController::class,'pdfresevarsi'])->name('pdfresevarsi');
+Route::post('/postresevarsi',[BookingController::class,'postresevarsi'])->name('postresevarsi');
 
 // call auth route
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(function () {
     Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
-
-    Route::get('fasilitas_hotel', [FasilitasHotelController::class, 'index'])->name('fasilitas_hotel.index');
-    Route::get('fasilitas_hotel/create', [FasilitasHotelController::class, 'create'])->name('fasilitas_hotel.create');
-    Route::post('fasilitas_hotel/store', [FasilitasHotelController::class, 'store'])->name('fasilitas_hotel.store');
-    Route::get('fasilitas_hotel/detail/{id}', [FasilitasHotelController::class, 'detail'])->name('fasilitas_hotel.detail');
-    Route::get('fasilitas_hotel/edit/{id}', [FasilitasHotelController::class, 'edit'])->name('fasilitas_hotel.edit');
-    Route::patch('fasilitas_hotel/update/{id}', [FasilitasHotelController::class, 'update'])->name('fasilitas_hotel.update');
-    Route::delete('fasilitas_hotel/delete/{id}', [FasilitasHotelController::class, 'destroy'])->name('fasilitas_hotel.destroy');
-
-    Route::get('fasilitas_kamar', [FasilitasKamarController::class, 'index'])->name('fasilitas_kamar.index');
-    Route::get('fasilitas_kamar/create', [FasilitasKamarController::class, 'create'])->name('fasilitas_kamar.create');
-    Route::post('fasilitas_kamar/store', [FasilitasKamarController::class, 'store'])->name('fasilitas_kamar.store');
-    Route::get('fasilitas_kamar/detail/{id}', [FasilitasKamarController::class, 'detail'])->name('fasilitas_kamar.detail');
-    Route::get('fasilitas_kamar/edit/{id}', [FasilitasKamarController::class, 'edit'])->name('fasilitas_kamar.edit');
-    Route::patch('fasilitas_kamar/update/{id}', [FasilitasKamarController::class, 'update'])->name('fasilitas_kamar.update');
-
-    Route::get('tipe_kamar', [TipeKamarController::class, 'index'])->name('tipe_kamar.index');
-    Route::get('tipe_kamar/create', [TipeKamarController::class, 'create'])->name('tipe_kamar.create');
-    Route::post('tipe_kamar/store', [TipeKamarController::class, 'store'])->name('tipe_kamar.store');
-    Route::get('tipe_kamar/detail/{id}', [TipeKamarController::class, 'detail'])->name('tipe_kamar.detail');
-    Route::get('tipe_kamar/edit/{id}', [TipeKamarController::class, 'edit'])->name('tipe_kamar.edit');
-    Route::patch('tipe_kamar/update/{id}', [TipeKamarController::class, 'update'])->name('tipe_kamar.update');
-
-    Route::get('kamar', [KamarController::class, 'index'])->name('kamar.index');
-    Route::get('kamar', [KamarController::class, 'index'])->name('kamar.index');
-    Route::get('kamar/create', [KamarController::class, 'create'])->name('kamar.create');
-    Route::post('kamar/store', [KamarController::class, 'store'])->name('kamar.store');
-    Route::get('kamar/detail/{id}', [KamarController::class, 'show'])->name('kamar.detail');
-    Route::get('kamar/edit/{id}', [KamarController::class, 'edit'])->name('kamar.edit');
-    Route::patch('kamar/update/{id}', [KamarController::class, 'update'])->name('kamar.update');
-
+    Route::resource('fasilitas_hotel', FasilitasHotelController::class);
+    Route::resource('fasilitas_kamar', FasilitasKamarController::class);
+    Route::resource('tipe_kamar', TipeKamarController::class);
+    Route::resource('kamar', KamarController::class);
     Route::post('user/ajax/',[AdminUserController::class,'userajax']);
     Route::delete('user/delete/{id}',[AdminUserController::class,'destroy']);
     Route::resource('user', AdminUserController::class);
@@ -82,14 +54,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
 
 Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsionis.')->group(function () {
     Route::get('dashboard', [ResepsionisController::class, 'index'])->name('dashboard');
-
-    Route::get('resevarsi', [ResevasiController::class, 'index'])->name('resevarsi.index');
-    Route::get('resevarsi/create', [ResevasiController::class, 'create'])->name('resevarsi.create');
-    Route::post('resevarsi/store', [ResevasiController::class, 'store'])->name('resevarsi.store');
-    Route::get('resevarsi/detail/{id}', [ResevasiController::class, 'show'])->name('resevarsi.detail');
-    Route::get('resevarsi/edit/{id}', [ResevasiController::class, 'edit'])->name('resevarsi.edit');
-    Route::patch('resevarsi/update/{id}', [ResevasiController::class, 'update'])->name('resevarsi.update');
-    Route::delete('resevarsi/delete/{id}', [ResevasiController::class, 'destroy'])->name('resevarsi.destroy');
+    Route::resource('reservasi', ResevasiController::class);
 });
 
 Route::prefix('tamu')->middleware(['auth:tamu'])->group(function () {

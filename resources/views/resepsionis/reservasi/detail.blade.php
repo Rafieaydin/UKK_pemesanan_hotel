@@ -1,8 +1,8 @@
 @extends('template.master')
-@section('judul','Detail Tipe Kamar')
+@section('judul','Detail Reservasi')
 @section('breadcrump')
         <div class="breadcrumb-item "><a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> DASBOARD</a></div>
-        <div class="breadcrumb-item"> <i class="fas fa-bed"></i> TIPE KAMR</div>
+        <div class="breadcrumb-item"><i class="fas fa-bed"></i> DATA RESERVASI</div>
 @endsection
 @section('content')
 <div class="card">
@@ -30,7 +30,7 @@
                     <td scope="col">{{ $res->tanggal_checkin->format('d-m-Y') }}</td>
                     <td scope="col">{{ $res->tanggal_checkout->format('d-m-Y') }}</td>
                     <td scope="col">{{ $res->jumlah_kamar }}</td>
-                </tr>               
+                </tr>
             </tbody>
         </table>
     </div>
@@ -38,5 +38,5 @@
 
 @endsection
 @push('js')
-<script src="{{ asset('assets/js/pages-resepsionis/resevarsi.js') }}"></script>
+<script src="{{ asset('assets/js/pages-resepsionis/reservasi.js') }}"></script>
 @endpush

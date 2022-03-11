@@ -30,7 +30,7 @@ return new class extends Migration
         Schema::table('kamar', function (Blueprint $table) {
             $table->foreignId('tipe_id')->constrained('tipe_kamar')->onDelete('cascade')->onUpdate('cascade');
         });
-        Schema::table('resevarsi', function (Blueprint $table) {
+        Schema::table('reservasi', function (Blueprint $table) {
             $table->foreignId('tipe_id')->constrained('tipe_kamar')->onDelete('cascade')->onUpdate('cascade');
         });
     }

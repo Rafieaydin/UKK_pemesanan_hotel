@@ -9,13 +9,13 @@
 @endpush
 @section('breadcrump')
         <div class="breadcrumb-item "><a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> DASBOARD</a></div>
-        <div class="breadcrumb-item"> <i class="fas fa-bed"></i>RESEVARSI HOTEL</div>
+        <div class="breadcrumb-item"> <i class="fas fa-bed"></i> RESERVASI HOTEL</div>
 @endsection
 @section('content')
 <div class="card">
     <div class="container  mt-3 mb-3">
         @if (session('success'))
-            <div class="alert alert-success   
+            <div class="alert alert-success
             alert-dismissible fade show" role="alert">
                 {{ session('success') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -66,5 +66,5 @@
 
 @endsection
 @push('js')
-<script src="{{ asset('assets/js/pages-resepsionis/resevarsi.js') }}"></script>
+<script src="{{ asset('assets/js/pages-resepsionis/reservasi.js') }}"></script>
 @endpush
