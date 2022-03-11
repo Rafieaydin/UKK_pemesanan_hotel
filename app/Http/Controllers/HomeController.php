@@ -68,8 +68,8 @@ class HomeController extends Controller
         return redirect('/resevarsi/detail/'.$resev->uuid);
      }
      public function pdfresevarsi($id){
-        $resevarsi = Resevarsi::where('uuid',$id)->first();
-        $pdf = Pdf::loadView('PDF.detailresevarsi', compact('resevarsi'));
-        return $pdf->stream('joko.pdf');
+        $reservasi = Resevarsi::where('uuid',$id)->first();
+        $pdf = Pdf::loadView('PDF.detailreservasi', compact('reservasi'));
+        return $pdf->stream('Invoice Reservasi Hotel Aston.pdf');
     }
 }
