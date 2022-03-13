@@ -90,5 +90,6 @@
     <script src="{{ asset('template/assets/js/custom.js') }}"></script>
     <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
     @stack('js')
+    
   </body>
 </html>

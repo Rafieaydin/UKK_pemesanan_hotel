@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reservasi', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid()->primary();
             $table->string('nama_pemesan');
             $table->string('nama_tamu');
             $table->string('email_pemesan');
@@ -24,6 +24,11 @@ return new class extends Migration
             $table->integer('jumlah_kamar');
 
             $table->timestamps();
+        });
+
+        Schema::table('kamar', function (Blueprint $table) {
+            $table->foreignUuid('reservasi_id')->nullable()->references('uuid')->on('reservasi')->onUpdate('cascade')->onDelete('set null');
+
         });
     }
 

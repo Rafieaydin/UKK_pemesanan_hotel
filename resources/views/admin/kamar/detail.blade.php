@@ -12,14 +12,24 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tipe</th>
-                    <th scope="col">Nama Fasilitas</th>
+                    <th scope="col">kode kamar</th>
+                    <th scope="col">Status</th>
+                    @if ($kamar->status == 1)
+                    <th scope="col">Pemesan</th>
+                    @endif
+            
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
                     <td>{{ $kamar->tipekamar->nama_tipe }}</td>
-                    <td>{{ $kamar->jumlah_kamar }}</td>
+                    <td>{{ $kamar->kode_kamar }}</td>
+                    <td>{!! $kamar->status == 0 ? '<span class="badge badge-success">Tersedia</span>' : '<span class="badge badge-danger">Tidak Tersedia</span>' !!}</td>
+                    @if ($kamar->status == 1)
+                    <td>{{ $kamar->reservasi->nama_pemesan }}</td>
+                    @endif
+                  
                 </tr>               
             </tbody>
         </table>

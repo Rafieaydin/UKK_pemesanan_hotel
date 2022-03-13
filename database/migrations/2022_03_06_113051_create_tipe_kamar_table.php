@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_tipe');
             $table->string('keterangan');
-            $table->integer('total_jumlah_kamar')->default(0);
+            $table->integer('total_jumlah_kamar_tersedia')->default(0);
+            $table->integer('total_jumlah_kamar_booking')->default(0);
             $table->string('gambar');
             $table->string('harga');
             $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade')->onUpdate('cascade');

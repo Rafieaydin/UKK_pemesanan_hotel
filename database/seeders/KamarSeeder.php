@@ -18,15 +18,15 @@ class KamarSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         for ($i=0; $i < 99 ; $i++) {
-            // $counter = Floor($i/30);
-            // $nomor = ['A','B','C','D','E','F'];
-            // $nomor_kamar = $nomor[$counter];
-         
+            $counter = Floor($i/30); // kelipatan 30
+            $nomor = ['A','B','C','D','E','F'];
+            $nomor_kamar = $nomor[$counter];
             DB::table('kamar')->insert([
-                'jumlah_kamar'=> $faker->randomElement(['20','30','40']) ,
+                'kode_kamar'=> $nomor_kamar.$i,
                 'tipe_id' => $faker->randomElement(['1','2','3']),
-                'status'=> '1',
+                'status'=> '0',
                 'admin_id'=> 1,
+                // 'reservasi_id' => 0
             ]);
         }
 

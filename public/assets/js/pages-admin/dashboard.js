@@ -21,7 +21,7 @@ $(document).ready( function () {
         { data: 'DT_RowIndex', name: 'DT_RowIndex'},
         { data: 'gambar', name:'gambar'},
         { data: 'nama_tipe', name:'nama_tipe'},
-        { data: 'total_jumlah_kamar', name:'total_jumlah_kamar'},
+        { data: 'total_jumlah_kamar_tersedia', name:'total_jumlah_kamar_tersedia'},
 
         ],
     });

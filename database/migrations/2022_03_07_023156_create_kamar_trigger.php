@@ -19,7 +19,12 @@ return new class extends Migration
         AFTER INSERT ON kamar
         FOR EACH ROW
         BEGIN
-        UPDATE tipe_kamar SET total_jumlah_kamar = total_jumlah_kamar + new.jumlah_kamar WHERE id = new.tipe_id;
+        IF new.status = "0" THEN
+        UPDATE tipe_kamar SET total_jumlah_kamar_tersedia = total_jumlah_kamar_tersedia + 1 WHERE id = new.tipe_id;
+        END IF;
+        IF new.status = "1" THEN
+        UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking + 1 WHERE id = new.tipe_id;
+        END IF;
         END'
         );
 
@@ -28,7 +33,12 @@ return new class extends Migration
         AFTER DELETE ON kamar
         FOR EACH ROW
         BEGIN
-        UPDATE tipe_kamar SET total_jumlah_kamar = total_jumlah_kamar - old.jumlah_kamar WHERE id = old.tipe_id;
+        IF old.status = "0" THEN
+        UPDATE tipe_kamar SET total_jumlah_kamar_tersedia = total_jumlah_kamar_tersedia - 1 WHERE id = old.tipe_id;
+        END IF;
+        IF old.status = "1" THEN
+        UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking - 1 WHERE id = old.tipe_id;
+        END IF;
         END'
         );
 
@@ -37,11 +47,13 @@ return new class extends Migration
         AFTER UPDATE ON kamar
         FOR EACH ROW
         BEGIN
-        IF old.jumlah_kamar > new.jumlah_kamar THEN
-        UPDATE tipe_kamar SET total_jumlah_kamar = total_jumlah_kamar - (old.jumlah_kamar - new.jumlah_kamar) WHERE id = new.tipe_id;
+        IF NEW.status = "0"  THEN
+        UPDATE tipe_kamar SET total_jumlah_kamar_tersedia = total_jumlah_kamar_tersedia + 1 WHERE id = new.tipe_id;
+        UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking - 1 WHERE id = new.tipe_id;
         END IF;
-        IF old.jumlah_kamar < new.jumlah_kamar THEN
-        UPDATE tipe_kamar SET total_jumlah_kamar = total_jumlah_kamar + (new.jumlah_kamar - old.jumlah_kamar) WHERE id = new.tipe_id;
+        IF NEW.status = "1" THEN
+        UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking + 1 WHERE id = new.tipe_id;
+        UPDATE tipe_kamar SET total_jumlah_kamar_tersedia = total_jumlah_kamar_tersedia - 1 WHERE id = new.tipe_id;
         END IF;
         END'
         );

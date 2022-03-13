@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('kamar', function (Blueprint $table) {
             $table->id();
-            $table->string('jumlah_kamar');
+            $table->string('kode_kamar');
+            // $table->string('jumlah_kamar');
             $table->enum('status', ['0', '1']);
             $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

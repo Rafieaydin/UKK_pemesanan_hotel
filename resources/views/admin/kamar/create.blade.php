@@ -55,15 +55,63 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="">Jumlah Kamar</label>
+                    <label for="">Kode Kamar</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-bed"></i></div>
                         </div>
-                        <input type="number" name="jumlah_kamar" value="{{ old('jumlah_kamar') }}" class="form-control @error('jumlah_kamar')
+                        <input type="text" name="kode_kamar" value="{{ old('kode_kamar') }}" class="form-control @error('kode_kamar')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="Jumlah Kamar">
-                        @error('jumlah_kamar')
+                        @enderror" id="inlineFormInputGroup" placeholder="Kode Kamar">
+                        @error('kode_kamar')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Status</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-bed"></i></div>
+                        </div>
+
+                        <select name="status" value="{{ old('status') }}" class="form-control status @error('status')
+                                is-invalid
+                            @enderror">
+                            <option value="0" @if (old('status') == 0)
+                                selected
+                            @endif>Tersedia</option>
+                            <option value="1" @if (old('status') == 1)
+                            selected
+                        @endif>Terpesan</option>
+                        </select>
+                        @error('status')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6 reservasi">
+                    <label for="">Nama pemesan</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-bed"></i></div>
+                        </div>
+
+                        <select name="reservasi_id" value="{{ old('reservasi_id') }}" class="form-control @error('reservasi_id')
+                                is-invalid
+                            @enderror">
+                            <option value="">-- Pilih reservasi --</option>
+                            @foreach ($reservasi as $value)
+                            <option value="{{ $value->uuid }}" @if (old('reservasi_id') == $value->id)
+                                selected
+                            @endif>{{ $value->nama_pemesan }}</option>
+                            @endforeach
+                        </select>
+                        @error('reservasi_id')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -86,6 +134,19 @@
 
 
 @endsection
-@push('script')
-<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+@push('js')
+<script>
+    $(document).ready(function() {
+    $('.reservasi').hide();
+    $( ".status" ).change(function() {
+        if($(this).val() == 1){
+            $('.reservasi').show();
+        }else{
+            $('.reservasi').hide();
+        }
+    });
+    });
+  
+    </script>
+
 @endpush

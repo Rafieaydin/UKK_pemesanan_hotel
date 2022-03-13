@@ -29,8 +29,8 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Tipe Kamar</th>
-                    <th scope="col">Jumlah</th>
+                    <th scope="col">Kode Kamar</th>
+                    <th scope="col">status</th>
                     <th scope="col">action</th>
                 </tr>
             </thead>
