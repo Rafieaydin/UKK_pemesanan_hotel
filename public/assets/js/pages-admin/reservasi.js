@@ -37,7 +37,7 @@ $(document).ready(function () {
                 "responsive": true,
                 "autoWidth": false,
                 ajax: {
-                    url: root + "/resepsionis/reservasi/ajax/",
+                    url: root + "/admin/reservasi/ajax/",
                     type: "post",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -98,14 +98,14 @@ $(document).ready(function () {
             });
 
             $('.btn-back').append(
-                '<a href="' + root + '/resepsionis/reservasi"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </button></a>'
+                '<a href="' + root + '/admin/reservasi"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </button></a>'
             );
 
             $('.btn-table').append(
 
                 '<div class="row">' +
                 '<div class="col-md-3 mt-2">' +
-                '<a href="' + root + '/resepsionis/reservasi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+                '<a href="' + root + '/admin/reservasi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
                 '</div>' +
                 '<div class="col-md-4">' +
                 '<label for="" class="d-inline">Filter Check-in</label>' +
@@ -139,7 +139,7 @@ $(document).ready(function () {
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
-                            url: root + "/resepsionis/reservasi/delete/" + id,
+                            url: root + "/admin/reservasi/delete/" + id,
                             type: "DELETE",
                             data: '',
                             success: function (data) {

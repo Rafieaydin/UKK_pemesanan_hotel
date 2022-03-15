@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Resevarsi Kamar Hotel Aston</title>
 </head>
+
 <body>
     <div class="invoice" style="width: 100%">
-        <table width="500" style="margin-bottom: 15px" >
+        <table width="500" style="margin-bottom: 15px">
             <tr>
                 <td style="color: #130f40;font-weight: bold;font-size:50px">
                     ASTON
@@ -49,28 +51,60 @@
                 </td>
             </tr>
         </table>
-        <table width="100%" >
+        <table width="100%">
             <tr style="background-color: grey;font-weight:bold;color:white;text-align:center">
                 <td>
                     Tipe kamar
                 </td>
                 <td>
-                    jumlah kamar
+                    kode kamar
                 </td>
                 <td>
-                  check-in
+                    check-in
                 </td>
                 <td>
-                  check-out
+                    check-out
+                </td>
+                <td>
+                    harga
+                </td>
+            </tr>
+            @foreach ($reservasi->KamarBooking as $value)
+            <tr>
+                <td>{{ $reservasi->tipekamar->nama_tipe }}</td>
+                <td>{{ $value->kode_kamar  }}</td>
+                <td>{{ $reservasi->tanggal_checkin->format('d-m-Y') }}</td>
+                <td>{{ $reservasi->tanggal_checkout->format('d-m-Y') }}</td>
+                <td>{{ App\Helpers\Helper::format_rupiah($reservasi->tipekamar->harga) }}</td>
+            </tr>
+            
+            @endforeach
+            <tr style="background-color: grey;font-weight:bold;color:white;text-align:center">
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Total harga
                 </td>
             </tr>
             <tr>
-                <td>{{ $reservasi->tipekamar->nama_tipe }}</td>
-                    <td>{{ $reservasi->jumlah_kamar }}</td>
-                    <td>{{ $reservasi->tanggal_checkin->format('D m y') }}</td>
-					<td>{{ $reservasi->tanggal_checkout->format('D m y') }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ App\Helpers\Helper::format_rupiah($reservasi->tipekamar->harga * $reservasi->kamarbooking->count()    ) }}</td>
             </tr>
+
+        </table>
+        <table width="100%">
+           
         </table>
     </div>
 </body>
+
 </html>

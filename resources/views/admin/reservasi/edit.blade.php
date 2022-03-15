@@ -174,7 +174,7 @@
 
             </div>
             <div class="row">
-                <a href="{{ route('resepsionis.reservasi.index') }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 " type="submit">Kembali</a>
+                <a href="{{ route('admin.reservasi.index') }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 " type="submit">Kembali</a>
                 <button type="button" class="btn btn-success mt-2 mb-3 mr-3 mt-3 "id="next-button">Selanjutnya</button>
             </div>
         </form>
@@ -336,10 +336,10 @@ $('#next-button').click(function (e) {
             var formdata = new FormData(form)
             formdata.append('kode_kamar', JSON.stringify(kode_kamars))
             console.log(kode_kamars);
-            axios.post('/resepsionis/reservasi/'+reservasi_id, formdata, {
+            axios.post('/admin/reservasi/'+reservasi_id, formdata, {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }).then(response => {
-                window.location.href = '/resepsionis/reservasi?update=true';
+                window.location.href = '/admin/reservasi?update=true';
             }).catch(res => {
                 $('.seaction-reservasi').removeClass('d-none');
                 $('.section-booking').addClass('d-none');

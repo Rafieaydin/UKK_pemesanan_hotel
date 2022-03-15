@@ -37,7 +37,6 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-bed"></i></div>
                         </div>
-
                         <select name="tipe_id" value="{{ old('tipe_id') }}" class="form-control @error('tipe_id')
                                 is-invalid
                             @enderror">

@@ -47,7 +47,7 @@
                             <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px;height:80px">{!!
                                 substr($value->keterangan, 0, 70) !!}</p>
                             <p class="card-text fw-bold mb-2" style="margin: 0px;color:#130f40;font-size:25px;height">
-                                {{ !$value->harga ? '$0' : $value->harga }}
+                                {{ !$value->harga ? App\Helpers\Helper::format_rupiah(0) : App\Helpers\Helper::format_rupiah($value->harga) }}
                             </p>
                             <p class="card-text d-inline fw-bold">Fasilitas :</p> <br>
                             @foreach ($value->fasilitas as $val) <span class="badge p-2 mb-2"

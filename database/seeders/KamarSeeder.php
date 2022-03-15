@@ -17,6 +17,7 @@ class KamarSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('id_ID');
+        
         for ($i=0; $i < 99 ; $i++) {
             $counter = Floor($i/30); // kelipatan 30
             $nomor = ['A','B','C','D','E','F'];

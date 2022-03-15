@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamar;
 use App\Models\Reservasi;
 use App\Models\TipeKamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Helpers\Helper;
+use Illuminate\Support\Facades\Auth;
 
 class ResevasiController extends Controller
 {
@@ -16,7 +20,7 @@ class ResevasiController extends Controller
      */
     public function index()
     {
-        return view('resepsionis.reservasi.index');
+        return view(Auth::getdefaultdriver().'.reservasi.index');
     }
 
     public function ajax(Request $request){
@@ -43,10 +47,15 @@ class ResevasiController extends Controller
                 ->addcolumn('tanggal_checkout', function($data){
                     return $data->tanggal_checkout->format('d-m-Y');
                 })
+                ->addColumn('total_harga', function($data){
+                    return Helper::format_rupiah($data->jumlah_kamar * $data->tipekamar->harga);
+                })
                 ->addColumn('action', function ($data) {
-                    $button = '<a href="/resepsionis/reservasi/' . $data->uuid . '"   id="' . $data->uuid . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
+                    $button ='<a  href="/'.Auth::getdefaultdriver().'/reservasi/' . $data->uuid . '/pdf" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i></a>';
                     $button .= '&nbsp';
-                    $button .='<a  href="/resepsionis/reservasi/' . $data->uuid . '/edit" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
+                    $button .= '<a href="/'.Auth::getdefaultdriver().'/reservasi/' . $data->uuid . '"   id="' . $data->uuid . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
+                    $button .= '&nbsp';
+                    $button .='<a  href="/'.Auth::getdefaultdriver().'/reservasi/' . $data->uuid . '/edit" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
                     $button .= '&nbsp';
                     $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->uuid . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
                     return $button;
@@ -63,7 +72,7 @@ class ResevasiController extends Controller
     public function create()
     {
         $tipe = TipeKamar::all();
-        return view('resepsionis.reservasi.create',compact('tipe'));
+        return view(Auth::getdefaultdriver().'.reservasi.create',compact('tipe'));
     }
 
     /**
@@ -74,6 +83,7 @@ class ResevasiController extends Controller
      */
     public function store(Request $request)
     {
+        // $after_date = $request->tanggal_checkin.' +1 day';
         $request->validate([
             'tipe_id' => 'required',
             'nama_tamu' => 'required',
@@ -82,21 +92,32 @@ class ResevasiController extends Controller
             'nomor_hp_pemesan' => 'required',
             'tanggal_checkin' => 'required',
             'tanggal_checkout' => 'required|after:tanggal_checkin',
-            'jumlah_kamar' => 'required',
+            // 'jumlah_kamar' => 'required',
         ]);
-
-        Reservasi::create([
+        $resev = Reservasi::create([
             'uuid' => Str::uuid(),
             'tipe_id' => $request->tipe_id,
             'nama_pemesan' => $request->nama_pemesan,
-            'nama_tamu' => $request->nama_tamu,
             'email_pemesan' => $request->email_pemesan,
             'nomor_hp_pemesan' => $request->nomor_hp_pemesan,
             'tanggal_checkin' => $request->tanggal_checkin,
             'tanggal_checkout' => $request->tanggal_checkout,
-            'jumlah_kamar' => $request->jumlah_kamar,
+            // 'jumlah_kamar' => count(json_decode($request->kode_kamar)), // trigger
+            'nama_tamu' => $request->nama_tamu
         ]);
-        return redirect()->route('resepsionis.reservasi.index')->with('success', 'Data berhasil ditambahkan');
+
+        foreach (json_decode($request->kode_kamar) as $key => $val) {
+            $kamar = Kamar::where('id',$val)->first();
+            $kamar->update([
+                'status' => '1',
+                'reservasi_id' => $resev->uuid
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Reservasi berhasil dibuat',
+            'reservasi' => $resev
+        ]);
     }
 
     /**
@@ -108,7 +129,7 @@ class ResevasiController extends Controller
     public function show($id)
     {
         $res = Reservasi::where('uuid',$id)->first();
-        return view('resepsionis.reservasi.detail',compact('res'));
+        return view(Auth::getdefaultdriver().'.reservasi.detail',compact('res'));
     }
 
     /**
@@ -121,7 +142,7 @@ class ResevasiController extends Controller
     {
         $tipe = TipeKamar::all();
         $reservasi = Reservasi::where('uuid',$id)->first();
-        return view('resepsionis.reservasi.edit',compact('tipe','reservasi'));
+        return view(Auth::getdefaultdriver().'.reservasi.edit',compact('tipe','reservasi'));
     }
 
     /**
@@ -141,21 +162,41 @@ class ResevasiController extends Controller
             'nomor_hp_pemesan' => 'required',
             'tanggal_checkin' => 'required',
             'tanggal_checkout' => 'required|after:tanggal_checkin',
-            'jumlah_kamar' => 'required',
+            // 'jumlah_kamar' => 'required',
         ]);
 
-        Reservasi::where('uuid',$id)->update([
-            'uuid' => Str::uuid(),
+        $resev = Reservasi::with('KamarBooking')->where('uuid',$id)->first();
+
+        $resev->where('uuid',$id)->update([
             'tipe_id' => $request->tipe_id,
             'nama_pemesan' => $request->nama_pemesan,
-            'nama_tamu' => $request->nama_tamu,
             'email_pemesan' => $request->email_pemesan,
             'nomor_hp_pemesan' => $request->nomor_hp_pemesan,
             'tanggal_checkin' => $request->tanggal_checkin,
             'tanggal_checkout' => $request->tanggal_checkout,
-            'jumlah_kamar' => $request->jumlah_kamar,
+            // 'jumlah_kamar' => count(json_decode($request->kode_kamar)), // trigger
+            'nama_tamu' => $request->nama_tamu
         ]);
-        return redirect()->route('resepsionis.reservasi.index')->with('success', 'Data berhasil edit');
+        foreach($resev->KamarBooking as $val){
+            $val->update([
+                'status' => '0',
+                'reservasi_id' => NULL
+            ]);
+        }
+
+        foreach (json_decode($request->kode_kamar) as $key => $val) {
+            $kamar = Kamar::where('id',$val)->first();
+            $kamar->update([
+                'status' => '1',
+                'reservasi_id' => $resev->uuid
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Reservasi berhasil diupdate',
+            'reservasi' => $resev
+        ]);
     }
 
     /**
@@ -168,5 +209,11 @@ class ResevasiController extends Controller
     {
         Reservasi::where('uuid',$id)->delete();
         return response()->json(['success' => 'Data Deleted successfully.']);
+    }
+
+    public function pdfresevarsi($id){
+        $reservasi = Reservasi::where('uuid',$id)->first();
+        $pdf = Pdf::loadView('PDF.detailreservasi', compact('reservasi'));
+        return $pdf->stream('Invoice Reservasi Hotel Aston.pdf');
     }
 }

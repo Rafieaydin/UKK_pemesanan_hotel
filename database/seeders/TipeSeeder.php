@@ -39,7 +39,7 @@ class TipeSeeder extends Seeder
                 'nama_tipe' => $data[$i]['nama'],
                 'keterangan' => $faker->text($maxNbChars = 50),
                 'gambar'=> $data[$i]['gambar'],
-                'harga'=> '$2',
+                'harga'=> '2000000',
                 'admin_id'=> 1,
             ]);
         }

@@ -15,7 +15,6 @@
     h5 {
         color: rgb(82, 82, 255);
     }
-
     .book-active{
         background-color: red;
         border-radius:5px;
@@ -37,21 +36,22 @@
         font-weight: 900;
     }
 </style>
+
+
 @endpush
-@section('judul','Edit Data Resevarsi')
+@section('judul','Tambah Data Reservasi')
 @section('breadcrump')
 <div class="breadcrumb-item "><a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i>
         DASBOARD</a></div>
-<div class="breadcrumb-item"><i class="fas fa-bed"></i> DATA RESERVASI</div>
+<div class="breadcrumb-item"><i class="fas fa-bed"></i>> DATA RESERVASI</div>
 @endsection
 @section('content')
 <div class="card">
-    <div class="card-body seaction-reservasi" class="mt-5">
-        <form  action="{{ route('resepsionis.reservasi.store') }}" method="POST" enctype="multipart/form-data" id="form-reservasi-edit">
-            @method('PUT')
+
+  <div class="card-body seaction-reservasi" class="mt-5">
+        <form action="{{ route('resepsionis.reservasi.store') }}" method="POST" enctype="multipart/form-data" id="form-reservasi">
             @csrf
             <div class="row">
-                <input type="text" hidden name="" id="reservasi_id" value="{{ $reservasi->uuid }}">
                 <div class="col-md-6">
                     <label for="">Tipe Kamar</label>
                     <div class="input-group mb-2">
@@ -63,7 +63,7 @@
                                 is-invalid
                             @enderror" id="tipe_id">
                             @foreach ($tipe as $value)
-                            <option value="{{ $value->id }}" @if (old('tipe_id',$reservasi->tipekamar->id) == $value->id)
+                            <option value="{{ $value->id }}" @if (old('tipe_id') == $value->id)
                                 selected
                             @endif>{{ $value->nama_tipe }}</option>
                             @endforeach
@@ -81,7 +81,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-user"></i></div>
                         </div>
-                        <input type="text" name="nama_pemesan" value="{{ old('nama_pemesan',$reservasi->nama_pemesan) }}" class="form-control @error('nama_pemesan')
+                        <input type="text" name="nama_pemesan" value="{{ old('nama_pemesan') }}" class="form-control @error('nama_pemesan')
                             is-invalid
                         @enderror" id="nama_pemesan" placeholder="Nama Pemesan">
                         @error('nama_pemesan')
@@ -97,7 +97,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-user"></i></div>
                         </div>
-                        <input type="text" name="nama_tamu" value="{{ old('nama_tamu',$reservasi->nama_tamu) }}" class="form-control @error('nama_tamu')
+                        <input type="text" name="nama_tamu" value="{{ old('nama_tamu') }}" class="form-control @error('nama_tamu')
                             is-invalid
                         @enderror" id="nama_tamu" placeholder="Nama Pemesan">
                         @error('nama_tamu')
@@ -113,7 +113,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-envelope"></i></div>
                         </div>
-                        <input type="email" name="email_pemesan" value="{{ old('email_pemesan',$reservasi->email_pemesan) }}" class="form-control @error('email_pemesan')
+                        <input type="email" name="email_pemesan" value="{{ old('email_pemesan') }}" class="form-control @error('email_pemesan')
                             is-invalid
                         @enderror" id="email_pemesan" placeholder="Email Pemesan">
                         @error('email_pemesan')
@@ -129,7 +129,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-phone"></i></div>
                         </div>
-                        <input type="number" name="nomor_hp_pemesan" value="{{ old('nomor_hp_pemesan',$reservasi->nomor_hp_pemesan) }}" class="form-control @error('nomor_hp_pemesan')
+                        <input type="number" name="nomor_hp_pemesan" value="{{ old('nomor_hp_pemesan') }}" class="form-control @error('nomor_hp_pemesan')
                             is-invalid
                         @enderror" id="nomor_hp_pemesan" placeholder="No Hp pemesan">
                         @error('nomor_hp_pemesan')
@@ -145,7 +145,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-hotel"></i></div>
                         </div>
-                        <input type="date" name="tanggal_checkin" value="{{ old('tanggal_checkin',$reservasi->tanggal_checkin->format('Y-m-d')) }}" class="form-control @error('tanggal_checkin')
+                        <input type="date" name="tanggal_checkin" value="{{ old('tanggal_checkin') }}" class="form-control @error('tanggal_checkin')
                             is-invalid
                         @enderror" id="tanggal_checkin" placeholder="No Hp pemesan">
                         @error('tanggal_checkin')
@@ -161,7 +161,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-hotel"></i></div>
                         </div>
-                        <input type="date" name="tanggal_checkout" value="{{ old('tanggal_checkout',$reservasi->tanggal_checkout->format('Y-m-d')) }}" class="form-control @error('tanggal_checkout')
+                        <input type="date" name="tanggal_checkout" value="{{ old('tanggal_checkout') }}" class="form-control @error('tanggal_checkout')
                             is-invalid
                         @enderror" id="tanggal_checkout" placeholder="No Hp pemesan">
                         @error('tanggal_checkout')
@@ -174,13 +174,14 @@
 
             </div>
             <div class="row">
-                <a href="{{ route('resepsionis.reservasi.index') }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 " type="submit">Kembali</a>
+                <a href="{{ route('admin.reservasi.index') }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 " type="submit">Kembali</a>
                 <button type="button" class="btn btn-success mt-2 mb-3 mr-3 mt-3 "id="next-button">Selanjutnya</button>
             </div>
         </form>
     </div>
-
     <div class="card-body section-booking d-none" class="mt-5">
+        <form action="{{ route('resepsionis.reservasi.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <h1 class="booking-header">Pilih kamar tersedia</h1>
             <ul style="color: red">
                 <li>hijau kosong</li>
@@ -200,9 +201,14 @@
                 <button class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 " type="button" id="back-button">Kembali</button>
                 <button class="btn btn-success mt-2 mb-3 mr-3 mt-3 " type="button" id="booking-button">submit</button>
             </div>
+        </form>
     </div>
-
 </div>
+
+
+
+
+
 @endsection
 @push('js')
 <script>
@@ -268,27 +274,13 @@ $('#next-button').click(function (e) {
 
     // booking
     var tipe_id = $('#tipe_id :selected').val();
-    var reservasi_id = $('#reservasi_id').val();
     // get data booking
     axios.get('/api/admin/kamar/'+tipe_id, {
         "X-Requested-With": "XMLHttpRequest"
     }).then(response => {
-        console.log(response);
         $('.booking-space').find('.col-md-2').remove();
         response.data.forEach(e => {
-            if(reservasi_id == e.reservasi_id && e.status == 1){
-                $('.booking-space').prepend(
-                    // '<div class="swiper-slide">' +
-                    // '<div class="row swiper-slide">' +
-                    '<div class="col-md-2">' +
-                    '<div class="mb-2 text-center text-white kode_kamar red-active" data-id="' + e.id + '" >' +
-                    e.kode_kamar +
-                    '</div>' +
-                    '</div>'
-                    // '</div>'
-                    // '</div>'
-                )
-            }else if (e.status == 1) {
+            if (e.status == 1) {
                 $('.booking-space').prepend(
                     // '<div class="swiper-slide">' +
                     // '<div class="row swiper-slide">' +
@@ -322,6 +314,7 @@ $('#next-button').click(function (e) {
     $('#booking-button').click(function (e) {
         e.preventDefault();
         // var form = $('.form-reservasi').serialize();
+        var form = $('#form-reservasi')[0]; //htmlformelement
         var kode_kamars = [];
         var kode_kamar = $('.red-active');
         for (i = 0; i < kode_kamar.length; i++) {
@@ -332,14 +325,13 @@ $('#next-button').click(function (e) {
             $('.alert-booking').removeClass('d-none');
             $('.alert-booking').html('Silahkan pilih nomor kamar yang ingin di reservasi');
         }else{
-            var form = $('#form-reservasi-edit')[0]; //htmlformelement
             var formdata = new FormData(form)
             formdata.append('kode_kamar', JSON.stringify(kode_kamars))
-            console.log(kode_kamars);
-            axios.post('/resepsionis/reservasi/'+reservasi_id, formdata, {
+            console.log(formdata);
+            axios.post('/admin/reservasi/', formdata, {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }).then(response => {
-                window.location.href = '/resepsionis/reservasi?update=true';
+                window.location.href = '/admin/reservasi?create=true';
             }).catch(res => {
                 $('.seaction-reservasi').removeClass('d-none');
                 $('.section-booking').addClass('d-none');

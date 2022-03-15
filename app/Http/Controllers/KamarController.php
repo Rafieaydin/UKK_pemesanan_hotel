@@ -19,6 +19,12 @@ class KamarController extends Controller
         return view('admin.kamar.index');
     }
 
+    public function ApiIndex($id)
+    {
+        $kamar = kamar::with('tipeKamar')->where('tipe_id',$id)->orderby('id','desc')->get();
+        return response()->json($kamar);
+    }
+
     public function ajax(Request $request){
         if ($request->ajax()) {
             $kamar = kamar::orderby('created_at','desc')->get();

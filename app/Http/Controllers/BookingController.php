@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamar;
 use App\Models\Reservasi;
 use App\Models\TipeKamar;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -29,13 +30,8 @@ class BookingController extends Controller
             'nomor_hp_pemesan' => 'required',
             'tanggal_checkin' => 'required',
             'tanggal_checkout' => 'required|after:tanggal_checkin',
-            'jumlah_kamar' => 'required',
+            // 'jumlah_kamar' => 'required',
         ]);
-
-        $tipe_kamar = TipeKamar::where('id',$request->tipe_id)->first();
-        if(($tipe_kamar->total_jumlah_kamar - $request->jumlah_kamar) < 0){
-            return redirect()->back()->with('status', 'Maaf, jumlah kamar yang tersedia tidak mencukupi');
-        }
         $resev = Reservasi::create([
             'uuid' => Str::uuid(),
             'tipe_id' => $request->tipe_id,
@@ -44,11 +40,22 @@ class BookingController extends Controller
             'nomor_hp_pemesan' => $request->nomor_hp_pemesan,
             'tanggal_checkin' => $request->tanggal_checkin,
             'tanggal_checkout' => $request->tanggal_checkout,
-            'jumlah_kamar' => $request->jumlah_kamar,
+            // 'jumlah_kamar' => count(json_decode($request->kode_kamar)), // trigger
             'nama_tamu' => $request->nama_tamu
         ]);
-        // dd($request->all());
-        return redirect('/resevarsi/detail/'.$resev->uuid);
+
+        foreach (json_decode($request->kode_kamar) as $key => $val) {
+            $kamar = Kamar::where('id',$val)->first();
+            $kamar->update([
+                'status' => '1',
+                'reservasi_id' => $resev->uuid
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Reservasi berhasil dibuat',
+            'reservasi' => $resev
+        ]);
      }
      public function pdfresevarsi($id){
         $reservasi = Reservasi::where('uuid',$id)->first();

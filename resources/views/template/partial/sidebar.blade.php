@@ -54,6 +54,13 @@
                     <span>Kamar</span></a>
                 </a>
             </li>
+            <li class="menu-header">Reservasi</li>
+            <li class="@if (Request::is('admin/reservasi','admin/reservasi/*')) active @endif">
+                <a href="{{ route('admin.reservasi.index') }}" class="nav-link">
+                    <i class="fas fa-hotel"></i>
+                    <span>Reservasi Hotel</span></a>
+                </a>
+            </li>
         @endif
         @if (Auth::guard('resepsionis')->check())
         <ul class="sidebar-menu">

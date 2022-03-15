@@ -75,5 +75,5 @@
 
 @endsection
 @push('js')
-<script src="{{ asset('assets/js/pages-resepsionis/reservasi.js') }}"></script>
+<script src="{{ asset('assets/js/pages-admin/reservasi.js') }}"></script>
 @endpush

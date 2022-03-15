@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('nomor_hp_pemesan');
             $table->date('tanggal_checkin');
             $table->date('tanggal_checkout');
-            $table->integer('jumlah_kamar');
+            $table->integer('jumlah_kamar')->default(0);
 
             $table->timestamps();
         });

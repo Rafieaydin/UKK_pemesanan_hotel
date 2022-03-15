@@ -19,8 +19,8 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="" class="label-input">Jumlah Kamar</label>
-                            <input type="number" class="form-control" placeholder="Jumlah kamar" value="{{ $resevarsi->jumlah_kamar }}" disabled>
+                            <label for="" class="label-input">Kode Booking</label>
+                            <input type="text" class="form-control" placeholder="Jumlah kamar" value="{{ $resevarsi->uuid }}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label for="" class="label-input mt-4">check-in</label>
@@ -47,7 +47,11 @@
                             <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{ $resevarsi->nomor_hp_pemesan }}" disabled>
                         </div>
                         <div class="col-md-6">
-                            <label for="" class="label-input mt-3">Bukti Resevarsi Kamar</label>
+                            <label for="" class="label-input mt-4">Total harga</label>
+                            <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{ App\Helpers\Helper::format_rupiah((count($resevarsi->KamarBooking) * $resevarsi->tipekamar->harga)) }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-3">Bukti Resevarsi Kamar</label> <br>
                             <a href="{{ route('pdfresevarsi',$resevarsi->uuid) }}" class="btn btn-primary pesan-button" >Download PDF</a>
                         </div>
 
