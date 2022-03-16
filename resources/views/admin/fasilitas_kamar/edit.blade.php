@@ -75,12 +75,12 @@
                     <label for="">Icon</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-bars" aria-hidden="true"></i></div>
+                            <button class="btn btn-secondary btn-iconpicker"  data-iconset="fontawesome5" data-icon="{{ $fasilitasKamar->icon_fasilitas }}"   id="btn-iconpicker" ></button>
                         </div>
                         <input type="text" class="form-control @error('icon_fasilitas')
                         is-invalid
-                    @enderror" id="inlineFormInputGroup" name="icon_fasilitas" value="{{ old('icon_fasilitas',$fasilitasKamar->icon_fasilitas) }}"
-                            placeholder="fa fa-bars">
+                    @enderror" id="icon_fasilitas" name="icon_fasilitas" value="{{ old('icon_fasilitas',$fasilitasKamar->icon_fasilitas) }}"
+                            placeholder="fa fa-bars" >
                         @error('icon_fasilitas')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -110,5 +110,11 @@
 
 @endsection
 @push('script')
-<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+@push('js')
+<script>
+    $('#btn-iconpicker').iconpicker();
+    $('#btn-iconpicker').on('change', function(e) {
+        $('#icon_fasilitas').val(e.icon);
+    });
+</script>
 @endpush

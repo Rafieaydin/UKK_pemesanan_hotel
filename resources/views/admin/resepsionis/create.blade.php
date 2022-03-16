@@ -116,7 +116,7 @@
                     <label for="">Alamat</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-phone"></i></div>
+                            <div class="input-group-text"><i class="fas fa-address-book"></i></div>
                         </div>
                         <input type="text" name="alamat" value="{{ old('alamat') }}" class="form-control @error('alamat')
                             is-invalid

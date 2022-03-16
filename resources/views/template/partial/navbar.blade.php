@@ -21,7 +21,7 @@
                 <form action="{{ route('auth.logout') }}" method="POST">
                     @csrf
                     <button type="submit" id="logout" class="dropdown-item has-icon text-danger">
-                        <i class="fas fa-sign-out-alt"></i> logout
+                        <i class="fas fa-sign-out-alt pt-2"></i> logout
                     </button>
                 </form>
 

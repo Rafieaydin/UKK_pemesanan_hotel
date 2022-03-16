@@ -32,8 +32,8 @@ use App\Models\Resepsionis;
 
 Route::get('/',[HomeController::class,'index']);
 Route::get('/resevarsi',[BookingController::class,'resevarsi'])->name('resevarsi');;
-Route::get('/resevarsi/detail/{slug}',[BookingController::class,'detailresevarsi'])->name('detailresevarsi');
-Route::get('/resevarsi/detail/{slug}/pdf',[BookingController::class,'pdfresevarsi'])->name('pdfresevarsi');
+Route::get('/resevarsi/detail/{id}',[BookingController::class,'detailresevarsi'])->name('detailresevarsi');
+Route::get('/resevarsi/detail/{id}/pdf',[BookingController::class,'pdfresevarsi'])->name('pdfresevarsi');
 Route::post('/postresevarsi',[BookingController::class,'postresevarsi'])->name('postresevarsi');
 
 // call auth route
@@ -50,7 +50,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
     Route::resource('user', AdminUserController::class);
 
     Route::resource('resepsionis', ResepsionisUserController::class);
-    
+
     Route::post('/reservasi/ajax/',[ResevasiController::class,'ajax']);
     Route::delete('/reservasi/delete/{id}',[ResevasiController::class,'destroy']);
     Route::get('reservasi/{id}/pdf',[ResevasiController::class,'pdfresevarsi'])->name('pdfresevarsi');

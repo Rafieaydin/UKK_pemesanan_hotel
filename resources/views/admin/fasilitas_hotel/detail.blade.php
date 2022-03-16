@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 <div class="card">
-    <div class="container  mt-5">
+    <div class="container-fluid  mt-3">
         <table class="table" id="table2">
             <thead>
                 <tr>
@@ -22,7 +22,7 @@
                     <td>{{ $fasilitas_hotel->nama_fasilitas }}</td>
                     <td>keterangan</td>
                     <td><img src='{{ asset("assets/images/".$fasilitas_hotel->gambar) }}' width="200px" alt=""></td>
-                </tr>               
+                </tr>
             </tbody>
         </table>
     </div>

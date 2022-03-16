@@ -21,7 +21,7 @@ class AdminUserController extends Controller
 
     public function userajax(Request $request){
         if ($request->ajax()) {
-            $admin = Admin::where('id','!=',Auth::guard('admin')->user()->id)->get();
+            $admin = Admin::where('id','!=',Auth::guard('admin')->user()->id)->orderby('id','desc')->get();
             return datatables()->of($admin)
             ->addColumn('action', function ($admin) {
                 $button = '<a href="/admin/user/' . $admin->id . '"   id="' . $admin->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';

@@ -21,15 +21,36 @@
         border-radius:5px;
         padding: 5px;
     }
+    .display-book-active{
+        background-color: red;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:red;
+    }
     .red-active{
         background-color: orange;
         border-radius:5px;
         padding: 5px;
     }
+    .display-red-active{
+        background-color: orange;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:orange;
+    }
     .green-active{
         background-color: green;
         border-radius:5px;
         padding: 5px;
+    }
+    .display-green-active{
+        background-color: green;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:green;
     }
     .booking-header{
         color: #30336b;
@@ -182,11 +203,37 @@
 
     <div class="card-body section-booking d-none" class="mt-5">
             <h1 class="booking-header">Pilih kamar tersedia</h1>
-            <ul style="color: red">
-                <li>hijau kosong</li>
-                <li>oren memilih pesanan</li>
-                <li>merah terisi</li>
-            </ul>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-2 text-center  display-green-active d-inline" >
+                        Tersedia
+                    </div>
+                    <div class="d-inline ml-3">
+                        Tersedia
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-2 text-center  display-book-active d-inline" >
+                        Kosong
+                    </div>
+                    <div class="d-inline ml-3">
+                        Kosong
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-2 text-center  display-red-active d-inline" >
+                        Memilih
+                    </div>
+                    <div class="d-inline ml-3">
+                        Pilihanmu
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="alert alert-danger alert-dismissible fade show alert-booking d-none" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <div class="row booking-space">
             {{-- @for ($j = 0 ; $j <= 30 ; $j++)
                     <div class="col-md-2">

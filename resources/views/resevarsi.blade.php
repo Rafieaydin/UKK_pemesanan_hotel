@@ -3,17 +3,45 @@
      .book-active{
         background-color: red;
         border-radius:5px;
-        padding: 5px;
+        padding: 2px;
+        width: 40px;
+    }
+    .display-book-active{
+        background-color: red;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:red;
     }
     .red-active{
         background-color: orange;
         border-radius:5px;
-        padding: 5px;
+        padding: 2px;
+        width: 40px;
+    }
+    .display-red-active{
+        background-color: orange;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:orange;
     }
     .green-active{
         background-color: green;
         border-radius:5px;
-        padding: 5px;
+        padding: 2px;
+        width: 40px;
+    }
+    .display-green-active{
+        background-color: green;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:green;
+    }
+
+    .back-button{
+        background-color: orange !important;
     }
 </style>
 @section('content')
@@ -129,14 +157,42 @@
                     </form>
                 </div>
                 <div class="col-md-7 d-none section-booking">
-                    <h1 class="label-color label-header">Pilih kamar tersedia</h1>
+                    <h1 class="label-color label-header">Pilih kamar</h1>
                     {{-- <form action="{{ route('postresevarsi') }}" method="POST"> --}}
                         @csrf
                         <div class="alert alert-danger alert-dismissible fade show alert-booking d-none" role="alert">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
+                        <div class="row">
+                            <hr>
+                            <div class="col-md-4">
+                                <div class="mb-2 text-center  display-green-active d-inline" >
+                                    Tersedia
+                                </div>
+                                <div class="d-inline ms-3">
+                                    Tersedia
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-2 text-center  display-book-active d-inline" >
+                                    Kosong
+                                </div>
+                                <div class="d-inline ms-3">
+                                    Kosong
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-2 text-center  display-red-active d-inline" >
+                                    Memilih
+                                </div>
+                                <div class="d-inline ms-3">
+                                    Pilihanmu
+                                </div>
+                            </div>
+                        </div>
                         {{-- booking space --}}
-                        <div class="row pt-2 booking-space">
+                        <hr>
+                        <div class=" booking-space">
                                 {{-- @for ($j = 0 ; $j <= 30 ; $j++)
                                 <div class="col-md-2">
                                     <div class="mb-2 text-center text-white kode_kamar green-active" >
@@ -146,8 +202,8 @@
                                 @endfor --}}
                             </div>
                             <div class="col-md-6 mt-3">
-                                <button class="btn btn-primary btn-danger" id="back-button" type="button"
-                                style="width: 30%">Kembali</button>
+                                <button class="btn back-button text-white" id="back-button" type="button"
+                                style="width: 30%;">Kembali</button>
                                 <button class="btn btn-primary pesan-button" id="booking-button" type="submit"
                                     style="width: 30%">Pesan</button>
                             </div>

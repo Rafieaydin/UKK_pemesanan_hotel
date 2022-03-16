@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 <div class="card">
-    <div class="container  mt-5">
+    <div class="container-fluid  mt-3">
         <table class="table" id="table2">
             <thead>
                 <tr>
@@ -20,12 +20,12 @@
             <tbody>
                 <tr>
                     <td>1</td>
-                    
-                    <td>{{ $tipe_kamar->nama_tipe }}</td>   
+
+                    <td>{{ $tipe_kamar->nama_tipe }}</td>
                     <td><img src='{{ asset("assets/images/".$tipe_kamar->gambar) }}' width="200px" alt=""></td>
-                    <td>{{ $tipe_kamar->harga }}</td> 
-                    <td>{{ $tipe_kamar->keterangan }}</td>      
-                </tr>               
+                    <td>{{ App\Helpers\Helper::format_rupiah($tipe_kamar->harga) }}</td>
+                    <td>{{ $tipe_kamar->keterangan }}</td>
+                </tr>
             </tbody>
         </table>
     </div>

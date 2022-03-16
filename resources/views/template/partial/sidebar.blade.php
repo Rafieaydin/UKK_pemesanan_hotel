@@ -1,7 +1,7 @@
-<div class="main-sidebar position-fixed">
+<div class="main-sidebar ">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{'/'}}" style="color:#6777ef;">ASTON<a>
+            <a href="{{'/'}}" style="color:#30336b;">ASTON<a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a style="color:#6777ef;" href="{{'/'}}">DP</a>

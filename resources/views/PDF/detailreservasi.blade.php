@@ -77,7 +77,7 @@
                 <td>{{ $reservasi->tanggal_checkout->format('d-m-Y') }}</td>
                 <td>{{ App\Helpers\Helper::format_rupiah($reservasi->tipekamar->harga) }}</td>
             </tr>
-            
+
             @endforeach
             <tr style="background-color: grey;font-weight:bold;color:white;text-align:center">
                 <td>
@@ -102,7 +102,7 @@
 
         </table>
         <table width="100%">
-           
+
         </table>
     </div>
 </body>

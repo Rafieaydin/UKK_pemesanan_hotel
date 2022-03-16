@@ -20,6 +20,11 @@ class TipeKamarController extends Controller
                     // if not call function to get default image and storage
                     return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
                 })
+                ->editColumn('harga', function ($data) {
+                    // Todo: check if file exists
+                    // if not call function to get default image and storage
+                    return \App\Helpers\Helper::format_rupiah($data->harga);
+                })
                 ->addColumn('action', function ($data) {
                     $button = '<a href="/admin/tipe_kamar/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
                     $button .= '&nbsp';

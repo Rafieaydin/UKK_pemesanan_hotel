@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="">New password</label>
+                    <label for="">Password Baru</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-key"></i></div>

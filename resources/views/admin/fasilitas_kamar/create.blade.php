@@ -63,7 +63,7 @@
                         </div>
                         <input type="text" name="nama_fasilitas" value="{{ old('nama_fasilitas') }}" class="form-control @error('nama_fasilitas')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="Nama Fasilitas">
+                        @enderror" id="nama_fasilitan" placeholder="Nama Fasilitas">
                         @error('nama_fasilitas')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -75,12 +75,12 @@
                     <label for="">Icon</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-bars" aria-hidden="true"></i></div>
+                            <button class="btn btn-secondary btn-iconpicker"  id="btn-iconpicker" ></button>
                         </div>
                         <input type="text" class="form-control @error('icon_fasilitas')
                         is-invalid
-                    @enderror" id="inlineFormInputGroup" name="icon_fasilitas" value="{{ old('icon_fasilitas') }}"
-                            placeholder="fa fa-bars">
+                    @enderror" name="icon_fasilitas" value="{{ old('icon_fasilitas') }}"
+                            placeholder="fa fa-bars" id="icon_fasilitas">
                         @error('icon_fasilitas')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -108,9 +108,14 @@
 
 @endsection
 @push('js')
-
+<script>
+    $('#btn-iconpicker').iconpicker();
+    $('#btn-iconpicker').on('change', function(e) {
+        $('#icon_fasilitas').val(e.icon);
+    });
+</script>
 @endpush
 {{-- @push('script')
-<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+<script src="{{ asset('template/') }}/n ode_modules/select2/dist/js/select2.full.min.js"></script>
 
 @endpush --}}

@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 <div class="card">
-    <div class="container  mt-5">
+    <div class="container-fluid  mt-3">
         <table class="table" id="table2">
             <thead>
                 <tr>
@@ -17,7 +17,7 @@
                     @if ($kamar->status == 1)
                     <th scope="col">Pemesan</th>
                     @endif
-            
+
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +29,8 @@
                     @if ($kamar->status == 1)
                     <td>{{ $kamar->reservasi->nama_pemesan }}</td>
                     @endif
-                  
-                </tr>               
+
+                </tr>
             </tbody>
         </table>
     </div>

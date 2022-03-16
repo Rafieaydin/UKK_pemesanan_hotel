@@ -39,7 +39,7 @@ class FasilitasKamarSeeder extends Seeder
                 'nama_fasilitas' => $data[$i]['nama_fasilitas'],
                 // 'gambar'=> $data[$i]['gambar'],
                 'admin_id'=> 1,
-                'icon_fasilitas' => 'fa fa-television'
+                'icon_fasilitas' => 'fas fa-tv'
             ]);
         }
     }

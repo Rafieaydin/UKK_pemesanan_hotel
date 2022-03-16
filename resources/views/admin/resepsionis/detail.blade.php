@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 <div class="card">
-    <div class="container  mt-5">
+    <div class="container-fluid  mt-3">
         <table class="table" id="table2">
             <thead>
                 <tr>
@@ -25,13 +25,12 @@
                 <tr>
                     <td>1</td>
                     <td>{{ $resepsionis->username }}</td>
-                    <td>{{ $resepsionis->email }}</td>
                     <td>{{ $resepsionis->nama_resepsionis }}</td>
                     <td>{{ $resepsionis->email }}</td>
                     <td>{{ $resepsionis->jk }}</td>
                     <td>{{ $resepsionis->no_hp }}</td>
                     <td>{{ $resepsionis->alamat }}</td>
-                </tr>               
+                </tr>
             </tbody>
         </table>
     </div>

@@ -74,7 +74,7 @@
                         <input type="text" name="harga" value="{{ old('harga') }}" class="form-control @error('harga')
                             is-invalid
                         @enderror"
-                            id="inlineFormInputGroup" placeholder="Nama Tamu">
+                            id="inlineFormInputGroup" placeholder="Masukan Harga">
                             @error('harga')
                                 <div class="invalid-feedback">
                                     {{ $message }}

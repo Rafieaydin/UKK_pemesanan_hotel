@@ -20,6 +20,12 @@ class ResevasiController extends Controller
      */
     public function index()
     {
+        if(request()->create){
+            return redirect()->route(Auth::getdefaultdriver().'.reservasi.index')->with('success', 'Data Reservasi Berhasil Ditambahkan');
+        }
+        if(request()->update){
+            return redirect()->route(Auth::getdefaultdriver().'.reservasi.index')->with('success', 'Data Reservasi Berhasil Edit');
+        }
         return view(Auth::getdefaultdriver().'.reservasi.index');
     }
 
@@ -207,6 +213,13 @@ class ResevasiController extends Controller
      */
     public function destroy($id)
     {
+        $reser = Reservasi::where('uuid',$id)->first();
+        foreach($reser->KamarBooking as $val){
+            $val->update([
+                'status' => '0',
+                'reservasi_id' => NULL
+            ]);
+        }
         Reservasi::where('uuid',$id)->delete();
         return response()->json(['success' => 'Data Deleted successfully.']);
     }

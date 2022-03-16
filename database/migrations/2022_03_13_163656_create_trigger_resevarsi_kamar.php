@@ -14,31 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        // DB::unprepared('
-        // CREATE TRIGGER ubah_status_kamar_booking
-        // AFTER INSERT ON reservarsi_kamar
-        // FOR EACH ROW
-        // BEGIN
-        // UPDATE kamar SET status = status + 1 WHERE id = new.kamar_id;
-        // END'
-        // );
-        // DB::unprepared('
-        // CREATE TRIGGER ubah_status_kamar_tersedia
-        // AFTER DELETE ON reservarsi_kamar
-        // FOR EACH ROW
-        // BEGIN
-        // UPDATE kamar SET status = status + 1 WHERE id = old.kamar_id;
-        // END'
-        // );
-        // DB::unprepared('
-        // CREATE TRIGGER update_staus_kamar
-        // AFTER UPDATE ON reservarsi_kamar
-        // FOR EACH ROW
-        // BEGIN
-        // UPDATE kamar SET status = status + 1 WHERE id = new.kamar_id;
-        // UPDATE kamar SET status = status - 1 WHERE id = old.kamar_id;
-        // END'
-        // );
+
     }
 
     /**
@@ -48,8 +24,6 @@ return new class extends Migration
      */
     public function down()
     {
-        // DB::unprepared('DROP TRIGGER `ubah_status_booking`');
-        // DB::unprepared('DROP TRIGGER `ubah_status_tersedia`');
-        // DB::unprepared('DROP TRIGGER `update_staus_kamar`');
+
     }
 };

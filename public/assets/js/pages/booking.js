@@ -71,17 +71,17 @@ $('#reservasi-button').click(function () {
     axios.get('/api/admin/kamar/'+tipe_id, {
         "X-Requested-With": "XMLHttpRequest"
     }).then(response => {
-        $('.booking-space').find('.col-md-2').remove();
+        $('.booking-space').find('.kode_kamar').remove();
         response.data.forEach(e => {
             if (e.status == 1) {
                 $('.booking-space').prepend(
                     // '<div class="swiper-slide">' +
                     // '<div class="row swiper-slide">' +
-                    '<div class="col-md-2">' +
-                    '<div class="mb-2 text-center text-white kode_kamar book-active" data-id="' + e.id + '" >' +
+                    // '<div class="col-md-2">' +
+                    '<div class="mb-2 text-center text-white d-inline-block me-2 mb-3 kode_kamar book-active" data-id="' + e.id + '" >' +
                     e.kode_kamar +
-                    '</div>' +
-                    '</div>'
+                    '</div>' 
+                    // '</div>'
                     // '</div>'
                     // '</div>'
                 )
@@ -89,11 +89,11 @@ $('#reservasi-button').click(function () {
                 $('.booking-space').prepend(
                     // '<div class="swiper-slide">' +
                     // '<div class="row swiper-slide">' +
-                    '<div class="col-md-2">' +
-                    '<div class="mb-2 text-center text-white kode_kamar green-active" data-id="' + e.id + '" >' +
+                    // '<div class="col-md-2">' +
+                    '<div class="mb-2 text-center text-white d-inline-block me-2 mb-3 kode_kamar green-active" data-id="' + e.id + '" >' +
                     e.kode_kamar +
-                    '</div>' +
-                    '</div>'
+                    '</div>' 
+                    // '</div>'
                     // '</div>'
                     // '</div>'
                 )

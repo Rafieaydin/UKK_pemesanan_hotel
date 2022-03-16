@@ -20,15 +20,36 @@
         border-radius:5px;
         padding: 5px;
     }
+    .display-book-active{
+        background-color: red;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:red;
+    }
     .red-active{
         background-color: orange;
         border-radius:5px;
         padding: 5px;
     }
+    .display-red-active{
+        background-color: orange;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:orange;
+    }
     .green-active{
         background-color: green;
         border-radius:5px;
         padding: 5px;
+    }
+    .display-green-active{
+        background-color: green;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:green;
     }
     .booking-header{
         color: #30336b;
@@ -124,22 +145,6 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="">No hp pemesan</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-phone"></i></div>
-                        </div>
-                        <input type="number" name="nomor_hp_pemesan" value="{{ old('nomor_hp_pemesan') }}" class="form-control @error('nomor_hp_pemesan')
-                            is-invalid
-                        @enderror" id="nomor_hp_pemesan" placeholder="No Hp pemesan">
-                        @error('nomor_hp_pemesan')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-6">
                     <label for="">Tanggal Check-in</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
@@ -171,6 +176,23 @@
                         @enderror
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <label for="">No hp pemesan</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-phone"></i></div>
+                        </div>
+                        <input type="number" name="nomor_hp_pemesan" value="{{ old('nomor_hp_pemesan') }}" class="form-control @error('nomor_hp_pemesan')
+                            is-invalid
+                        @enderror" id="nomor_hp_pemesan" placeholder="No Hp pemesan">
+                        @error('nomor_hp_pemesan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+
 
             </div>
             <div class="row">
@@ -183,11 +205,37 @@
         <form action="{{ route('resepsionis.reservasi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <h1 class="booking-header">Pilih kamar tersedia</h1>
-            <ul style="color: red">
-                <li>hijau kosong</li>
-                <li>oren memilih pesanan</li>
-                <li>merah terisi</li>
-            </ul>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-2 text-center  display-green-active d-inline" >
+                        Tersedia
+                    </div>
+                    <div class="d-inline ml-3">
+                        Tersedia
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-2 text-center  display-book-active d-inline" >
+                        Kosong
+                    </div>
+                    <div class="d-inline ml-3">
+                        Kosong
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-2 text-center  display-red-active d-inline" >
+                        Memilih
+                    </div>
+                    <div class="d-inline ml-3">
+                        Pilihanmu
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="alert alert-danger alert-dismissible fade show alert-booking d-none" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <div class="row booking-space">
             {{-- @for ($j = 0 ; $j <= 30 ; $j++)
                     <div class="col-md-2">
