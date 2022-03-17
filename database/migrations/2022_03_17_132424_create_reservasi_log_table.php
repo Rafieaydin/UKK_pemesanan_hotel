@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reservasi', function (Blueprint $table) {
-            $table->uuid()->primary();
+        Schema::create('reservasi_log', function (Blueprint $table) {
+            $table->id();
+            $table->string('tipe');
             $table->string('nama_pemesan');
             $table->string('nama_tamu');
             $table->string('email_pemesan');
@@ -22,13 +23,9 @@ return new class extends Migration
             $table->date('tanggal_checkin');
             $table->date('tanggal_checkout');
             $table->integer('jumlah_kamar')->default(0);
+            $table->string('harga');
             $table->string('total_harga');
             $table->timestamps();
-        });
-
-        Schema::table('kamar', function (Blueprint $table) {
-            $table->foreignUuid('reservasi_id')->nullable()->references('uuid')->on('reservasi')->onUpdate('cascade')->onDelete('set null');
-
         });
     }
 
@@ -39,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resevarsi');
+        Schema::dropIfExists('reservasi_log');
     }
 };

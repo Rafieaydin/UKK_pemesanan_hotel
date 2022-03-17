@@ -18,7 +18,7 @@ class ResepsionisUserController extends Controller
     }
     public function ajax(Request $request){
         if ($request->ajax()) {
-            $resepsionis = Resepsionis::orderby('id','desc')->get();
+            $resepsionis = Resepsionis::orderby('created_at','desc')->get();
             return datatables()->of($resepsionis)
             ->addColumn('action', function ($resepsionis) {
                 $button = '<a href="/admin/resepsionis/' . $resepsionis->id . '"   id="' . $resepsionis->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';

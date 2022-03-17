@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\FasilitasHotelController;
 use App\Http\Controllers\FasilitasKamarController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\ResepsionisController;
 use App\Http\Controllers\ResepsionisUserController;
+use App\Http\Controllers\ReservasiLogController;
 use App\Http\Controllers\ResevasiController;
 use App\Http\Controllers\TamuController;
 use App\Http\Controllers\TipeKamarController;
@@ -36,6 +38,7 @@ Route::get('/resevarsi/detail/{id}',[BookingController::class,'detailresevarsi']
 Route::get('/resevarsi/detail/{id}/pdf',[BookingController::class,'pdfresevarsi'])->name('pdfresevarsi');
 Route::post('/postresevarsi',[BookingController::class,'postresevarsi'])->name('postresevarsi');
 
+
 // call auth route
 require __DIR__.'/auth.php';
 
@@ -55,6 +58,10 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
     Route::delete('/reservasi/delete/{id}',[ResevasiController::class,'destroy']);
     Route::get('reservasi/{id}/pdf',[ResevasiController::class,'pdfresevarsi'])->name('pdfresevarsi');
     Route::resource('reservasi', ResevasiController::class);
+    Route::get('excel/reservasi',[ExcelController::class,'reservasi'])->name('reservasi');
+
+    Route::post('/reservasilog/ajax/',[ReservasiLogController::class,'ajax']);
+    Route::resource('reservasilog', ReservasiLogController::class);
 });
 
 Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsionis.')->group(function () {
@@ -64,6 +71,9 @@ Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsioni
     Route::delete('reservasi/delete/{id}',[ResevasiController::class,'destroy']);
     Route::get('reservasi/{id}/pdf',[ResevasiController::class,'pdfresevarsi'])->name('pdfresevarsi');
     Route::resource('reservasi', ResevasiController::class);
+
+    Route::post('/reservasilog/ajax/',[ReservasiLogController::class,'ajax']);
+    Route::resource('reservasilog', ReservasiLogController::class);
 });
 
 Route::prefix('tamu')->middleware(['auth:tamu'])->group(function () {

@@ -61,6 +61,12 @@
                     <span>Reservasi Hotel</span></a>
                 </a>
             </li>
+            <li class="@if (Request::is('admin/reservasilog','admin/reservasilog/*')) active @endif">
+                <a href="{{ route('admin.reservasilog.index') }}" class="nav-link">
+                    <i class="fas fa-hotel"></i>
+                    <span>Log Reservasi Hotel</span></a>
+                </a>
+            </li>
         @endif
         @if (Auth::guard('resepsionis')->check())
         <ul class="sidebar-menu">
@@ -76,6 +82,12 @@
                 <a href="{{ route('resepsionis.reservasi.index') }}" class="nav-link">
                     <i class="fas fa-hotel"></i>
                     <span>Reservasi Hotel</span></a>
+                </a>
+            </li>
+            <li class="@if (Request::is('resepsionis/reservasilog','resepsionis/reservasilog/*')) active @endif">
+                <a href="{{ route('resepsionis.reservasilog.index') }}" class="nav-link">
+                    <i class="fas fa-hotel"></i>
+                    <span>Log Reservasi Hotel</span></a>
                 </a>
             </li>
         @endif

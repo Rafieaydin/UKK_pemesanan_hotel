@@ -71,6 +71,7 @@
                     <th scope="col">Tanggal Check-in</th>
                     <th scope="col">Tanggal Check-out</th>
                     <th scope="col">jumlah kamar</th>
+                    <th scope="col">harga / malam</th>
                     <th scope="col">Total harga</th>
                     <th scope="col">Action</th>
                 </tr>

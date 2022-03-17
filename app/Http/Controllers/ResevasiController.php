@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\Helper;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 
 class ResevasiController extends Controller
@@ -53,8 +55,11 @@ class ResevasiController extends Controller
                 ->addcolumn('tanggal_checkout', function($data){
                     return $data->tanggal_checkout->format('d-m-Y');
                 })
+                ->addColumn('harga', function($data){
+                    return Helper::format_rupiah($data->tipekamar->harga);
+                })
                 ->addColumn('total_harga', function($data){
-                    return Helper::format_rupiah($data->jumlah_kamar * $data->tipekamar->harga);
+                    return Helper::format_rupiah($data->total_harga);
                 })
                 ->addColumn('action', function ($data) {
                     $button ='<a  href="/'.Auth::getdefaultdriver().'/reservasi/' . $data->uuid . '/pdf" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i></a>';
@@ -66,7 +71,7 @@ class ResevasiController extends Controller
                     $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->uuid . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
                     return $button;
                 })
-                ->rawColumns(['action','gambar'])
+                ->rawColumns(['action','gambar','harga','total_harga'])
                 ->addIndexColumn()->make(true);
         }
     }
@@ -100,6 +105,11 @@ class ResevasiController extends Controller
             'tanggal_checkout' => 'required|after:tanggal_checkin',
             // 'jumlah_kamar' => 'required',
         ]);
+        $checkin = Carbon::parse($request->tanggal_checkin)->format('Y-m-d');
+        $checkout = Carbon::parse($request->tanggal_checkout)->format('Y-m-d');
+        $jumlah_hari = CarbonPeriod::create($checkin, $checkout); 
+        $tipe = TipeKamar::where('id',$request->tipe_id)->first();
+
         $resev = Reservasi::create([
             'uuid' => Str::uuid(),
             'tipe_id' => $request->tipe_id,
@@ -108,7 +118,7 @@ class ResevasiController extends Controller
             'nomor_hp_pemesan' => $request->nomor_hp_pemesan,
             'tanggal_checkin' => $request->tanggal_checkin,
             'tanggal_checkout' => $request->tanggal_checkout,
-            // 'jumlah_kamar' => count(json_decode($request->kode_kamar)), // trigger
+            'total_harga' => ($tipe->harga * count(json_decode($request->kode_kamar))) * (count($jumlah_hari) - 1),
             'nama_tamu' => $request->nama_tamu
         ]);
 
@@ -172,7 +182,10 @@ class ResevasiController extends Controller
         ]);
 
         $resev = Reservasi::with('KamarBooking')->where('uuid',$id)->first();
-
+        $checkin = Carbon::parse($request->tanggal_checkin)->format('Y-m-d');
+        $checkout = Carbon::parse($request->tanggal_checkout)->format('Y-m-d');
+        $jumlah_hari = CarbonPeriod::create($checkin, $checkout); 
+        $tipe = TipeKamar::where('id',$request->tipe_id)->first();
         $resev->where('uuid',$id)->update([
             'tipe_id' => $request->tipe_id,
             'nama_pemesan' => $request->nama_pemesan,
@@ -180,7 +193,7 @@ class ResevasiController extends Controller
             'nomor_hp_pemesan' => $request->nomor_hp_pemesan,
             'tanggal_checkin' => $request->tanggal_checkin,
             'tanggal_checkout' => $request->tanggal_checkout,
-            // 'jumlah_kamar' => count(json_decode($request->kode_kamar)), // trigger
+            'total_harga' => ($tipe->harga * count(json_decode($request->kode_kamar))) * (count($jumlah_hari) - 1),
             'nama_tamu' => $request->nama_tamu
         ]);
         foreach($resev->KamarBooking as $val){

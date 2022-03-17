@@ -66,20 +66,35 @@
                     check-out
                 </td>
                 <td>
-                    harga
+                    Total hari
+                </td>
+                <td>
+                    harga / hari
+                </td>
+                <td>
+                    Total harga / kamar 
                 </td>
             </tr>
             @foreach ($reservasi->KamarBooking as $value)
+            @php
+                $jumlah_hari = App\Helpers\Helper::getrangedate($reservasi->tanggal_checkin->format('Y-m-d'),$reservasi->tanggal_checkout->format('Y-m-d'));
+            @endphp
             <tr>
                 <td>{{ $reservasi->tipekamar->nama_tipe }}</td>
                 <td>{{ $value->kode_kamar  }}</td>
                 <td>{{ $reservasi->tanggal_checkin->format('d-m-Y') }}</td>
                 <td>{{ $reservasi->tanggal_checkout->format('d-m-Y') }}</td>
+                <td>{{ $jumlah_hari }}</td>
                 <td>{{ App\Helpers\Helper::format_rupiah($reservasi->tipekamar->harga) }}</td>
+                <td>{{ App\Helpers\Helper::format_rupiah(($jumlah_hari*$reservasi->tipekamar->harga)) }}</td>
             </tr>
 
             @endforeach
             <tr style="background-color: grey;font-weight:bold;color:white;text-align:center">
+                <td>
+                </td>
+                <td>
+                </td>
                 <td>
                 </td>
                 <td>
@@ -97,7 +112,10 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>{{ App\Helpers\Helper::format_rupiah($reservasi->tipekamar->harga * $reservasi->kamarbooking->count()    ) }}</td>
+                <td>
+                </td>
+                <td></td>
+                <td>{{ App\Helpers\Helper::format_rupiah($reservasi->total_harga) }}</td>
             </tr>
 
         </table>

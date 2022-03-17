@@ -29,6 +29,7 @@ class ResevarsiSeeder extends Seeder
                 'jumlah_kamar' => 20,
                 'tipe_id' => $faker->randomElement([1,2,3]),
                 'nama_tamu' => $faker->name,
+                'total_harga' => $faker->numberBetween(1000000,5000000),
                 // 'tamu_id' => $faker->randomElement([1,2,3,4]),
             ]);
             // $reservasi = DB::table('reservasi')->where('uuid',$reservasis->uuid)->first();

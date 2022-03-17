@@ -39,6 +39,8 @@ Route::delete('admin/fasilitas_kamar/delete/{id}',[FasilitasKamarController::cla
 Route::get('/admin/kamar/ajax/',[KamarController::class,'ajax']);
 Route::get('/admin/kamar/{id}',[KamarController::class,'ApiIndex']);
 
+
+Route::get('/tipe/harga/{id}',[BookingController::class,'cekharga']);
 Route::post('/admin/booking/',[BookingController::class,'postresevarsi']);
 
 Route::delete('/admin/kamar/delete/{id}',[KamarController::class,'destroy']);

@@ -21,7 +21,7 @@ class FasilitasHotelController extends Controller
 
     public function ajax(Request $request){
         if ($request->ajax()) {
-            $fasilitas_hotel = FasilitasHotel::all();
+            $fasilitas_hotel = FasilitasHotel::where('created_at','desc')->get();
             return datatables()->of($fasilitas_hotel)
             ->editColumn('gambar', function ($data) {
                 return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';

@@ -30,7 +30,7 @@ class Reservasi extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tipe_id', 'uuid', 'nama_pemesan', 'nama_tamu', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at'];
+    protected $fillable = ['tipe_id', 'uuid', 'nama_pemesan', 'nama_tamu', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at','total_harga'];
     protected $dates = ['tanggal_checkin', 'tanggal_checkout'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

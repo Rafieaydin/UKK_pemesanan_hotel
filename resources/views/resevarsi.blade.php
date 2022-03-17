@@ -85,11 +85,17 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="" class="label-input">Nama Pemesan</label>
-                                <input type="input" class="form-control @error('nama_pemesan')
+                                <label for="" class="label-input">Harga / hari</label>
+                                <input type="input" class="form-control @error('harga')
                                 is-invalid
-                            @enderror" name="nama_pemesan" placeholder="Nama Pemesan" id="nama_pemesan">
+                            @enderror" name="harga" placeholder="" @disabled(true) id="harga">
+                                @error('harga')
+                                <div class="invalid-feedback mb-2">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
+                           
                             <div class="col-md-6 ">
                                 <label for="" class="label-input mt-4">check-in</label>
                                 <input type="date" class="form-control @error('tanggal_checkin')
@@ -112,7 +118,12 @@
                                 </div>
                                 @enderror
                             </div>
-
+                            <div class="col-md-6">
+                                <label for="" class="label-input mt-4">Nama Pemesan</label>
+                                <input type="input" class="form-control @error('nama_pemesan')
+                                is-invalid
+                            @enderror" name="nama_pemesan" placeholder="Nama Pemesan" id="nama_pemesan">
+                            </div>
                             <div class="col-md-6">
                                 <label for="" class="label-input mt-4">Nama Tamu</label>
                                 <input type="input" class="form-control @error('nama_tamu')

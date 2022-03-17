@@ -6,6 +6,8 @@ use App\Models\Kamar;
 use App\Models\Reservasi;
 use App\Models\TipeKamar;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -20,6 +22,10 @@ class BookingController extends Controller
          $resevarsi = Reservasi::where('uuid',$id)->first();
          return view('detailresevarsi',compact('resevarsi'));
      }
+     public function cekharga($id){
+        $tipe = TipeKamar::where('id',$id)->first();
+        return response()->json(['harga' => $tipe->harga], 200);
+     }
      public function postresevarsi(Request $request){
         // $after_date = $request->tanggal_checkin.' +1 day';
         $request->validate([
@@ -32,6 +38,10 @@ class BookingController extends Controller
             'tanggal_checkout' => 'required|after:tanggal_checkin',
             // 'jumlah_kamar' => 'required',
         ]);
+        $checkin = Carbon::parse($request->tanggal_checkin)->format('Y-m-d');
+        $checkout = Carbon::parse($request->tanggal_checkout)->format('Y-m-d');
+        $jumlah_hari = CarbonPeriod::create($checkin, $checkout); 
+        $tipe = TipeKamar::where('id',$request->tipe_id)->first();
         $resev = Reservasi::create([
             'uuid' => Str::uuid(),
             'tipe_id' => $request->tipe_id,
@@ -40,7 +50,7 @@ class BookingController extends Controller
             'nomor_hp_pemesan' => $request->nomor_hp_pemesan,
             'tanggal_checkin' => $request->tanggal_checkin,
             'tanggal_checkout' => $request->tanggal_checkout,
-            // 'jumlah_kamar' => count(json_decode($request->kode_kamar)), // trigger
+            'total_harga' => ($tipe->harga * count(json_decode($request->kode_kamar))) * (count($jumlah_hari) - 1),
             'nama_tamu' => $request->nama_tamu
         ]);
 

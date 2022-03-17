@@ -23,14 +23,6 @@
                             <input type="text" class="form-control" placeholder="Jumlah kamar" value="{{ $resevarsi->uuid }}" disabled>
                         </div>
                         <div class="col-md-6">
-                            <label for="" class="label-input mt-4">check-in</label>
-                            <input type="date" class="form-control" value="{{ $resevarsi->tanggal_checkin->format('Y-m-d') }}" disabled>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="" class="label-input mt-4">check-out</label>
-                            <input type="date" class="form-control" value="{{ $resevarsi->tanggal_checkout->format('Y-m-d') }}" disabled>
-                        </div>
-                        <div class="col-md-6">
                             <label for="" class="label-input mt-4">Nama Pemesan</label>
                             <input type="input" class="form-control" placeholder="Nama Pemesan" value="{{ $resevarsi->nama_pemesan }}" disabled>
                         </div>
@@ -46,9 +38,30 @@
                             <label for="" class="label-input mt-4">no hp pemesan</label>
                             <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{ $resevarsi->nomor_hp_pemesan }}" disabled>
                         </div>
+                  
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">check-in</label>
+                            <input type="date" class="form-control" value="{{ $resevarsi->tanggal_checkin->format('Y-m-d') }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">check-out</label>
+                            <input type="date" class="form-control" value="{{ $resevarsi->tanggal_checkout->format('Y-m-d') }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">Total Hari</label>
+                            <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{App\Helpers\Helper::getrangedate($resevarsi->tanggal_checkin->format('Y-m-d'),$resevarsi->tanggal_checkout->format('Y-m-d')); }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">Harga sewa / hari</label>
+                            <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{ App\Helpers\Helper::format_rupiah($resevarsi->tipekamar->harga) }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="label-input mt-4">Jumlah Kamar yg di sewa</label>
+                            <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{ $resevarsi->KamarBooking->count() }}" disabled>
+                        </div>
                         <div class="col-md-6">
                             <label for="" class="label-input mt-4">Total harga</label>
-                            <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{ App\Helpers\Helper::format_rupiah((count($resevarsi->KamarBooking) * $resevarsi->tipekamar->harga)) }}" disabled>
+                            <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{ App\Helpers\Helper::format_rupiah($resevarsi->total_harga) }}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label for="" class="label-input mt-3">Bukti Resevarsi Kamar</label> <br>

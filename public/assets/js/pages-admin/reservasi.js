@@ -77,6 +77,10 @@ $(document).ready(function () {
                         name: 'jumlah_kamar'
                     },
                     {
+                        data: 'harga',
+                        name: 'harga'
+                    },
+                    {
                         data: 'total_harga',
                         name: 'total_harga'
                     },
@@ -104,14 +108,15 @@ $(document).ready(function () {
             $('.btn-table').append(
 
                 '<div class="row">' +
-                '<div class="col-md-3 mt-2">' +
+                '<div class="col-md-6 mt-2">' +
                 '<a href="' + root + '/admin/reservasi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+                '<a href="' + root + '/admin/excel/reservasi"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></button></a>'+
                 '</div>' +
-                '<div class="col-md-4">' +
+                '<div class="col-md-3">' +
                 '<label for="" class="d-inline">Filter Check-in</label>' +
                 '<input type="date" class="form-control form-control-sm check-in">' +
                 '</div>' +
-                '<div class="col-md-4">' +
+                '<div class="col-md-3">' +
                 '<label for="" class="d-inline">Filter Check-out</label>' +
                 '<input type="date" class="form-control form-control-sm check-out">' +
                 '</div>' +

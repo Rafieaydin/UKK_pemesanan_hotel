@@ -18,6 +18,8 @@
                     <th scope="col">Tanggal Check-in</th>
                     <th scope="col">Tanggal Check-out</th>
                     <th scope="col">jumlah kamar</th>
+                    <th scope="col">Harga / malam</th>
+                    <th scope="col">Total Harga</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +32,8 @@
                     <td scope="col">{{ $res->tanggal_checkin->format('d-m-Y') }}</td>
                     <td scope="col">{{ $res->tanggal_checkout->format('d-m-Y') }}</td>
                     <td scope="col">{{ $res->jumlah_kamar }}</td>
+                    <td scope="col">{{ App\Helpers\Helper::format_rupiah($res->tipekamar->harga) }}</td>
+                    <td scope="col">{{ App\Helpers\Helper::format_rupiah($res->total_harga) }}</td>
                 </tr>
             </tbody>
         </table>

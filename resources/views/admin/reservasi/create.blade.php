@@ -97,6 +97,22 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <label for="">Harga / malaem</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-user"></i></div>
+                        </div>
+                        <input type="text" disabled  id="harga" name="harga" value="{{ old('harga') }}" class="form-control @error('harga')
+                            is-invalid
+                        @enderror" id="harga" placeholder="">
+                        @error('nama_pemesan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <label for="">Nama pemesan</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
@@ -145,6 +161,22 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <label for="">No hp pemesan</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-phone"></i></div>
+                        </div>
+                        <input type="number" name="nomor_hp_pemesan" value="{{ old('nomor_hp_pemesan') }}" class="form-control @error('nomor_hp_pemesan')
+                            is-invalid
+                        @enderror" id="nomor_hp_pemesan" placeholder="No Hp pemesan">
+                        @error('nomor_hp_pemesan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <label for="">Tanggal Check-in</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
@@ -176,22 +208,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="">No hp pemesan</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-phone"></i></div>
-                        </div>
-                        <input type="number" name="nomor_hp_pemesan" value="{{ old('nomor_hp_pemesan') }}" class="form-control @error('nomor_hp_pemesan')
-                            is-invalid
-                        @enderror" id="nomor_hp_pemesan" placeholder="No Hp pemesan">
-                        @error('nomor_hp_pemesan')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
+              
 
 
             </div>
@@ -287,6 +304,22 @@
     }
 }
 
+function formatRupiah(angka, prefix ){
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+    split   		= number_string.split(','),
+    sisa     		= split[0].length % 3,
+    rupiah     		= split[0].substr(0, sisa),
+    ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+    if(ribuan){
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return rupiah ? 'Rp. ' + rupiah : '';
+}
+
 $(document).on('click', '.kode_kamar', function () {
     if (!$(this).hasClass('book-active')) {
         if ($(this).hasClass('green-active')) {
@@ -299,6 +332,14 @@ $(document).on('click', '.kode_kamar', function () {
     }
 });
 
+$('#tipe_id').change(function(e){
+    console.log('halo');
+    axios.get('/api/tipe/harga/' + $(this).val()).then(response=>{
+        $('#harga').val(formatRupiah(response.data.harga));
+    }).catch(err =>{
+
+    }); 
+});
 $('#next-button').click(function (e) {
     e.preventDefault();
     var tipe_id = validation('tipe_id','#tipe_id');

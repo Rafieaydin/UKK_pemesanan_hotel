@@ -77,6 +77,10 @@ $(document).ready(function () {
                         name: 'jumlah_kamar'
                     },
                     {
+                        data: 'harga',
+                        name: 'harga'
+                    },
+                    {
                         data: 'total_harga',
                         name: 'total_harga'
                     },
