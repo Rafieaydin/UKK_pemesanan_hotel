@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamar;
 use App\Models\Resepsionis;
+use App\Models\Reservasi;
+use App\Models\TipeKamar;
+use Database\Seeders\TipeSeeder;
 use Illuminate\Http\Request;
 
 class ResepsionisController extends Controller
@@ -14,7 +18,12 @@ class ResepsionisController extends Controller
      */
     public function index()
     {
-        return view('resepsionis.dashboard');
+        $total_r = Reservasi::count();
+        $total_k = Kamar::count();
+        $total_k_tersedia = TipeKamar::sum('total_jumlah_kamar_tersedia');
+        $total_k_terisi = TipeKamar::sum('total_jumlah_kamar_booking');
+        $reservasi = Reservasi::limit(5)->orderby('created_at', 'desc')->get();
+        return view('resepsionis.dashboard', compact('reservasi', 'total_r', 'total_k', 'total_k_tersedia', 'total_k_terisi'));
     }
 
     /**

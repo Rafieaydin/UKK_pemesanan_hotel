@@ -8,22 +8,9 @@ $(document).ready( function () {
         info: true,
         filtering:true,
         searching: true,
-        serverside: true,
         processing: true,
-        serverSide: true,
         "responsive": true,
         "autoWidth": false,
-        ajax:{
-        url: root + "/api/admin/dashboard/ajax/",
-        type: "get",
-        },
-        columns:[
-        { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-        { data: 'gambar', name:'gambar'},
-        { data: 'nama_tipe', name:'nama_tipe'},
-        { data: 'total_jumlah_kamar', name:'total_jumlah_kamar'},
-
-        ],
     });
 
 
