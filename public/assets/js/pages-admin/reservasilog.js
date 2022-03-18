@@ -95,6 +95,9 @@ $(document).ready(function () {
 
     $('.btn-table').append(
         '<div class="row">' +
+        '<div class="col-md-4 mt-2">' +
+        '<a href="' + root + '/admin/excel/reservasilog"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></button></a>'+
+        '</div>' +
         '<div class="col-md-4">' +
         '<label for="" class="d-inline">Filter Check-in</label>' +
         '<input type="date" class="form-control form-control-sm check-in">' +

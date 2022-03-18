@@ -44,7 +44,8 @@ $(document).ready( function () {
         searching: true,
     });
     $('.btn-table').append(
-        '<a href="'+root+'/admin/tipe_kamar/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'
+        '<a href="'+root+'/admin/tipe_kamar/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+        '<a href="' + root + '/admin/excel/tipekamar"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></a>'
     );
     $('.btn-back').append(
         '<a href="'+root+'/admin/tipe_kamar"class="btn btn-primary "><i class="fas fa-arrow-left"></i> kembali</button></a>'

@@ -44,11 +44,11 @@ $(document).ready( function () {
     });
 
     $('.btn-back').append(
-        '<a href="'+root+'/admin/user"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </button></a>'
-    );
+        '<a href="'+root+'/admin/user"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </a>');
 
     $('.btn-table').append(
-        '<a href="'+root+'/admin/user/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'
+        '<a href="'+root+'/admin/user/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></a>'+
+        '<a href="' + root + '/admin/excel/adminuser"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></a>'
     );
 
 // search engine

@@ -58,10 +58,19 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
     Route::delete('/reservasi/delete/{id}',[ResevasiController::class,'destroy']);
     Route::get('reservasi/{id}/pdf',[ResevasiController::class,'pdfresevarsi'])->name('pdfresevarsi');
     Route::resource('reservasi', ResevasiController::class);
-    Route::get('excel/reservasi',[ExcelController::class,'reservasi'])->name('reservasi');
 
     Route::post('/reservasilog/ajax/',[ReservasiLogController::class,'ajax']);
     Route::resource('reservasilog', ReservasiLogController::class);
+
+    Route::get('excel/reservasi',[ExcelController::class,'reservasi'])->name('reservasi');
+    Route::get('excel/reservasilog',[ExcelController::class,'reservasilog'])->name('reservasilog');
+    Route::get('excel/adminuser',[ExcelController::class,'adminuser'])->name('adminuser');
+    Route::get('excel/resepsionisuser',[ExcelController::class,'resepsionisuser'])->name('resepsionisuser');
+    Route::get('excel/fhotel',[ExcelController::class,'fhotel'])->name('fhotel');
+    Route::get('excel/fkamar',[ExcelController::class,'fkamar'])->name('fkamar');
+    Route::get('excel/tipekamar',[ExcelController::class,'tipekamar'])->name('tipekamar');
+    Route::get('excel/kamar',[ExcelController::class,'kamar'])->name('kamar');
+
 });
 
 Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsionis.')->group(function () {

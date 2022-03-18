@@ -22,7 +22,7 @@ class FasilitasKamarController extends Controller
 
     public function ajax(Request $request){
         if ($request->ajax()) {
-            $fasilitas_kamar = FasilitasKamar::where('created_at','desc')->get();
+            $fasilitas_kamar = FasilitasKamar::orderBy('created_at','desc')->get();
             return datatables()->of($fasilitas_kamar)
                 ->addColumn('icon_fasilitas', function ($data) {
                     return '<i class="'.$data->icon_fasilitas.'" ></i>';

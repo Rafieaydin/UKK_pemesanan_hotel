@@ -46,7 +46,8 @@ $(document).ready( function () {
     );
 
     $('.btn-table').append(
-        '<a href="'+root+'/admin/fasilitas_hotel/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'
+        '<a href="'+root+'/admin/fasilitas_hotel/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+        '<a href="' + root + '/admin/excel/fhotel"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></a>'
     );
 
 // search engine

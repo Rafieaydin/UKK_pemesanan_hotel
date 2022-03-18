@@ -43,7 +43,8 @@ $(document).ready( function () {
     });
 
     $('.btn-table').append(
-        '<a href="'+root+'/admin/kamar/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'
+        '<a href="'+root+'/admin/kamar/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+        '<a href="' + root + '/admin/excel/kamar"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></a>'
     );
     $('.btn-back').append(
         '<a href="'+root+'/admin/kamar"class="btn btn-primary "> <i class="fas fa-arrow-left"></i> kembali</i></button></a>'
