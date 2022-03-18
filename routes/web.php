@@ -43,6 +43,9 @@ Route::post('/postresevarsi',[BookingController::class,'postresevarsi'])->name('
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return redirect('/login');
+    });
     Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('fasilitas_hotel', FasilitasHotelController::class);
     Route::resource('fasilitas_kamar', FasilitasKamarController::class);
@@ -74,6 +77,9 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
 });
 
 Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsionis.')->group(function () {
+    Route::get('/', function () {
+        return redirect('/login');
+    });
     Route::get('dashboard', [ResepsionisController::class, 'index'])->name('dashboard');
 
     Route::post('reservasi/ajax/',[ResevasiController::class,'ajax']);

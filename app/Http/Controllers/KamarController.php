@@ -21,7 +21,7 @@ class KamarController extends Controller
 
     public function ApiIndex($id)
     {
-        $kamar = kamar::with('tipeKamar')->where('tipe_id',$id)->where('created_at','desc')->get();
+        $kamar = kamar::with('tipeKamar')->where('tipe_id',$id)->orderby('created_at','desc')->get();
         return response()->json($kamar);
     }
 

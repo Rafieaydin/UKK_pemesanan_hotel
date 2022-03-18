@@ -25,7 +25,7 @@ $('#tipe_id').change(function(e){
         $('#harga').val(formatRupiah(response.data.harga));
     }).catch(err =>{
 
-    }); 
+    });
 });
 
 function validation($name, $id, $error = null){
@@ -95,6 +95,7 @@ $('#reservasi-button').click(function () {
     axios.get('/api/admin/kamar/'+tipe_id, {
         "X-Requested-With": "XMLHttpRequest"
     }).then(response => {
+        console.log(response);
         $('.booking-space').find('.kode_kamar').remove();
         response.data.forEach(e => {
             if (e.status == 1) {
@@ -104,7 +105,7 @@ $('#reservasi-button').click(function () {
                     // '<div class="col-md-2">' +
                     '<div class="mb-2 text-center text-white d-inline-block me-2 mb-3 kode_kamar book-active" data-id="' + e.id + '" >' +
                     e.kode_kamar +
-                    '</div>' 
+                    '</div>'
                     // '</div>'
                     // '</div>'
                     // '</div>'
@@ -116,7 +117,7 @@ $('#reservasi-button').click(function () {
                     // '<div class="col-md-2">' +
                     '<div class="mb-2 text-center text-white d-inline-block me-2 mb-3 kode_kamar green-active" data-id="' + e.id + '" >' +
                     e.kode_kamar +
-                    '</div>' 
+                    '</div>'
                     // '</div>'
                     // '</div>'
                     // '</div>'
@@ -156,7 +157,7 @@ $('#reservasi-button').click(function () {
                         validation(key, '#'+key,value);
                     })
             })
-            
+
         }
     })
 
