@@ -31,7 +31,7 @@ class AuthController extends Controller
             return redirect('/admin/dashboard');
         }else if(Auth::guard('resepsionis')->attempt(['email'=>$request->email,'password'=>$request->password])){
             $request->session()->regenerate();
-            return redirect('/resepsionis/reservasi');
+            return redirect('/resepsionis/dashboard');
         }else if(Auth::guard('tamu')->attempt(['email'=>$request->email,'password'=>$request->password])){
             $request->session()->regenerate();
             return redirect('/tamu/dashboard');
