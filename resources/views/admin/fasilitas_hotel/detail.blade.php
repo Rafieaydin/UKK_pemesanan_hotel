@@ -20,7 +20,7 @@
                 <tr>
                     <td>1</td>
                     <td>{{ $fasilitas_hotel->nama_fasilitas }}</td>
-                    <td>keterangan</td>
+                    <td>{{ $fasilitas_hotel->keterangan }}</td>
                     <td><img src='{{ asset("assets/images/".$fasilitas_hotel->gambar) }}' width="200px" alt=""></td>
                 </tr>
             </tbody>

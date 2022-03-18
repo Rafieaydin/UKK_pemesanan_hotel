@@ -95,11 +95,15 @@ $(document).ready(function () {
 
     $('.btn-table').append(
         '<div class="row">' +
-        '<div class="col-md-4">' +
+        '<div class="col-md-6 mt-2">' +
+        '<a href="' + root + '/resepsionis/pdf/reservasilog"class="btn btn-danger"> Export PDF <i class="fas fa-file-pdf"></i></button></a>'+
+        '<a href="' + root + '/resepsionis/excel/reservasilog"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></button></a>'+
+        '</div>' +
+        '<div class="col-md-3">' +
         '<label for="" class="d-inline">Filter Check-in</label>' +
         '<input type="date" class="form-control form-control-sm check-in">' +
         '</div>' +
-        '<div class="col-md-4">' +
+        '<div class="col-md-3">' +
         '<label for="" class="d-inline">Filter Check-out</label>' +
         '<input type="date" class="form-control form-control-sm check-out">' +
         '</div>' +

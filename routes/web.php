@@ -10,6 +10,7 @@ use App\Http\Controllers\FasilitasKamarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KamarController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ResepsionisController;
 use App\Http\Controllers\ResepsionisUserController;
 use App\Http\Controllers\ReservasiLogController;
@@ -74,6 +75,15 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
     Route::get('excel/tipekamar',[ExcelController::class,'tipekamar'])->name('tipekamar');
     Route::get('excel/kamar',[ExcelController::class,'kamar'])->name('kamar');
 
+    Route::get('pdf/adminuser',[PDFController::class,'adminuser'])->name('adminuser');
+    Route::get('pdf/resepsionisuser',[PDFController::class,'resepsionisuser'])->name('resepsionisuser');
+    Route::get('pdf/reservasi',[PDFController::class,'reservasi'])->name('reservasi');
+    Route::get('pdf/reservasilog',[PDFController::class,'reservasilog'])->name('reservasilog');
+    Route::get('pdf/fhotel',[PDFController::class,'fhotel'])->name('fhotel');
+    Route::get('pdf/fkamar',[PDFController::class,'fkamar'])->name('fkamar');
+    Route::get('pdf/tipekamar',[PDFController::class,'tipekamar'])->name('tipekamar');
+    Route::get('pdf/kamar',[PDFController::class,'kamar'])->name('kamar');
+
 });
 
 Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsionis.')->group(function () {
@@ -89,6 +99,12 @@ Route::prefix('resepsionis')->middleware(['auth:resepsionis'])->name('resepsioni
 
     Route::post('/reservasilog/ajax/',[ReservasiLogController::class,'ajax']);
     Route::resource('reservasilog', ReservasiLogController::class);
+
+    Route::get('excel/reservasi',[ExcelController::class,'reservasi'])->name('reservasi');
+    Route::get('excel/reservasilog',[ExcelController::class,'reservasilog'])->name('reservasilog');
+    
+    Route::get('pdf/reservasi',[PDFController::class,'reservasi'])->name('reservasi');
+    Route::get('pdf/reservasilog',[PDFController::class,'reservasilog'])->name('reservasilog');
 });
 
 Route::prefix('tamu')->middleware(['auth:tamu'])->group(function () {

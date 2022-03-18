@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 <div class="card">
-    <div class="container-fluid  mt-5">
+    <div class="container-fluid  mt-3">
         <table class="table" id="table2">
             <thead>
                 <tr>

@@ -23,7 +23,8 @@ $(document).ready(function () {
 
 
             var table = $('#table1').DataTable({
-                dom: "<'row'<'ol-sm-12 col-md-8 btn-table'><'col-sm-12 mt-3 col-md-4  pdf-button'f>>" +
+                dom:"<'row'<'ol-sm-12 col-md-8 btn-table-add'>>" + 
+                    "<'row'<'ol-sm-12 col-md-8 btn-table'><'col-sm-12 mt-3 col-md-4  pdf-button'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 bLengthChange: false,
@@ -105,17 +106,26 @@ $(document).ready(function () {
                 '<a href="' + root + '/resepsionis/reservasi"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </button></a>'
             );
 
+            $('.btn-table-add').append(
+                '<div class="row">' +
+                '<div class="col-md-6 mt-2">' +
+                '<a href="' + root + '/resepsionis/reservasi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+                '</div>' +
+                '</div>'
+            );
+
             $('.btn-table').append(
 
                 '<div class="row">' +
-                '<div class="col-md-3 mt-2">' +
-                '<a href="' + root + '/resepsionis/reservasi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>'+
+                '<div class="col-md-6 mt-2">' +
+                '<a href="' + root + '/resepsionis/pdf/reservasi"class="btn btn-danger"> Export PDF <i class="fas fa-file-pdf"></i></button></a>'+
+                '<a href="' + root + '/resepsionis/excel/reservasi"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></button></a>'+
                 '</div>' +
-                '<div class="col-md-4">' +
+                '<div class="col-md-3">' +
                 '<label for="" class="d-inline">Filter Check-in</label>' +
                 '<input type="date" class="form-control form-control-sm check-in">' +
                 '</div>' +
-                '<div class="col-md-4">' +
+                '<div class="col-md-3">' +
                 '<label for="" class="d-inline">Filter Check-out</label>' +
                 '<input type="date" class="form-control form-control-sm check-out">' +
                 '</div>' +

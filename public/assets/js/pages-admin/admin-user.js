@@ -48,6 +48,7 @@ $(document).ready( function () {
 
     $('.btn-table').append(
         '<a href="'+root+'/admin/user/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></a>'+
+        '<a href="' + root + '/admin/pdf/adminuser"class="btn btn-danger ml-3"> Export PDF <i class="fas fa-file-pdf"></i></button></a>'+
         '<a href="' + root + '/admin/excel/adminuser"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></a>'
     );
 
