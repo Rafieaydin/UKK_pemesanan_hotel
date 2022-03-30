@@ -32,14 +32,30 @@
             @csrf
             <div class="row">
                 <div class="col-md-6">
+                    <label for="">Email</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        </div>
+                        <input type="text" name="email" value="{{ old('email') }}" class="form-control @error('email')
+                            is-invalid
+                        @enderror email" id="inlineFormInputGroup" placeholder="Email">
+                        @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <label for="">username</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-user"></i></div>
                         </div>
-                        <input type="text" name="username" value="{{ old('username') }}" class="form-control @error('username')
+                        <input type="text" name="username" value="{{ old('username') }}" readonly class="form-control @error('username')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="Username">
+                        @enderror username" id="inlineFormInputGroup" placeholder="Username">
                         @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -63,29 +79,14 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="">Email</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
-                        </div>
-                        <input type="text" name="email" value="{{ old('email') }}" class="form-control @error('email')
-                            is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="Email">
-                        @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
+
                 <div class="col-md-6">
                     <label for="">Nomor HP</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-phone"></i></div>
                         </div>
-                        <input type="text" name="no_hp" value="{{ old('no_hp') }}" class="form-control @error('no_hp')
+                        <input type="number" name="no_hp" value="{{ old('no_hp') }}" class="form-control @error('no_hp')
                             is-invalid
                         @enderror" id="inlineFormInputGroup" placeholder="no_hp">
                         @error('no_hp')
@@ -175,6 +176,17 @@
 
 
 @endsection
-@push('script')
-<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+@push('js')
+<script>
+    $('.email').keyup(function name() {
+    var email = $(this).val();
+    var name   = email.substring(0, email.lastIndexOf("@"));
+    $('.username').val(name);
+})
+$('.email').change(function name() {
+    var email = $(this).val();
+    var name   = email.substring(0, email.lastIndexOf("@"));
+    $('.username').val(name);
+})
+</script>
 @endpush

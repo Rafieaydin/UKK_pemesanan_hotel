@@ -31,7 +31,6 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nama Fasilitas</th>
-                    <th scope="col">Keterangan</th>
                     <th scope="col">Gambar</th>
                     <th scope="col">action</th>
                 </tr>

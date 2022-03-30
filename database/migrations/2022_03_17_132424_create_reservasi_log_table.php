@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reservasi_log', function (Blueprint $table) {
-            $table->id();
+            $table->uuid()->primary();
+            $table->string('kode_booking');
             $table->string('tipe');
             $table->string('nama_pemesan');
             $table->string('nama_tamu');

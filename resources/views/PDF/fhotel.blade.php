@@ -41,7 +41,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->nama_fasilitas }}</td>
                 <td>{{ $item->keterangan }}</td>
-                <td><img src='{{ public_path("assets/images/".$item->gambar) }}' style="width: 100px;" alt=""></td>
+                <td><img src='{{ public_path("/assets/images/".$item->gambar) }}' style="width: 100px;" alt=""></td>
             </tr>
             @endforeach
         </tbody>

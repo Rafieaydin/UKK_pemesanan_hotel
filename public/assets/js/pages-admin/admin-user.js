@@ -31,17 +31,17 @@ $(document).ready( function () {
         { data: 'action',name:'action'}
         ],
     });
-    var detailtable = $('#table2').DataTable({
-        dom:
-        "<'row'<'ol-sm-12 col-md-6 btn-back'><'col-sm-12 col-md-6  pdf-button'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-        bLengthChange: false,
-        ordering:false,
-        info: true,
-        filtering:false,
-        searching: true,
-    });
+    // var detailtable = $('#table2').DataTable({
+    //     dom:
+    //     "<'row'<'ol-sm-12 col-md-6 btn-back'><'col-sm-12 col-md-6  pdf-button'f>>" +
+    //     "<'row'<'col-sm-12'tr>>" +
+    //     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+    //     bLengthChange: false,
+    //     ordering:false,
+    //     info: true,
+    //     filtering:false,
+    //     searching: true,
+    // });
 
     $('.btn-back').append(
         '<a href="'+root+'/admin/user"class="btn btn-primary "><i class="fas fa-arrow-left"></i> Kembali </a>');
@@ -64,8 +64,8 @@ $('body').on('click','#hapus', function () {
     title: 'Apa anda yakin?',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Hapus',
-    cancelButtonText: 'Batal'
+    confirmButtonText: 'Iya',
+    cancelButtonText: 'Tidak'
     }).then((result) => {
         if (result.value) {
             id = $(this).data('id');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports;
+namespace App\Exports\kamar;
 
 use App\Models\Kamar;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -11,16 +11,26 @@ use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class KamarExport implements  FromQuery, WithHeadings, WithCustomStartCell, WithStyles,WithColumnWidths,WithMapping,ShouldAutoSize
+class KamarExport implements  FromQuery, WithHeadings, WithCustomStartCell, WithStyles,WithColumnWidths,WithMapping,ShouldAutoSize, WithTitle
 {
     protected $kamar;
+    protected $tipe;
+    protected $title;
+
+    public function __construct($kamar, $tipe_id,$title)
+    {
+        $this->kamar = $kamar;
+        $this->tipe = $tipe_id;
+        $this->title = $title;
+    }
 
     public function query()
     {
-        $this->kamar = Kamar::query()->get();
-        return Kamar::query();
+        $this->kamar = Kamar::query()->where('tipe_id', $this->tipe)->get();
+        return Kamar::query()->where('tipe_id', $this->tipe);
     }
 
     public function headings():array
@@ -34,7 +44,7 @@ class KamarExport implements  FromQuery, WithHeadings, WithCustomStartCell, With
     }
     public function map($data):array
     {
-        $status = $data->status == 1 ? 'tersedia' : 'terisi';
+        $status = $data->status == 0 ? 'tersedia' : 'terisi';
         return [
             '',
             $data->tipekamar->nama_tipe,
@@ -59,7 +69,7 @@ class KamarExport implements  FromQuery, WithHeadings, WithCustomStartCell, With
         $sheet->getStyle('B8:' . $highestCol . $highestRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         // tittle
-        $sheet->mergeCells("B4:E4")->setCellValue("B4","Data Kamar");
+        $sheet->mergeCells("B4:E4")->setCellValue("B4","Data Kamar tipe ".$this->title);
         $sheet->mergeCells("B5:E5")->setCellValue("B5","Aston Bogor");
 
         // header
@@ -165,5 +175,10 @@ class KamarExport implements  FromQuery, WithHeadings, WithCustomStartCell, With
             'c' => 30,
             'd' => 30,
         ];
+    }
+
+    public function title(): string
+    {
+        return $this->title;
     }
 }

@@ -26,6 +26,19 @@ class ResepsionisController extends Controller
         return view('resepsionis.dashboard', compact('reservasi', 'total_r', 'total_k', 'total_k_tersedia', 'total_k_terisi'));
     }
 
+    public function ajax(Request $request){
+        if ($request->ajax()) {
+            $kamar = TipeKamar::all();
+            return datatables()->of($kamar)
+                ->editColumn('gambar', function ($data) {
+                    return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
+                })
+                
+                ->rawColumns(['gambar'])
+                ->addIndexColumn()->make(true);
+        }
+        }
+
     /**
      * Show the form for creating a new resource.
      *

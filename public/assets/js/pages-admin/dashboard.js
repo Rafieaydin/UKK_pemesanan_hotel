@@ -22,8 +22,20 @@ $(document).ready( function () {
         { data: 'gambar', name:'gambar'},
         { data: 'nama_tipe', name:'nama_tipe'},
         { data: 'total_jumlah_kamar_tersedia', name:'total_jumlah_kamar_tersedia'},
+        { data: 'total_jumlah_kamar_booking', name:'total_jumlah_kamar_booking'},
 
         ],
+    });
+
+    var table = $('#table2').DataTable({
+        bLengthChange: true,
+        ordering:true,
+        info: true,
+        filtering:true,
+        searching: true,
+        processing: true,
+        "responsive": true,
+        "autoWidth": false,
     });
 
 

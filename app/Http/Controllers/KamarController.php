@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\kamar;
+use App\Models\KamarReservasi;
 use App\Models\Reservasi;
 use App\Models\TipeKamar;
 use Illuminate\Http\Request;
@@ -19,16 +20,54 @@ class KamarController extends Controller
         return view('admin.kamar.index');
     }
 
-    public function ApiIndex($id)
+    public function ApiIndex(Request $request)
     {
-        $kamar = kamar::with('tipeKamar')->where('tipe_id',$id)->orderby('created_at','desc')->get();
-        return response()->json($kamar);
+        $kamar = kamar::with('reservasi')->where('tipe_id',$request->tipe_id)->orderby('created_at','desc')->get();
+        // $reservasis = Reservasi::where('uuid',$request->reservasi_id)->first();
+        // $reservasi = $reservasis->KamarBooking;
+        // $kamar_booked =[];
+        // for($i = 0 ; $i < count($reservasi) ; $i++){
+        //     $kamar_booked[] = $reservasi[$i]['kamar_id'];
+        // }
+        return response()->json(
+            ['kamar' => $kamar]
+            // 'kamar_booked' => $kamar_booked,
+            // 'status' => 'sukses']
+        );
     }
 
+    public function TipeKamarAjax(Request $request){
+        if ($request->ajax()) {
+            $fasilitas_hotel = TipeKamar::all();
+            return datatables()->of($fasilitas_hotel)
+                ->editColumn('gambar', function ($data) {
+                    // Todo: check if file exists
+                    // if not call function to get default image and storage
+                    return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
+                })
+                ->editColumn('harga', function ($data) {
+                    // Todo: check if file exists
+                    // if not call function to get default image and storage
+                    return \App\Helpers\Helper::format_rupiah($data->harga);
+                })
+                ->addColumn('action', function ($data) {
+                    $button = '<a href="/admin/kamar/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
+                    return $button;
+                })
+                ->rawColumns(['action','gambar'])
+                ->addIndexColumn()->make(true);
+        }
+    }
     public function ajax(Request $request){
         if ($request->ajax()) {
-            $kamar = kamar::orderby('created_at','desc')->get();
-            return datatables()->of($kamar)
+            $tipe = TipeKamar::where('id', request()->tipe_id)->first();
+            if($tipe){
+                $kamar = $tipe->kamars;
+            }else{
+                $kamar = [];
+            }
+
+            return datatables()->of($kamar->sortBy('kode_kamar'))
             ->editColumn('nama_tipe', function ($data) {
                 return $data->tipekamar->nama_tipe;
             })
@@ -39,11 +78,15 @@ class KamarController extends Controller
                     return $data->status == 0 ? '<span class="badge badge-success">Tersedia</span>' : '<span class="badge badge-danger">Tidak Tersedia</span>';
                 })
                 ->addColumn('action', function ($data) {
-                    $button = '<a href="/admin/kamar/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
+                    $button ='<a  href="/admin/kamar/' . $data->id . '/edit" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
                     $button .= '&nbsp';
-                    $button .='<a  href="/admin/kamar/' . $data->id . '/edit" id="edit" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm edit-post"><i class="fas fa-pencil-alt"></i></a>';
-                    $button .= '&nbsp';
-                    $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
+                    if($data->status == 1){
+                        $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm" disabled><i class="fas fa-trash"></i></button>';
+                    }else{
+                        $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm" ><i class="fas fa-trash"></i></button>';
+
+                    }
+                    // $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm" ><i class="fas fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action','gambar','status'])
@@ -51,15 +94,16 @@ class KamarController extends Controller
         }
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         $reservasi = Reservasi::all();
-        $tipe = TipeKamar::all();
+        $tipe = TipeKamar::where('id',$id)->get();
         return view('admin.kamar.create', compact('tipe', 'reservasi'));
     }
 
@@ -74,17 +118,15 @@ class KamarController extends Controller
         $request->validate([
             'kode_kamar' => 'required',
             'tipe_id' => "required",
-            'status' => "required"
         ]);
 
         Kamar::create([
             'kode_kamar' => $request->kode_kamar,
             'tipe_id' => $request->tipe_id,
             'admin_id' => auth()->id(),
-            'status' => $request->status,
-            'reservasi_id' => ($request->status == 1) ? $request->reservasi_id : null
+            'status' => "0",
         ]);
-        return redirect('/admin/kamar')->with('success', 'Data Kamar Berhasil Ditambahkan');
+        return redirect('/admin/kamar/'.$request->tipe_id)->with('success', 'Data Kamar Berhasil Ditambahkan');
     }
 
     /**
@@ -95,8 +137,7 @@ class KamarController extends Controller
      */
     public function show($id)
     {
-        $kamar = kamar::find($id);
-        return view('admin.kamar.detail', compact('kamar'));
+        return view('admin.kamar.detail',['tipe_id' => $id]);
     }
 
     /**
@@ -125,27 +166,25 @@ class KamarController extends Controller
         $request->validate([
             'kode_kamar' => 'required',
             'tipe_id' => "required",
-            'status' => "required"
         ]);
 
         Kamar::where('id',$id)->update([
             'kode_kamar' => $request->kode_kamar,
             'tipe_id' => $request->tipe_id,
             'admin_id' => auth()->id(),
-            'status' => $request->status,
-            'reservasi_id' => ($request->status == 1) ? $request->reservasi_id : null
         ]);
-        return redirect('/admin/kamar')->with('success', 'Data Kamar Berhasil update');
+        return redirect('/admin/kamar/'.$request->tipe_id)->with('success', 'Data Kamar Berhasil update');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\kamar  $kamar
+     * @param  \App\Models\kamar  $k    amar
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        KamarReservasi::where('kamar_id',$id)->delete();
         kamar::destroy($id);
         return response()->json(['success' => 'Berhasil Dihapus']);
     }

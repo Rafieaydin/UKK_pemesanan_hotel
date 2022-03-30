@@ -65,7 +65,7 @@ class ResepsionisExport implements  FromQuery, WithHeadings, WithCustomStartCell
         $sheet->getStyle('B8:' . $highestCol . $highestRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         // tittle
-        $sheet->mergeCells("B4:H4")->setCellValue("B4","Data admin");
+        $sheet->mergeCells("B4:H4")->setCellValue("B4","Data Resepsionis");
         $sheet->mergeCells("B5:H5")->setCellValue("B5","Aston Bogor");
 
         // header

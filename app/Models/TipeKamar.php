@@ -24,14 +24,14 @@ class TipeKamar extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'tipe_kamar';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -39,13 +39,13 @@ class TipeKamar extends Model
     /**
      * @var array
      */
-    protected $fillable = ['admin_id', 'nama_tipe', 'keterangan', 'total_jumlah_kamar_tersedia', 'total_jumlah_kamar_booking', 'gambar', 'harga', 'created_at', 'updated_at'];
+    protected $fillable = ['admin_id', 'nama_tipe', 'keterangan', 'total_jumlah_kamar_tersedia','kapasitas_orang', 'total_jumlah_kamar_booking', 'gambar', 'harga', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function fasilitas(){
-        return $this->hasMany(FasilitasKamar::class, 'tipe_id','id');
+        return $this->belongsToMany(FasilitasKamar::class,'fasilitas_tipe_kamar','tipe_id','fasilitas_id');
     }
 
     /**

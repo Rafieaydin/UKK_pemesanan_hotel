@@ -27,16 +27,6 @@ class FasilitasKamarController extends Controller
                 ->addColumn('icon_fasilitas', function ($data) {
                     return '<i class="'.$data->icon_fasilitas.'" ></i>';
                 })
-                ->addColumn('nama_tipe', function ($data) {
-                    return $data->tipeKamar->nama_tipe;
-                })
-                // ->addColumn('nama_fasilitas', function ($data) {
-                //     $list = '';
-                //     foreach ($data->fasilitas as $key => $value) {
-                //         $list .= $value->nama_fasilitas .'<br>';
-                //     }
-                //     return $list;
-                // })
                 ->addColumn('action', function ($data) {
                     $button = '<a href="/admin/fasilitas_kamar/' . $data->id . '"   id="' . $data->id . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
                     $button .= '&nbsp';
@@ -70,16 +60,10 @@ class FasilitasKamarController extends Controller
     {
         $request->validate([
             'nama_fasilitas' => 'required',
-            'tipe_id' => 'required',
-            // 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'icon_fasilitas' => 'required',
         ]);
-        // $file = $request->file('gambar')->getClientOriginalName();
-        // $request->file('gambar')->move('assets/images/',$file);
         $tipe_kamar = new FasilitasKamar();
         $tipe_kamar->nama_fasilitas = $request->nama_fasilitas;
-        // $tipe_kamar->gambar =$file;
-        $tipe_kamar->tipe_id = $request->tipe_id;
         $tipe_kamar->admin_id = Auth::user()->id;
         $tipe_kamar->icon_fasilitas = $request->icon_fasilitas;
         $tipe_kamar->save();
@@ -122,16 +106,11 @@ class FasilitasKamarController extends Controller
     {
         $request->validate([
             'nama_fasilitas' => 'required',
-            'tipe_id' => 'required',
-            // 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'icon_fasilitas' => 'required',
         ]);
-        // $file = $request->file('gambar')->getClientOriginalName();
-        // $request->file('gambar')->move('assets/images/',$file);
+
         FasilitasKamar::where('id',$id)->update([
             'nama_fasilitas' => $request->nama_fasilitas,
-            'tipe_id' => $request->tipe_id,
-            // 'gambar' => $file,
             'admin_id' => Auth::user()->id,
             'icon_fasilitas' => $request->icon_fasilitas,
         ]);

@@ -34,7 +34,7 @@ class AuthController extends Controller
             return redirect('/resepsionis/dashboard');
         }else if(Auth::guard('tamu')->attempt(['email'=>$request->email,'password'=>$request->password])){
             $request->session()->regenerate();
-            return redirect('/tamu/dashboard');
+            return redirect('/');
         }
 
         return redirect('/login')->with('error','Email atau Password Salah');
@@ -118,8 +118,17 @@ class AuthController extends Controller
     }
 
     public function logout(){
+    
+        $tamu = 0;
+        if (Auth::guard('tamu')->check()){
+            $tamu = 1;
+        }
         Auth::logout();
         session()->flush();
+        if ($tamu == 1){
+            return redirect('/');
+        }else{
         return redirect()->route('auth.login');
+        }
     }
 }

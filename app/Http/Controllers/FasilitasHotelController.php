@@ -21,7 +21,7 @@ class FasilitasHotelController extends Controller
 
     public function ajax(Request $request){
         if ($request->ajax()) {
-            $fasilitas_hotel = FasilitasHotel::where('created_at','desc')->get();
+            $fasilitas_hotel = FasilitasHotel::orderby('created_at','desc')->get();
             return datatables()->of($fasilitas_hotel)
             ->editColumn('gambar', function ($data) {
                 return '<img src="'.asset('assets/images/'.$data->gambar).'" width="100px">';
@@ -61,11 +61,11 @@ class FasilitasHotelController extends Controller
             'keterangan' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $file = $request->file('gambar')->getClientOriginalName();
-        $request->file('gambar')->move('assets/images/',$file);
+        $file = $request->file('gambar')->getClientOriginalName().' '.time();
+        $request->file('gambar')->move('assets/images/fasiitas_hotel', $file);
         $tipe_kamar = new FasilitasHotel();
         $tipe_kamar->nama_fasilitas = $request->nama_fasilitas;
-        $tipe_kamar->gambar =$file;
+        $tipe_kamar->gambar = 'fasiitas_hotel/'.$file;
         $tipe_kamar->keterangan = $request->keterangan;
         $tipe_kamar->admin_id = Auth::user()->id;
         $tipe_kamar->save();
@@ -110,12 +110,12 @@ class FasilitasHotelController extends Controller
             'keterangan' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $file = $request->file('gambar')->getClientOriginalName();
-        $request->file('gambar')->move('assets/images/',$file);
+        $file = $request->file('gambar')->getClientOriginalName() .' '. time();
+        $request->file('gambar')->move('assets/images/fasiitas_hotel',$file);
         FasilitasHotel::where('id',$id)->update([
             'nama_fasilitas' => $request->nama_fasilitas,
             'keterangan' => $request->keterangan,
-            'gambar' => $file,
+            'gambar' => 'fasiitas_hotel/'.$file,
             'admin_id' => Auth::user()->id,
         ]);
         return redirect()->route('admin.fasilitas_hotel.index')->with('success','Data berhasil edit');

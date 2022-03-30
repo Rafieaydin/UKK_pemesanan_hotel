@@ -72,6 +72,7 @@
   <div class="card-body seaction-reservasi" class="mt-5">
         <form action="{{ route('resepsionis.reservasi.store') }}" method="POST" enctype="multipart/form-data" id="form-reservasi">
             @csrf
+            
             <div class="row">
                 <div class="col-md-6">
                     <label for="">Tipe Kamar</label>
@@ -80,13 +81,15 @@
                             <div class="input-group-text"><i class="fa fa-bed"></i></div>
                         </div>
 
-                        <select name="tipe_id" value="{{ old('tipe_id') }}" class="form-control @error('tipe_id')
+                        <select name="tipe_id" value="{{ old('tipe_id') }}" class="mb-2 form-control @error('tipe_id')
                                 is-invalid
                             @enderror" id="tipe_id">
                             @foreach ($tipe as $value)
                             <option value="{{ $value->id }}" @if (old('tipe_id') == $value->id)
                                 selected
-                            @endif>{{ $value->nama_tipe }}</option>
+                            @endif @if($value->total_jumlah_kamar_tersedia <= 0) disabled
+                            @endif>
+                            {{ ($value->total_jumlah_kamar_tersedia <= 0) ? $value->nama_tipe.' | Kosong' : $value->nama_tipe }}
                             @endforeach
                         </select>
                         @error('tipe_id')
@@ -102,7 +105,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-user"></i></div>
                         </div>
-                        <input type="text" disabled  id="harga" name="harga" value="{{ old('harga') }}" class="form-control @error('harga')
+                        <input type="text" disabled  id="harga" name="harga" value="{{ old('harga') }}" class="mb-2 form-control @error('harga')
                             is-invalid
                         @enderror" id="harga" placeholder="">
                         @error('nama_pemesan')
@@ -111,6 +114,29 @@
                         </div>
                         @enderror
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="" class="label-input">jumlah Kamar tersedia</label>
+                    <input type="input" class="form-control mb-2 @error('kamar_tersedia')
+                    is-invalid
+                @enderror" name="kamar_tersedia" placeholder="" @disabled(true) id="kamar_tersedia">
+                    @error('kamar_tersedia')
+                    <div class="invalid-feedback mb-2">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label for="" class="label-input">Jumlah Kamar Terisi</label>
+                    <input type="input" class="form-control mb-2 @error('kamar_terisi')
+                    is-invalid
+                @enderror" name="kamar_terisi" placeholder="" @disabled(true) id="kamar_terisi">
+                    @error('kamar_terisi')
+                    <div class="invalid-feedback mb-2">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
                 <div class="col-md-6">
                     <label for="">Nama pemesan</label>
@@ -335,20 +361,22 @@ $(document).on('click', '.kode_kamar', function () {
 $('#tipe_id').change(function(e){
     console.log('halo');
     axios.get('/api/tipe/harga/' + $(this).val()).then(response=>{
-        $('#harga').val(formatRupiah(response.data.harga));
+        $('#harga').val(formatRupiah(response.data.tipe.harga));
+        $('#kamar_tersedia').val(response.data.tipe.total_jumlah_kamar_tersedia);
+        $('#kamar_terisi').val(response.data.tipe.total_jumlah_kamar_booking);
     }).catch(err =>{
 
     }); 
 });
 $('#next-button').click(function (e) {
     e.preventDefault();
-    var tipe_id = validation('tipe_id','#tipe_id');
-    var nama_pemesan = validation('nama_pemesan','#nama_pemesan');
-    var tanggal_checkin = validation('tanggal_checkin','#tanggal_checkin');
-    var tanggal_checkout = validation('tanggal_checkout','#tanggal_checkout');
-    var nama_tamu = validation('nama_tamu','#nama_tamu') ;
-    var email_pemesanan = validation('email_pemesan','#email_pemesan');
-    var no_hp = validation('nomor_hp_pemesan','#nomor_hp_pemesan');
+    var tipe_id = validation('Tipe','#tipe_id');
+    var nama_pemesan = validation('Nama Pemesan','#nama_pemesan');
+    var tanggal_checkin = validation('Tanggal Checkiin','#tanggal_checkin');
+    var tanggal_checkout = validation('Tanggal checkout','#tanggal_checkout');
+    var nama_tamu = validation('Nama Tamu','#nama_tamu') ;
+    var email_pemesanan = validation('Email Pemesan','#email_pemesan');
+    var no_hp = validation('Nomor Hp','#nomor_hp_pemesan');
 
     if(tipe_id == 0 &&
     nama_pemesan == 0 &&
@@ -361,16 +389,17 @@ $('#next-button').click(function (e) {
         $('.section-booking').removeClass('d-none');
     }
 
-    // booking
+    // get data booking
     var tipe_id = $('#tipe_id :selected').val();
     // get data booking
-    axios.get('/api/admin/kamar/'+tipe_id, {
-        "X-Requested-With": "XMLHttpRequest"
+    axios.post('/api/admin/kamar/', {tipe_id:tipe_id,reservasi_id:'0'},{
+        "X-Requested-With": "XMLHttpRequest",
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }).then(response => {
         $('.booking-space').find('.col-md-2').remove();
-        response.data.forEach(e => {
+        response.data.kamar.forEach(e => {
             if (e.status == 1) {
-                $('.booking-space').prepend(
+                $('.booking-space').append(
                     // '<div class="swiper-slide">' +
                     // '<div class="row swiper-slide">' +
                     '<div class="col-md-2">' +
@@ -382,7 +411,7 @@ $('#next-button').click(function (e) {
                     // '</div>'
                 )
             } else {
-                $('.booking-space').prepend(
+                $('.booking-space').append(
                     // '<div class="swiper-slide">' +
                     // '<div class="row swiper-slide">' +
                     '<div class="col-md-2">' +

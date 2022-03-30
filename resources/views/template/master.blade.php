@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/components.css') }}">
 
-    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <link rel="shortcut icon" href="{{ asset('assets/images/title-image.png') }}" type="image/x-icon"
         style="width: 2px">
@@ -41,6 +41,10 @@
         h4,
         .main-sidebar .sidebar-menu li.active a {
             color: #130f40 !important;
+        }
+        .logout:focus{
+            background-color: #30336b !important;
+            color:white !important;
         }
 
     </style>
@@ -98,8 +102,11 @@
         <!-- Template JS File -->
         <script src="{{ asset('template/assets/js/scripts.js') }}"></script>
         <script src="{{ asset('template/assets/js/custom.js') }}"></script>
-
+        
         <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+
+        {{-- moment js --}}
+        <script src="{{ asset('assets/js/lib/moment.js') }}"></script>
         @stack('js')
 
 </body>

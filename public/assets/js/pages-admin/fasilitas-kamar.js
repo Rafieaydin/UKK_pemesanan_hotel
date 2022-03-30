@@ -24,7 +24,6 @@ $(document).ready( function () {
         columns:[
         { data: 'DT_RowIndex', name: 'DT_RowIndex'},
         // { data: 'jumlah_kamar', name:'jumlah_kamar'},
-        { data: 'nama_tipe', name:'nama_tipe'},
         { data: 'nama_fasilitas', name:'nama_fasilitas'},
         { data: 'icon_fasilitas', name:'icon_fasilitas'},
         { data: 'action',name:'action'}
@@ -62,8 +61,8 @@ $('body').on('click','#hapus', function () {
     title: 'Apa anda yakin?',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Hapus',
-    cancelButtonText: 'Batal'
+    confirmButtonText: 'Iya',
+    cancelButtonText: 'Tidak'
     }).then((result) => {
         if (result.value) {
             id = $(this).data('id');

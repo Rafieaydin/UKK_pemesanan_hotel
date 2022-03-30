@@ -63,8 +63,8 @@ $('body').on('click','#hapus', function () {
     title: 'Apa anda yakin?',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Hapus',
-    cancelButtonText: 'Batal'
+    confirmButtonText: 'Iya',
+    cancelButtonText: 'Tidak'
     }).then((result) => {
         if (result.value) {
             id = $(this).data('id');

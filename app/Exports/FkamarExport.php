@@ -27,7 +27,6 @@ class FkamarExport implements FromQuery, WithHeadings, WithCustomStartCell, With
     {
         return [
             'id',
-            'Tipe kamar',
             'nama_fasilitas',
             'icon_fasilitas',
         ];
@@ -36,7 +35,6 @@ class FkamarExport implements FromQuery, WithHeadings, WithCustomStartCell, With
     {
         return [
             '',
-            $data->tipekamar->nama_tipe,
             $data->nama_fasilitas,
             $data->icon_fasilitas,
         ];
@@ -58,11 +56,11 @@ class FkamarExport implements FromQuery, WithHeadings, WithCustomStartCell, With
         $sheet->getStyle('B8:' . $highestCol . $highestRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         // tittle
-        $sheet->mergeCells("B4:E4")->setCellValue("B4","Fasilitas Kamar");
-        $sheet->mergeCells("B5:E5")->setCellValue("B5","Aston Bogor");
+        $sheet->mergeCells("B4:D4")->setCellValue("B4","Fasilitas Kamar");
+        $sheet->mergeCells("B5:D5")->setCellValue("B5","Aston Bogor");
 
         // header
-        $sheet->getStyle('B4:E4')->applyFromArray(array(
+        $sheet->getStyle('B4:D4')->applyFromArray(array(
             'borders' => array(
                 'allBorders' => array(
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -86,7 +84,7 @@ class FkamarExport implements FromQuery, WithHeadings, WithCustomStartCell, With
                 'color' => ['argb' => 'e5e5e5'],
             )
         ));
-        $sheet->getStyle('B5:E5')->applyFromArray(array(
+        $sheet->getStyle('B5:D5')->applyFromArray(array(
             'borders' => array(
                 'allBorders' => array(
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -112,7 +110,7 @@ class FkamarExport implements FromQuery, WithHeadings, WithCustomStartCell, With
         ));
         // end tittle
         //table
-        $sheet->getStyle('B7:E'.$highestRow)->applyFromArray(array(
+        $sheet->getStyle('B7:D'.$highestRow)->applyFromArray(array(
             'borders' => array(
                 'allBorders' => array(
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -121,7 +119,7 @@ class FkamarExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             )
         ));
         //header
-        $sheet->getStyle('B7:E7')->applyFromArray(array(
+        $sheet->getStyle('B7:D7')->applyFromArray(array(
             'borders' => array(
                 'allBorders' => array(
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

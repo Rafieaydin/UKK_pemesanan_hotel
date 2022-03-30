@@ -21,14 +21,14 @@ class ReservasiLog extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'reservasi_log';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -36,6 +36,11 @@ class ReservasiLog extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nama_pemesan', 'nama_tamu', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'total_harga', 'created_at', 'updated_at'];
+    protected $fillable = ['kode_booking','nama_pemesan', 'nama_tamu', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'total_harga', 'created_at', 'updated_at'];
     protected $dates = ['tanggal_checkin', 'tanggal_checkout'];
+
+    public function KamarBookingLog()
+    {
+        return $this->hasMany(ReservasiKamarLog::class,'reservasi_id','uuid');
+    }
 }

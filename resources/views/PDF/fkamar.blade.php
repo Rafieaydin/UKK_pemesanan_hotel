@@ -25,7 +25,6 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Tipe</th>
                 <th>Nama Fasilitas</th>
                 <th>Icon</th>
             </tr>
@@ -34,7 +33,6 @@
             @foreach ($fkamar as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->tipekamar->nama_tipe }}</td>
                 <td>{{ $item->nama_fasilitas }}</td>
                 <td>{{ $item->icon_fasilitas }}</td>
         </tr>

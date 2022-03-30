@@ -16,11 +16,9 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title " id="waktu_log">Logged in 5 min ago</div>
-                <a href="" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile</a></a>
                 <form action="{{ route('auth.logout') }}" method="POST">
                     @csrf
-                    <button type="submit" id="logout" class="dropdown-item has-icon text-danger">
+                    <button type="submit" id="logout" class=" logout dropdown-item has-icon text-danger">
                         <i class="fas fa-sign-out-alt pt-2"></i> logout
                     </button>
                 </form>

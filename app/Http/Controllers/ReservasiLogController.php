@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\Reservasi;
+use App\Models\ReservasiKamarLog;
 use App\Models\ReservasiLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,13 +50,54 @@ class ReservasiLogController extends Controller
                     return Helper::format_rupiah($data->total_harga);
                 })
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
+                    $button = '';
+                    $button .= '<a href="/'.Auth::getdefaultdriver().'/reservasilog/' . $data->uuid . '"   id="' . $data->uuid . '" class="edit btn btn-primary btn-sm"><i class="fas fa-search"></i></a>';
+                    $button .= '&nbsp';
+                    $button .= '<button type="button" name="delete" id="hapus" data-id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action','gambar','harga','total_harga'])
                 ->addIndexColumn()->make(true);
         }
     }
+
+    public function detailresevasi(Request $request){
+        if ($request->ajax()) {
+           $detail = ReservasiKamarLog::where('reservasi_id',request()->reservasi_id)->get();
+            // $kamar = KamarReservasi::where('reservasi_id',request()->reservasi_id)->get();
+            return datatables()->of($detail)
+                ->addColumn('tipe_kamar', function ($data) {
+                    return $data->tipe;
+                })
+                ->addColumn('checkin', function ($data) {
+                    return ($data->checkin) ? Carbon::parse($data->checkin)->format('d-m-Y') : '00-00-000';
+                })
+                ->addColumn('checkout', function ($data) {
+                    return ($data->checkout) ?  Carbon::parse($data->checkout)->format('d-m-Y') : '00-00-000';
+                })
+                ->addColumn('kode_kamar', function ($data) {
+                    return $data->kode_kamar;
+                })
+                ->addColumn('harga', function ($data) {
+                    return Helper::format_rupiah($data->harga);
+                })
+                ->addColumn('status', function ($data) {
+                    if($data->status == 'booking'){
+                    $button = '  <span class="badge badge-primary">Booking</span>';}
+                    elseif($data->status == 'checkin'){
+                    $button = '  <span class="badge badge-success">Check-in</span>';}
+                    elseif($data->status == 'checkout'){
+                    $button = '  <span class="badge badge-danger">Check-out</span>';}
+                    elseif($data->status == 'batal'){
+                    $button = '  <span class="badge badge-danger">dibatalkan</span>';}
+                    return $button;
+                })
+                ->rawColumns(['nama_tipe','kode_kamar','harga','status','checkin','checkout'])
+                ->addIndexColumn()->make(true);
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -83,7 +127,8 @@ class ReservasiLogController extends Controller
      */
     public function show($id)
     {
-        //
+        $res = ReservasiLog::where('uuid',$id)->first();
+        return view(Auth::getdefaultdriver().'.reservasilog.detail', compact('res'));
     }
 
     /**

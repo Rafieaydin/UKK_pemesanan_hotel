@@ -6,6 +6,7 @@ use App\Models\FasilitasHotel;
 use App\Models\FasilitasKamar;
 use App\Models\Kamar;
 use App\Models\Admin;
+use App\Models\Reservasi;
 use App\Models\TipeKamar;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,8 @@ class AdminController extends Controller
         $f_k = FasilitasKamar::count();
         $t_k = TipeKamar::count();
         $kamar = Kamar::count();
-        return view('admin.dashboard', compact('f_h','f_k','t_k','kamar'));
+        $reservasi = Reservasi::limit(5)->orderby('created_at', 'desc')->get();
+        return view('admin.dashboard', compact('f_h','f_k','t_k','kamar','reservasi'));
     }
 
     public function ajax(Request $request){

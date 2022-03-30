@@ -3,13 +3,17 @@ $(document).ready(function () {
     // var filter = $('#search').val();
     // console.log('filter');
 
-    $(document).on('change','.check-in',function () {
-        table.draw();
-    });
-
-    $(document).on('change','.check-out',function () {
-        table.draw();
-    });
+    $('#table1 thead tr .filterhead').each( function (i) {
+        var title = $('#table1 thead tr .filterhead').eq( $(this).index() ).text();
+        if(i == 9 || i == 0){
+            $(this).html( '<input type="text" disabled placeholder="'+title+'" data-index="'+i+'" />' );
+        }else if(i == 4 || i == 5){
+            $(this).html( '<input type="date" placeholder="'+title+'" style="width:130px;" data-index="'+i+'" />' );
+        }else{
+            $(this).html( '<input type="text" placeholder="'+title+'" data-index="'+i+'" />' );
+        }
+       
+    } );
 
     function dates(date) {
         if (isNaN(date)) {
@@ -53,6 +57,10 @@ $(document).ready(function () {
                 name: 'DT_RowIndex'
             },
             {
+                data: 'kode_booking',
+                name: 'kode_booking'
+            },
+            {
                 data: 'tipe',
                 name: 'tipe'
             },
@@ -87,25 +95,78 @@ $(document).ready(function () {
             {
                 data: 'action',
                 name: 'action'
-            },
+            }
         ],
     });
 
+    $( table.table().container() ).on( 'keyup', 'thead input', function () {
+        table
+            .column( $(this).data('index') )
+            .search( this.value )
+            .draw();
+    } );
+    $( table.table().container() ).on( 'change', 'thead input', function () {
+        ;
+        var date = new Date(this.value);
+        var day =  date.getDate();
+        var month = ((date.getMonth() + 1) >= 10) ? date.getMonth() + 1  : '0' + date.getMonth() + 1 ;
+        var year = date.getFullYear();
+        var fd = day + "-" + (((date.getMonth() + 1) >= 10) ? date.getMonth() + 1  : '0' + (date.getMonth() + 1)) + "-" + year;
+        console.log(fd);
+        table
+            .column( $(this).data('index') )
+            .search( fd )
+            .draw();
+    });
 
+        // detail 2 table
+        var detailtable = $('#table3').DataTable({
+            searching: true,
+            serverside: true,
+            processing: true,
+            serverSide: true,
+            "responsive": true,
+            "autoWidth": false,
+            ajax: {
+                url: root + "/admin/reservasilog/ajax/detailresevasi?reservasi_id=" + $('#reservasi_id').val(),
+                type: "get",
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'tipe_kamar',
+                    name: 'tipe_kamar'
+                },
+                {
+                    data: 'kode_kamar',
+                    name: 'kode_kamar'
+                },
+                {
+                    data: 'harga',
+                    name: 'harga'
+                },
+                {
+                    data: 'checkin',
+                    name: 'checkin'
+                },
+                {
+                    data: 'checkout',
+                    name: 'checkout'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+            ],
+        });
 
     $('.btn-table').append(
         '<div class="row">' +
         '<div class="col-md-6 mt-2">' +
         '<a href="' + root + '/admin/pdf/reservasilog"class="btn btn-danger"> Export PDF <i class="fas fa-file-pdf"></i></button></a>'+
         '<a href="' + root + '/admin/excel/reservasilog"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></button></a>'+
-        '</div>' +
-        '<div class="col-md-3">' +
-        '<label for="" class="d-inline">Filter Check-in</label>' +
-        '<input type="date" class="form-control form-control-sm check-in">' +
-        '</div>' +
-        '<div class="col-md-3">' +
-        '<label for="" class="d-inline">Filter Check-out</label>' +
-        '<input type="date" class="form-control form-control-sm check-out">' +
         '</div>' +
         '</div>'
     );
@@ -117,8 +178,8 @@ $(document).ready(function () {
             title: 'Apa anda yakin?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Hapus',
-            cancelButtonText: 'Batal'
+            confirmButtonText: 'Iya',
+            cancelButtonText: 'Tidak'
         }).then((result) => {
             if (result.value) {
                 id = $(this).data('id');
@@ -145,4 +206,5 @@ $(document).ready(function () {
             } else if (result.dismiss === Swal.DismissReason.cancel) {}
         })
     });
+    
 });

@@ -5,6 +5,12 @@
         .table1_filter label{
             margin-top: 100px;
         }
+        
+        thead input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
     </style>
 @endpush
 @section('breadcrump')
@@ -18,6 +24,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Kode Booking</th>
                     <th scope="col">Tipe Kamar</th>
                     <th scope="col">Nama Pemesan</th>
                     <th scope="col">Nama Tamu</th>
@@ -27,6 +34,19 @@
                     <th scope="col">harga / malam</th>
                     <th scope="col">Total harga</th>
                     <th scope="col">Action</th>
+                </tr>
+                <tr style="background-color: white">
+                    <th scope="col" class="filterhead">#</th>
+                    <th scope="col" class="filterhead">Kode Booking</th>
+                    <th scope="col" class="filterhead">Tipe Kamar</th>
+                    <th scope="col" class="filterhead">Nama Pemesan</th>
+                    <th scope="col" class="filterhead">Nama Tamu</th>
+                    <th scope="col" class="filterhead">Tanggal Check-in</th>
+                    <th scope="col" class="filterhead">Tanggal Check-out</th>
+                    <th scope="col" class="filterhead">jumlah kamar</th>
+                    <th scope="col" class="filterhead">harga / malam</th>
+                    <th scope="col" class="filterhead">Total harga</th>
+                    <th scope="col" class="filterhead">Action</th>
                 </tr>
             </thead>
             <tbody>

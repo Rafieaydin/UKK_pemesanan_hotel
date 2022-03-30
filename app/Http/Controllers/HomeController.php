@@ -8,6 +8,7 @@ use App\Models\Reservasi;
 use App\Models\TipeKamar;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller

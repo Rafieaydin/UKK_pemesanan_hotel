@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('reservasi', function (Blueprint $table) {
             $table->uuid()->primary();
+            $table->string('kode_booking');
             $table->string('nama_pemesan');
             $table->string('nama_tamu');
             $table->string('email_pemesan');
@@ -23,12 +24,9 @@ return new class extends Migration
             $table->date('tanggal_checkout');
             $table->integer('jumlah_kamar')->default(0);
             $table->string('total_harga');
+            $table->string('tamu_id')->nullable();
+            // $table->enum('status', ['pending','konfirmasi','batal'])->default('pending');
             $table->timestamps();
-        });
-
-        Schema::table('kamar', function (Blueprint $table) {
-            $table->foreignUuid('reservasi_id')->nullable()->references('uuid')->on('reservasi')->onUpdate('cascade')->onDelete('set null');
-
         });
     }
 

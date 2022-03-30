@@ -1,5 +1,5 @@
 @extends('template.master')
-@section('judul','Detail Fasilitas Kamar')
+@section('judul','Detail Data Kamar')
 @section('breadcrump')
         <div class="breadcrumb-item "><a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> DASBOARD</a></div>
         <div class="breadcrumb-item"> <i class="fas fa-hotel"></i> FASiliTAS KAMAR</div>
@@ -7,30 +7,35 @@
 @section('content')
 <div class="card">
     <div class="container-fluid  mt-3">
-        <table class="table" id="table2">
+        @if (session('success'))
+        <div class="alert alert-success
+        alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        @if (session('fail'))
+        <div class="alert alert-danger
+    alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        <input type="text" class="tipe_id d-none" value="{{ $tipe_id }}">
+        <table class="table" id="table1">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tipe</th>
                     <th scope="col">kode kamar</th>
                     <th scope="col">Status</th>
-                    @if ($kamar->status == 1)
-                    <th scope="col">Pemesan</th>
-                    @endif
-
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>{{ $kamar->tipekamar->nama_tipe }}</td>
-                    <td>{{ $kamar->kode_kamar }}</td>
-                    <td>{!! $kamar->status == 0 ? '<span class="badge badge-success">Tersedia</span>' : '<span class="badge badge-danger">Tidak Tersedia</span>' !!}</td>
-                    @if ($kamar->status == 1)
-                    <td>{{ $kamar->reservasi->nama_pemesan }}</td>
-                    @endif
-
-                </tr>
             </tbody>
         </table>
     </div>

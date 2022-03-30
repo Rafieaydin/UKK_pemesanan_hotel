@@ -13,6 +13,30 @@ $(document).ready( function () {
         "autoWidth": false,
     });
 
+    var table = $('#table2').DataTable({
+        bLengthChange: true,
+        ordering:true,
+        info: true,
+        filtering:true,
+        searching: true,
+        serverside: true,
+        processing: true,
+        serverSide: true,
+        "responsive": true,
+        "autoWidth": false,
+        ajax:{
+        url: root + "/api/resepsionis/dashboard/ajax/",
+        type: "get",
+        },
+        columns:[
+        { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+        { data: 'gambar', name:'gambar'},
+        { data: 'nama_tipe', name:'nama_tipe'},
+        { data: 'total_jumlah_kamar_tersedia', name:'total_jumlah_kamar_tersedia'},
+        { data: 'total_jumlah_kamar_booking', name:'total_jumlah_kamar_booking'},
+        ],
+    });
+
 
 // search engine
 $("#search").keyup(function () {

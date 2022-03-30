@@ -12,6 +12,12 @@
                 <div class="col-md-7">
                     <h1 class="label-color label-header">Detail resevarsi kamar</h1>
                     <div class="row pt-3">
+                        @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                        @endif
                         <div class="col-md-6">
                             <label for="" class="label-input">Tipe kamar</label>
                             <select name="" class="form-control  " id="" placeholder="Tipe Kamar" disabled>
@@ -20,7 +26,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="" class="label-input">Kode Booking</label>
-                            <input type="text" class="form-control" placeholder="Jumlah kamar" value="{{ $resevarsi->uuid }}" disabled>
+                            <input type="text" class="form-control" placeholder="Jumlah kamar" value="{{ $resevarsi->kode_booking }}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label for="" class="label-input mt-4">Nama Pemesan</label>
@@ -38,7 +44,7 @@
                             <label for="" class="label-input mt-4">no hp pemesan</label>
                             <input type="input" class="form-control" placeholder="No hp Pemesan" value="{{ $resevarsi->nomor_hp_pemesan }}" disabled>
                         </div>
-                  
+
                         <div class="col-md-6">
                             <label for="" class="label-input mt-4">check-in</label>
                             <input type="date" class="form-control" value="{{ $resevarsi->tanggal_checkin->format('Y-m-d') }}" disabled>

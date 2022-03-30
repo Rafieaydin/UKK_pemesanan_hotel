@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tipe_kamar', function (Blueprint $table) {
             $table->id();
             $table->string('nama_tipe');
+            $table->string('kapasitas_orang')->default(0);
             $table->string('keterangan');
             $table->integer('total_jumlah_kamar_tersedia')->default(0);
             $table->integer('total_jumlah_kamar_booking')->default(0);
@@ -25,9 +26,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::table('fasilitas_kamar', function (Blueprint $table) {
-            $table->foreignId('tipe_id')->constrained('tipe_kamar')->onDelete('cascade')->onUpdate('cascade');
-        });
+        // Schema::table('fasilitas_kamar', function (Blueprint $table) {
+        //     $table->foreignId('tipe_id')->constrained('tipe_kamar')->onDelete('cascade')->onUpdate('cascade');
+        // });
         Schema::table('kamar', function (Blueprint $table) {
             $table->foreignId('tipe_id')->constrained('tipe_kamar')->onDelete('cascade')->onUpdate('cascade');
         });

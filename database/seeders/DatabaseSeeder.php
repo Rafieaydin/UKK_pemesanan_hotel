@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             FasilitasHotelSeeder::class,
-            TipeSeeder::class,
             FasilitasKamarSeeder::class,
+            TipeSeeder::class,
             KamarSeeder::class,
             TamuSeeder::class,
             ResepsionisSeeder::class,
             ResevarsiSeeder::class,
+            KamarReservasi::class,
         ]);
 
     }

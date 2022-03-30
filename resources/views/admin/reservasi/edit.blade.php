@@ -28,12 +28,24 @@
         width: 60px;
         color:red;
     }
-    .red-active{
+    .check-active{
+        background-color: #E45826;
+        border-radius:5px;
+        padding: 5px;
+    }
+    .display-check-active{
+        background-color: #E45826;
+        border-radius:5px;
+        padding: 2px;
+        width: 60px;
+        color:#E45826;
+    }
+    .pick-active{
         background-color: orange;
         border-radius:5px;
         padding: 5px;
     }
-    .display-red-active{
+    .display-pick-active{
         background-color: orange;
         border-radius:5px;
         padding: 2px;
@@ -68,7 +80,7 @@
 @section('content')
 <div class="card">
     <div class="card-body seaction-reservasi" class="mt-5">
-        <form  action="{{ route('resepsionis.reservasi.store') }}" method="POST" enctype="multipart/form-data" id="form-reservasi-edit">
+        <form  action="{{ route('resepsionis.reservasi.update',$reservasi->uuid) }}" method="POST" enctype="multipart/form-data" id="form-reservasi-edit">
             @method('PUT')
             @csrf
             <div class="row">
@@ -86,7 +98,9 @@
                             @foreach ($tipe as $value)
                             <option value="{{ $value->id }}" @if (old('tipe_id',$reservasi->tipekamar->id) == $value->id)
                                 selected
-                            @endif>{{ $value->nama_tipe }}</option>
+                            @endif @if($value->total_jumlah_kamar_tersedia <= 0) disabled
+                            @endif>
+                            {{ ($value->total_jumlah_kamar_tersedia <= 0) ? $value->nama_tipe.' | Kosong' : $value->nama_tipe }}</option>
                             @endforeach
                         </select>
                         @error('tipe_id')
@@ -111,6 +125,29 @@
                         </div>
                         @enderror
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="" class="label-input">jumlah Kamar tersedia</label>
+                    <input type="input" class="form-control mb-2 @error('kamar_tersedia')
+                    is-invalid
+                @enderror" name="kamar_tersedia" placeholder="" @disabled(true) id="kamar_tersedia" value="{{ old('kamar_tersedia',$reservasi->tipekamar->total_jumlah_kamar_tersedia) }}">
+                    @error('kamar_tersedia')
+                    <div class="invalid-feedback mb-2">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label for="" class="label-input">Jumlah Kamar Terisi</label>
+                    <input type="input" class="form-control mb-2 @error('kamar_terisi')
+                    is-invalid
+                @enderror" name="kamar_terisi" placeholder="" @disabled(true) id="kamar_terisi" value="{{ old('kamar_terisi',$reservasi->tipekamar->total_jumlah_kamar_booking) }}">
+                    @error('kamar_terisi')
+                    <div class="invalid-feedback mb-2">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
                 <div class="col-md-6">
                     <label for="">Nama pemesan</label>
@@ -221,7 +258,7 @@
             <h1 class="booking-header">Pilih kamar tersedia</h1>
             <hr>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="mb-2 text-center  display-green-active d-inline" >
                         Tersedia
                     </div>
@@ -229,7 +266,7 @@
                         Tersedia
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="mb-2 text-center  display-book-active d-inline" >
                         Kosong
                     </div>
@@ -237,14 +274,23 @@
                         Kosong
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="mb-2 text-center  display-red-active d-inline" >
+                <div class="col-md-3">
+                    <div class="mb-2 text-center  display-check-active d-inline" >
+                        Memilih
+                    </div>
+                    <div class="d-inline ml-3">
+                        Tidak bisa di ganti
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-2 text-center  display-pick-active d-inline" >
                         Memilih
                     </div>
                     <div class="d-inline ml-3">
                         Pilihanmu
                     </div>
                 </div>
+
             </div>
             <hr>
             <div class="alert alert-danger alert-dismissible fade show alert-booking d-none" role="alert">
@@ -313,12 +359,15 @@ function formatRupiah(angka, prefix ){
 }
 
 $(document).on('click', '.kode_kamar', function () {
-    if (!$(this).hasClass('book-active')) {
+    if ($(this).hasClass('book-active')) {
+    }else if($(this).hasClass('check-active')){
+    }else{
+        console.log('clicked');
         if ($(this).hasClass('green-active')) {
             $(this).removeClass('green-active');
-            $(this).addClass('red-active');
+            $(this).addClass('pick-active');
         } else {
-            $(this).removeClass('red-active');
+            $(this).removeClass('pick-active');
             $(this).addClass('green-active');
         }
     }
@@ -328,9 +377,11 @@ $('#tipe_id').change(function(e){
     console.log('halo');
     axios.get('/api/tipe/harga/' + $(this).val()).then(response=>{
         $('#harga').val(formatRupiah(response.data.harga));
+        $('#kamar_tersedia').val(response.data.tipe.total_jumlah_kamar_tersedia);
+        $('#kamar_terisi').val(response.data.tipe.total_jumlah_kamar_booking);
     }).catch(err =>{
 
-    }); 
+    });
 });
 
 $('#next-button').click(function (e) {
@@ -358,60 +409,71 @@ $('#next-button').click(function (e) {
     var tipe_id = $('#tipe_id :selected').val();
     var reservasi_id = $('#reservasi_id').val();
     // get data booking
-    axios.get('/api/admin/kamar/'+tipe_id, {
-        "X-Requested-With": "XMLHttpRequest"
-    }).then(response => {
-        console.log(response);
-        $('.booking-space').find('.col-md-2').remove();
-        response.data.forEach(e => {
-            if(reservasi_id == e.reservasi_id && e.status == 1){
-                $('.booking-space').prepend(
-                    // '<div class="swiper-slide">' +
-                    // '<div class="row swiper-slide">' +
-                    '<div class="col-md-2">' +
-                    '<div class="mb-2 text-center text-white kode_kamar red-active" data-id="' + e.id + '" >' +
-                    e.kode_kamar +
-                    '</div>' +
-                    '</div>'
-                    // '</div>'
-                    // '</div>'
-                )
-            }else if (e.status == 1) {
-                $('.booking-space').prepend(
-                    // '<div class="swiper-slide">' +
-                    // '<div class="row swiper-slide">' +
-                    '<div class="col-md-2">' +
-                    '<div class="mb-2 text-center text-white kode_kamar book-active" data-id="' + e.id + '" >' +
-                    e.kode_kamar +
-                    '</div>' +
-                    '</div>'
-                    // '</div>'
-                    // '</div>'
-                )
-            } else {
-                $('.booking-space').prepend(
-                    // '<div class="swiper-slide">' +
-                    // '<div class="row swiper-slide">' +
-                    '<div class="col-md-2">' +
-                    '<div class="mb-2 text-center text-white kode_kamar green-active" data-id="' + e.id + '" >' +
-                    e.kode_kamar +
-                    '</div>' +
-                    '</div>'
-                    // '</div>'
-                    // '</div>'
-                )
-            }
-
+    axios.post('/api/admin/kamar/', {
+            tipe_id: tipe_id,
+            reservasi_id: reservasi_id
+        }, {
+            "X-Requested-With": "XMLHttpRequest",
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }).then(response => {
+            console.log(response);
+            $('.booking-space').find('.col-md-2').remove();
+            response.data.kamar.forEach(e => {
+                if (e.reservasi.length > 0) { // if reservation is avaleble
+                    e.reservasi.forEach(j => {
+                        // console.log(response.data.kamar_booked.includes(j.kamar_id));
+                        if (j.uuid === reservasi_id) {
+                            if (j.pivot.status == 'checkin' || j.pivot.status == 'checkout') {
+                                $('.booking-space').append(
+                                    '<div class="col-md-2">' +
+                                    '<div class="mb-2 text-center text-white kode_kamar check-active" data-id="' +
+                                    e.id + '">' +
+                                    e.kode_kamar +
+                                    '</div>' +
+                                    '</div>'
+                                );
+                            } 
+                            else { // i same but status booking
+                                $('.booking-space').append(
+                                    '<div class="col-md-2">' +
+                                    '<div class="mb-2 text-center text-white kode_kamar pick-active" data-id="' +
+                                    e.id + '">' +
+                                    e.kode_kamar +
+                                    '</div>' +
+                                    '</div>'
+                                );
+                            }
+                        } else if ((j.pivot.status == 'checkin' || j.pivot.status == 'checkout' || j.pivot.status == 'booking')) {
+                            $('.booking-space').append(
+                                '<div class="col-md-2">' +
+                                '<div class="mb-2 text-center text-white kode_kamar book-active" data-id="' +
+                                e.id + '">' +
+                                e.kode_kamar +
+                                '</div>' +
+                                '</div>'
+                            );
+                        }
+                    });
+                }else{ 
+                    $('.booking-space').append(
+                        '<div class="col-md-2">' +
+                        '<div class="mb-2 text-center text-white kode_kamar green-active" data-id="' +
+                        e.id + '">' +
+                        e.kode_kamar +
+                        '</div>' +
+                        '</div>'
+                    );
+                }
+            });
+        }).catch(error => {
+            console.log(error);
         });
-    }).catch(error => {
-        console.log(error);
-    });
     //post data booking
     $('#booking-button').click(function (e) {
         e.preventDefault();
         // var form = $('.form-reservasi').serialize();
         var kode_kamars = [];
-        var kode_kamar = $('.red-active');
+        var kode_kamar = $('.pick-active');
         for (i = 0; i < kode_kamar.length; i++) {
             kode_kamars.push(kode_kamar[i].dataset.id);
         }

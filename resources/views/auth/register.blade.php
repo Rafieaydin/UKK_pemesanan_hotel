@@ -25,7 +25,7 @@
     <div class="d-lg-flex half">
         <div class="bg order-1 order-md-2" style='background-image: url("{{ asset('assets/images/bg-10.jpg') }}");'></div>
         <div class="contents order-2 order-md-1">
-    
+
           <div class="container">
             <div class="row align-items-center justify-content-center">
               <div class="col-md-7">
@@ -40,7 +40,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-    
+
                     @endif
                     @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -49,7 +49,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-    
+
                     @endif
                     <div class="row">
                         <div class="col-md-6">
@@ -124,7 +124,7 @@
                         <div class="col-md-6">
                             <div class="form-group first">
                                 <label for="password">Password</label>
-                                <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" id="password" value="{{ old('password') }}">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" id="password" value="{{ old('password') }}">
                                 @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -144,9 +144,9 @@
                               </div>
                         </div>
                     </div>
-             
-               
-    
+
+
+
                   <div class="d-flex mb-3 align-items-center">
                     <label class="control control--checkbox mb-0" ><span class="caption">Remember me</span>
                       <input type="checkbox" checked="checked" name="remeberme"  />
@@ -156,14 +156,14 @@
                   </div>
                   <p class="mb-3">Have account? <a href="{{ route('auth.login') }}" class="forgot-pass">Login Now</a></p>
                   <input type="submit" value="Log In" class="btn btn-block btn-primary" style="background-color: #30336b">
-    
+
                 </form>
               </div>
             </div>
           </div>
         </div>
-    
-    
+
+
       </div>
 
     <script src="{{ asset('assets/pakage/jquery/jquery-3.2.1.min.js') }}"></script>

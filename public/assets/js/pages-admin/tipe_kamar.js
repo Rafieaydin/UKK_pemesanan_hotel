@@ -23,8 +23,9 @@ $(document).ready( function () {
         },
         columns:[
         { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-        { data: 'harga', name:'harga'},
         { data: 'nama_tipe', name:'nama_tipe'},
+        { data: 'kapasitas_orang', name:'kapasitas_orang'},
+        { data: 'harga', name:'harga'},
         { data: 'total_jumlah_kamar_tersedia', name:'total_jumlah_kamar_tersedia'},
         { data: 'total_jumlah_kamar_booking', name:'total_jumlah_kamar_booking'},
         { data: 'gambar', name:'gambar'},
@@ -43,6 +44,9 @@ $(document).ready( function () {
         filtering:false,
         searching: true,
     });
+    var detailtable = $('#table3').DataTable({
+    });
+
     $('.btn-table').append(
         '<a href="'+root+'/admin/tipe_kamar/create"class="btn btn-primary "> Tambah Data <i class="fas fa-plus"></i></button></a>'+
         '<a href="' + root + '/admin/pdf/tipekamar"class="btn btn-danger ml-3"> Export PDF <i class="fas fa-file-pdf"></i></button></a>'+
@@ -65,8 +69,8 @@ $('body').on('click','#hapus', function () {
     title: 'Apa anda yakin?',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Hapus',
-    cancelButtonText: 'Batal'
+    confirmButtonText: 'Iya',
+    cancelButtonText: 'Tidak'
     }).then((result) => {
         if (result.value) {
             id = $(this).data('id');

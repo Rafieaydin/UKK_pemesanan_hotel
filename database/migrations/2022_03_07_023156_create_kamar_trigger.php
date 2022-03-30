@@ -38,6 +38,7 @@ return new class extends Migration
         END IF;
         IF old.status = "1" THEN
         UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking - 1 WHERE id = old.tipe_id;
+        DELETE FROM reservasi_kamar WHERE kamar_id = old.id;
         END IF;
         END'
         );
@@ -50,12 +51,12 @@ return new class extends Migration
         IF NEW.status = "0"  THEN
         UPDATE tipe_kamar SET total_jumlah_kamar_tersedia = total_jumlah_kamar_tersedia + 1 WHERE id = new.tipe_id;
         UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking - 1 WHERE id = new.tipe_id;
-        UPDATE reservasi SET jumlah_kamar = jumlah_kamar - 1 WHERE uuid = old.reservasi_id;
+        ## UPDATE reservasi SET jumlah_kamar = jumlah_kamar - 1 WHERE uuid = old.reservasi_id;
         END IF;
         IF NEW.status = "1" THEN
         UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking + 1 WHERE id = new.tipe_id;
         UPDATE tipe_kamar SET total_jumlah_kamar_tersedia = total_jumlah_kamar_tersedia - 1 WHERE id = new.tipe_id;
-        UPDATE reservasi SET jumlah_kamar = jumlah_kamar + 1 WHERE uuid = new.reservasi_id;
+        ## UPDATE reservasi SET jumlah_kamar = jumlah_kamar + 1 WHERE uuid = new.reservasi_id;
         END IF;
         END'
         );

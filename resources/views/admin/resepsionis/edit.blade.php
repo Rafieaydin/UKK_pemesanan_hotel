@@ -33,6 +33,22 @@
             @method('PATCH')
             <div class="row">
                 <div class="col-md-6">
+                    <label for="">Email</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                        </div>
+                        <input type="text" name="email" value="{{ old('email',$resepsionis->email) }}" class="form-control @error('email')
+                            is-invalid
+                        @enderror email" id="inlineFormInputGroup" placeholder="Jumlah Kamar">
+                        @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <label for="">username</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
@@ -40,7 +56,7 @@
                         </div>
                         <input type="text" name="username" value="{{ old('username',$resepsionis->username) }}" class="form-control @error('username')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="Jumlah Kamar">
+                        @enderror username" id="inlineFormInputGroup" readonly placeholder="Jumlah Kamar">
                         @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -64,22 +80,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="">Email</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
-                        </div>
-                        <input type="text" name="email" value="{{ old('email',$resepsionis->email) }}" class="form-control @error('email')
-                            is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="Jumlah Kamar">
-                        @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
+
                 <div class="col-md-6">
                     <label for="">Nomor HP</label>
                     <div class="input-group mb-2">
@@ -176,6 +177,17 @@
 
 
 @endsection
-@push('script')
-<script src="{{ asset('template/') }}/node_modules/select2/dist/js/select2.full.min.js"></script>
+@push('js')
+<script>
+    $('.email').keyup(function name() {
+    var email = $(this).val();
+    var name   = email.substring(0, email.lastIndexOf("@"));
+    $('.username').val(name);
+})
+$('.email').change(function name() {
+    var email = $(this).val();
+    var name   = email.substring(0, email.lastIndexOf("@"));
+    $('.username').val(name);
+})
+</script>
 @endpush

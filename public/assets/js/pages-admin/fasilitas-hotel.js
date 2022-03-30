@@ -24,7 +24,6 @@ $(document).ready( function () {
         columns:[
         { data: 'DT_RowIndex', name: 'DT_RowIndex'},
         { data: 'nama_fasilitas', name:'nama_fasilitas'},
-        { data: 'keterangan', name:'keterangan'},
         { data: 'gambar', name:'gambar'},
         { data: 'action',name:'action'}
         ],
@@ -63,8 +62,8 @@ $('body').on('click','#hapus', function () {
     title: 'Apa anda yakin?',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Hapus',
-    cancelButtonText: 'Batal'
+    confirmButtonText: 'Iya',
+    cancelButtonText: 'Tidak'
     }).then((result) => {
         if (result.value) {
             id = $(this).data('id');

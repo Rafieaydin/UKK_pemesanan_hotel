@@ -26,7 +26,7 @@
     <div style="text-align: center;font-size:30px;font-weight:bold;color:#130f40;text-transform:uppercase">Laporan Reservasi</div>
     <div style="text-align: center;font-size:30px;font-weight:bold;color:#130f40;text-transform:uppercase">Hotel Aston
         Bogor</div>
-    <table width="400" style="border-collapse: collapse;margin-top:30px;">
+    <table width="550" style="border-collapse: collapse;margin-top:30px;">
         <thead>
             <tr>
                 <th>#</th>

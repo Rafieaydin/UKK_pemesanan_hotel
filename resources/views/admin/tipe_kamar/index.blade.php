@@ -29,8 +29,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">harga</th>
                     <th scope="col">Tipe Kamar</th>
+                    <th scope="col">Kapasitas orang</th>
+                    <th scope="col">harga</th>
                     <th scope="col">Total kamar tersedia</th>
                     <th scope="col">Total kamar terpesan</th>
                     <th scope="col">Gambar</th>

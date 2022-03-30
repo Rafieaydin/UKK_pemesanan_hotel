@@ -18,7 +18,7 @@
 
 </style>
 @endpush
-@section('judul','Edit Jumlah Kamar')
+@section('judul','Edit Data Kamar')
 @section('breadcrump')
 <div class="breadcrumb-item "><a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i>
         DASBOARD</a></div>
@@ -71,62 +71,13 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="">Status</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-bed"></i></div>
-                        </div>
-
-                        <select name="status" value="{{ old('status') }}" class="form-control status @error('status')
-                                is-invalid
-                            @enderror">
-                            <option value="0" @if (old('status',$kamar->status) == 0)
-                                selected
-                                @endif>Tersedia</option>
-                            <option value="1" @if (old('status',$kamar->status) == 1)
-                                selected
-                                @endif>Terpesan</option>
-                        </select>
-                        @error('status')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-6 reservasi">
-                    <label for="">Nama pemesan</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-bed"></i></div>
-                        </div>
-
-                        <select name="reservasi_id" value="{{ old('reservasi_id') }}" class="form-control @error('reservasi_id')
-                                is-invalid
-                            @enderror">
-                            <option value="">-- Pilih reservasi --</option>
-                            @foreach ($reservasi as $value)
-                            <option value="{{ $value->uuid }}" @if (old('reservasi_id',$kamar->reservasi_id) ==
-                                $value->uuid)
-                                selected
-                                @endif>{{ $value->nama_pemesan }}</option>
-                            @endforeach
-                        </select>
-                        @error('reservasi_id')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
             </div>
             <div class="row">
-                <a href="{{ route('admin.kamar.index') }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 "
+                <a href="{{ route('admin.kamar.show',$kamar->tipekamar->id) }}" class="btn btn-danger mt-2 mb-3 ml-auto mr-2 mt-3 "
                     type="submit">Kembali</a>
                 <button class="btn btn-success mt-2 mb-3 mr-3 mt-3 " type="submit">submit</button>
             </div>
-        </form>
+        </form> 
     </div>
 
 

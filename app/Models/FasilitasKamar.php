@@ -20,14 +20,14 @@ class FasilitasKamar extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'fasilitas_kamar';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -54,7 +54,7 @@ class FasilitasKamar extends Model
     }
 
     public function tipeKamar(){
-        return $this->belongsTo(TipeKamar::class, 'tipe_id','id');
+        return $this->belongsToMany(TipeKamar::class,'fasilitas_tipe_kamar','fasilitas_id','tipe_id');
     }
-    
+
 }

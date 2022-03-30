@@ -52,6 +52,6 @@ class Tamu extends Authenticatable
      */
     public function resevarsis()
     {
-        return $this->hasMany('App\Models\Resevarsi');
+      return $this->hasMany(Reservasi::class, 'tamu_id','id');
     }
 }

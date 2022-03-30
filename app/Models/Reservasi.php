@@ -30,7 +30,7 @@ class Reservasi extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tipe_id', 'uuid', 'nama_pemesan', 'nama_tamu', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at','total_harga'];
+    protected $fillable = ['tipe_id', 'uuid', 'kode_booking','nama_pemesan', 'nama_tamu', 'email_pemesan', 'nomor_hp_pemesan', 'tanggal_checkin', 'tanggal_checkout', 'jumlah_kamar', 'created_at', 'updated_at','total_harga','tamu_id'];
     protected $dates = ['tanggal_checkin', 'tanggal_checkout'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -41,6 +41,9 @@ class Reservasi extends Model
     }
     public function KamarBooking()
     {
-        return $this->hasMany(Kamar::class,'reservasi_id','uuid');
+        return $this->belongsToMany(Kamar::class,'reservasi_kamar','reservasi_id','kamar_id','uuid')->withPivot('checkin','checkout','status');
+    }
+    public function tamu(){
+        return $this->belongsTo(Tamu::class,'tamu_id');
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Kamar;
 use App\Models\Resepsionis;
 use App\Models\Reservasi;
 use App\Models\ReservasiLog;
+use App\Models\Tamu;
 use App\Models\TipeKamar;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
@@ -29,9 +30,21 @@ class PDFController extends Controller
         return $pdf->stream();
     }
 
-    public function reservasi()
+    public function tamuuser()
     {
-        $reservasi = Reservasi::orderby('created_at','desc')->get();
+        $tamu = Tamu::orderby('created_at','desc')->get();
+        $pdf = PDF::Loadview('PDF.tamu',compact('tamu'));
+        return $pdf->stream();
+    }
+    
+    public function reservasi($id = '')
+    {
+        if($id){
+            $reservasi = Reservasi::where('tamu_id',$id)->orderby('created_at','desc')->get();
+        }else{
+            $reservasi = Reservasi::orderby('created_at','desc')->get();
+        }
+        
         $pdf = PDF::Loadview('PDF.reservasi',['reservasi'=>$reservasi]);
         return $pdf->stream();
     }

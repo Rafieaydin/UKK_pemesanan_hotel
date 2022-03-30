@@ -18,7 +18,7 @@
                 <a href="{{ route('resevarsi') }}" class="btn btn-primary login-bottom">BOOK NOW</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-0 mx-auto text-left">
-                <img src="{{ asset('assets/images/hotel.jfif') }}" alt=""
+                <img src="{{ asset('assets/images/hotel.jfif') }}" class="images-hero" alt=""
                     style="width: 80%; height:400px;border-radius:15px; background-size: cover;">
             </div>
 </section>
@@ -44,14 +44,13 @@
                         <div class="card-body">
                             <h5 class="card-title fw-bold " style="color: #130f40;font-size:18px">
                                 {{ $value->nama_tipe }}</h5>
-                            <p class="card-text pb-0 mb-3" style="padding: 0px;margin:0px;height:80px">{!!
-                                substr($value->keterangan, 0, 70) !!}</p>
+                            <div class="card-text pb-0 mb-3" style="padding: 0px;margin:0px;height:80px">{!!substr($value->keterangan, 0, 70) !!}</div>
                             <p class="card-text fw-bold mb-2" style="margin: 0px;color:#130f40;font-size:25px;height">
                                 {{ !$value->harga ? App\Helpers\Helper::format_rupiah(0) : App\Helpers\Helper::format_rupiah($value->harga) }}
                             </p>
                             <p class="card-text d-inline fw-bold">Fasilitas :</p> <br>
                             @foreach ($value->fasilitas as $val) <span class="badge p-2 mb-2"
-                                style="background-color: #30336b;"> <i class="{{ $val->incon_fasilitas }}"
+                                style="background-color: #30336b;"> <i class="{{ $val->icon_fasilitas }}"
                                     aria-hidden="true"></i>
                                 {{ $val->nama_fasilitas }}</span>
                             @endforeach
@@ -135,7 +134,7 @@
             <div class="col-md-12">
                 <div class="row justify-content-center">
                     <div class="col-md-2 col-6 mt-5">
-                        <img src="{{ asset('assets/images/collection.svg') }}" style="width: 130px" alt="">
+                        <img src="{{ asset('assets/images/collection.svg') }}"  style="width: 150px" alt="">
                     </div>
                     <div class="col-md-2 col-6 mt-5">
                         <img src="{{ asset('assets/images/huxey.svg') }}" style="width: 130px" alt="">

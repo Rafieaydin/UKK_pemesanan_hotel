@@ -28,6 +28,12 @@
                         <span>Resepsionis</span></a>
                     </a>
                 </li>
+                <li class="@if (Request::is('admin/tamu', 'admin/tamu/*')) active @endif">
+                    <a href="{{ route('admin.tamu.index') }}" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Tamu</span></a>
+                    </a>
+                </li>
                 <li class="menu-header">Hotel</li>
                 <li class="@if (Request::is('admin/fasilitas_hotel', 'admin/fasilitas_hotel/*')) active @endif">
                     <a href="{{ route('admin.fasilitas_hotel.index') }}" class="nav-link">
@@ -50,12 +56,13 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fas fas fa-bed"></i><span>Kamar</span></a>
                     <ul class="dropdown-menu">
+                        <li class="@if (Request::is('admin/fasilitas_kamar', 'admin/fasilitas_kamar/*')) active @endif"><a class="nav-link "
+                            href="{{ route('admin.fasilitas_kamar.index') }}">Fasilitas kamar</a></li>
                         <li class="@if (Request::is('admin/tipe_kamar', 'admin/tipe_kamar/*')) active @endif"><a class="nav-link"
                             href="{{ route('admin.tipe_kamar.index') }}">Tipe Kamar</a></li>
+
                             <li class="@if (Request::is('admin/kamar', 'admin/kamar/*')) active @endif"><a class="nav-link"
                                 href="{{ route('admin.kamar.index') }}">Data Kamar</a></li>
-                        <li class="@if (Request::is('admin/fasilitas_kamar', 'admin/fasilitas_kamar/*')) active @endif"><a class="nav-link "
-                                href="{{ route('admin.fasilitas_kamar.index') }}">Fasilitas kamar</a></li>
                     </ul>
                   </li>
                     <li class="dropdown @if (Request::is('admin/reservasi', 'admin/reservasi/*', 'admin/reservasilog', 'admin/reservasilog/*')) active @endif">
@@ -85,10 +92,8 @@
                     <ul class="dropdown-menu">
                         <li class="@if (Request::is('resepsionis/reservasi', 'resepsionis/reservasi/*')) active @endif"><a class="nav-link"
                             href="{{ route('resepsionis.reservasi.index') }}">Reservasi Kamar</a></li>
-                    <li class="@if (Request::is('resepsionis/reservasilog', 'resepsionis/reservasilog/*')) active @endif"><a class="nav-link"
-                            href="{{ route('resepsionis.reservasilog.index') }}">Log Reservasi</a></li>
-                    </ul>
-                  </li>
+
+                    </li>
         @endif
 
     </aside>

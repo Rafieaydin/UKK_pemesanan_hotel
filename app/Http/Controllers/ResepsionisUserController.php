@@ -61,11 +61,6 @@ class ResepsionisUserController extends Controller
             'password' => 'required|confirmed',
             'password_confirmation' => 'required',
         ]);
-
-        // if($request->password != $request->password_confirmation){
-        //     return redirect()->back()->with('error', 'Password tidak sama');
-        // }
-
         Resepsionis::create([
             'username' =>$request->username,
             'nama_resepsionis' => $request->nama_resepsionis,

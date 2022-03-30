@@ -86,7 +86,9 @@
                             @foreach ($tipe as $value)
                             <option value="{{ $value->id }}" @if (old('tipe_id') == $value->id)
                                 selected
-                            @endif>{{ $value->nama_tipe }}</option>
+                            @endif @if($value->total_jumlah_kamar_tersedia <= 0) disabled
+                            @endif>
+                            {{ ($value->total_jumlah_kamar_tersedia <= 0) ? $value->nama_tipe.' | Kosong' : $value->nama_tipe }}</option>
                             @endforeach
                         </select>
                         @error('tipe_id')
@@ -341,13 +343,13 @@ $('#tipe_id').change(function(e){
 });
 $('#next-button').click(function (e) {
     e.preventDefault();
-    var tipe_id = validation('tipe_id','#tipe_id');
-    var nama_pemesan = validation('nama_pemesan','#nama_pemesan');
-    var tanggal_checkin = validation('tanggal_checkin','#tanggal_checkin');
-    var tanggal_checkout = validation('tanggal_checkout','#tanggal_checkout');
-    var nama_tamu = validation('nama_tamu','#nama_tamu') ;
-    var email_pemesanan = validation('email_pemesan','#email_pemesan');
-    var no_hp = validation('nomor_hp_pemesan','#nomor_hp_pemesan');
+    var tipe_id = validation('Tipe','#tipe_id');
+    var nama_pemesan = validation('Nama Pemesan','#nama_pemesan');
+    var tanggal_checkin = validation('Tanggal Checkiin','#tanggal_checkin');
+    var tanggal_checkout = validation('Tanggal checkout','#tanggal_checkout');
+    var nama_tamu = validation('Nama Tamu','#nama_tamu') ;
+    var email_pemesanan = validation('Email Pemesan','#email_pemesan');
+    var no_hp = validation('Nomor Hp','#nomor_hp_pemesan');
 
     if(tipe_id == 0 &&
     nama_pemesan == 0 &&
@@ -363,13 +365,14 @@ $('#next-button').click(function (e) {
     // booking
     var tipe_id = $('#tipe_id :selected').val();
     // get data booking
-    axios.get('/api/admin/kamar/'+tipe_id, {
-        "X-Requested-With": "XMLHttpRequest"
+    axios.post('/api/admin/kamar/', {tipe_id:tipe_id,reservasi_id:'0'},{
+        "X-Requested-With": "XMLHttpRequest",
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }).then(response => {
         $('.booking-space').find('.col-md-2').remove();
-        response.data.forEach(e => {
+        response.data.kamar.forEach(e => {
             if (e.status == 1) {
-                $('.booking-space').prepend(
+                $('.booking-space').append(
                     // '<div class="swiper-slide">' +
                     // '<div class="row swiper-slide">' +
                     '<div class="col-md-2">' +
@@ -381,7 +384,7 @@ $('#next-button').click(function (e) {
                     // '</div>'
                 )
             } else {
-                $('.booking-space').prepend(
+                $('.booking-space').append(
                     // '<div class="swiper-slide">' +
                     // '<div class="row swiper-slide">' +
                     '<div class="col-md-2">' +

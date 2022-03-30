@@ -20,14 +20,14 @@ class Kamar extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'kamar';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -55,6 +55,6 @@ class Kamar extends Model
 
     public function reservasi()
     {
-        return $this->belongsTo(Reservasi::class,'reservasi_id','uuid');
+        return $this->belongsToMany(Reservasi::class,'reservasi_kamar','kamar_id','reservasi_id','id','uuid')->withPivot('checkin','checkout','status');;
     }
 }

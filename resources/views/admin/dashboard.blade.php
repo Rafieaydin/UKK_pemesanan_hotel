@@ -77,11 +77,51 @@
                     <th scope="col">#</th>
                     <th scope="col">Gambar</th>
                     <th scope="col">Tipe Kamar</th>
-                    <th scope="col">Jumlah</th>
+                    <th scope="col">Jumlah kamar tersedia</th>
+                    <th scope="col">Jumlah kamar terisi</th>
                 </tr>
             </thead>
             <tbody>
 
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h4>Reservasi terkahir</h4>
+      </div>
+    <div class="container-fluid mb-3">
+        <table class="table" id="table2">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">kode booking</th>
+                    <th scope="col">Fasilitas Kamar</th>
+                    <th scope="col">Nama Pemesan</th>
+                    <th scope="col">Email Pemesan</th>
+                    <th scope="col">Tanggal Check-in</th>
+                    <th scope="col">Tanggal Check-out</th>
+                    {{-- <th scope="col">jumlah kamar</th>
+                    <th scope="col">Harga / malam</th> --}}
+                    <th scope="col">Total Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($reservasi as $item)
+                    <tr>
+                        <td scope="coll">{{ $loop->iteration }}</td>
+                        <td scope="coll">{{ $item->kode_booking }}</td>
+                        <td scope="col">{{ $item->tipekamar->nama_tipe }}</td>
+                        <td scope="col">{{ $item->nama_pemesan }}</td>
+                           <td scope="col">{{ $item->email_pemesan }}</td>
+                        <td scope="col">{{ $item->tanggal_checkin->format('d-m-Y') }}</td>
+                        <td scope="col">{{ $item->tanggal_checkout->format('d-m-Y') }}</td>
+                        {{-- <td scope="col">{{ $item->jumlah_kamar }}</td>
+                        <td scope="col">{{ App\Helpers\Helper::format_rupiah($item->tipekamar->harga) }}</td> --}}
+                        <td scope="col">{{ App\Helpers\Helper::format_rupiah($item->total_harga) }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
