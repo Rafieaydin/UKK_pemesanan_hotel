@@ -15,27 +15,99 @@ function formatRupiah(angka, prefix ){
 }
 
 
-function validation($name, $id, $error = null){
-    if($error && $($id).val()){
+function validation($name, $id, $error = null) {
+    if ($error && $($id).val()) {
         console.log(true);
         $($id).addClass('is-invalid');
         $($id).closest('.col-md-6').find('.invalid-feedback').empty();
         $($id).closest('.col-md-6').append(
-            '<div class="invalid-feedback">'+
-                $error +
+            '<div class="invalid-feedback">' +
+            $error +
             '</div>'
         );
-    }else if(!$($id).val()){
+    } else if (!$($id).val()) {
         $($id).addClass('is-invalid');
         $($id).closest('.col-md-6').find('.invalid-feedback').empty();
         $($id).closest('.col-md-6').append(
-            '<div class="invalid-feedback">'+
-                $name + ' tidak boleh kosong'+
+            '<div class="invalid-feedback">' +
+            $name + ' tidak boleh kosong' +
             '</div>'
         );
         // console.log(true);
         return 1;
-    }else{
+    } else if ($name == "Nomor Hp") {
+        if ($($id).val().toString().length == 0) {
+            $error = "No HP tidak boleh kosong";
+        } else if ($($id).val().toString().length < 10) {
+            $error = "No HP minimal 10 digit";
+        }
+        if ($error) {
+            $($id).addClass('is-invalid');
+            $($id).closest('.col-md-6').find('.invalid-feedback').empty();
+            $($id).closest('.col-md-6').append(
+                '<div class="invalid-feedback">' +
+                $error +
+                '</div>'
+            );
+        } else {
+            $($id).removeClass('is-invalid')
+            return 0;
+        }
+    } else if ($name == "Email Pemesan") {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        console.log(Array.isArray($($id).val().match(validRegex)));
+        if (Array.isArray($($id).val().match(validRegex))) {
+            $($id).removeClass('is-invalid')
+            return 0;
+        } else {
+            $($id).addClass('is-invalid');
+            $($id).closest('.col-md-6').find('.invalid-feedback').empty();
+            $($id).closest('.col-md-6').append(
+                '<div class="invalid-feedback">' +
+                'Silahkan Masukan Format Email yang benar' +
+                '</div>'
+            );
+        }
+    } else if ($id == "#tanggal_checkin") {
+        var checkin = $($id).val();
+        var t_checkin = new Date(checkin);
+        var t_now = new Date();
+        var t_now_iso = t_now.toISOString().slice(0, 10);
+
+        if (t_checkin.getTime() < t_now.getTime() && checkin !== t_now_iso) {
+            var erorr = "tanggal checkin tidak boleh kurang hari ini"
+            $($id).addClass('is-invalid');
+            $($id).closest('.col-md-6').find('.invalid-feedback').empty();
+            $($id).closest('.col-md-6').append(
+                '<div class="invalid-feedback">' +
+                erorr +
+                '</div>'
+            );
+            return 1;
+        } else {
+            $($id).removeClass('is-invalid');
+            return 0;
+        }
+    } else if($id == "#tanggal_checkout"){
+        var checkin = $('#tanggal_checkin').val();
+        var checkout = $($id).val();
+        var t_checkin = new Date(checkin);
+        var t_checkout = new Date(checkout);
+        if (t_checkout <= t_checkin) {
+            var erorr = "Tanggal checkout harus lebih dari tanggal checkin"
+            $($id).addClass('is-invalid');
+            $($id).closest('.col-md-6').find('.invalid-feedback').empty();
+            $($id).closest('.col-md-6').append(
+                '<div class="invalid-feedback">' +
+                erorr +
+                '</div>'
+            );
+            return 1;
+        } else {
+            $($id).removeClass('is-invalid');
+            return 0;
+        }
+    } else {
         $($id).removeClass('is-invalid');
         return 0;
     }

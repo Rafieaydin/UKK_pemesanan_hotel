@@ -95,7 +95,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="label-input mt-4">email Pemesan</label>
-                                <input type="input" class="form-control @error('email_pemesan')
+                                <input type="email" class="form-control @error('email_pemesan')
                             is-invalid
                             @enderror" name="email_pemesan" placeholder="Email Pemesan" id="email_pemesan"
                                     value="{{ old('email_pemesan', (Auth::guard('tamu')->check()) ? Auth::guard('tamu')->user()->email : '') }}">
@@ -107,7 +107,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="label-input mt-4">no hp pemesan</label>
-                                <input type="input" class="form-control @error('nomor_hp_pemesan')
+                                <input type="number"  min="8" max="12" class="form-control @error('nomor_hp_pemesan')
                                 is-invalid
                             @enderror" name="nomor_hp_pemesan" placeholder="No hp Pemesan" id="nomor_hp_pemesan"
                                     value="{{ old('nomor_hp_pemesan', (Auth::guard('tamu')->check()) ? Auth::guard('tamu')->user()->no_hp : '') }}">
