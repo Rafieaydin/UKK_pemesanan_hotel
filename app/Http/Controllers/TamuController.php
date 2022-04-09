@@ -179,14 +179,14 @@ class TamuController extends Controller
         //
     }
 
-    public function ubahstatus(Request $request){
-        Reservasi::where('uuid',$request->reservasi_id)->update([
-            'status' => $request->status
-        ]);
-        if($request->status == "batal"){
-        KamarReservasi::where('reservasi_id',$request->reservasi_id)->update([
-            'status' => $request->status
-        ]);}
-        return response()->json(['success'=>'Berhasil']);
-    }
+    // public function ubahstatus(Request $request){
+    //     Reservasi::where('uuid',$request->reservasi_id)->update([
+    //         'status' => $request->status
+    //     ]);
+    //     if($request->status == "batal"){
+    //     KamarReservasi::where('reservasi_id',$request->reservasi_id)->update([
+    //         'status' => $request->status
+    //     ]);}
+    //     return response()->json(['success'=>'Berhasil']);
+    // }
 }

@@ -50,18 +50,6 @@ return new class extends Migration
         BEGIN
         UPDATE reservasi SET jumlah_kamar = jumlah_kamar + 1 WHERE uuid = new.reservasi_id;
         UPDATE reservasi SET jumlah_kamar = jumlah_kamar - 1 WHERE uuid = old.reservasi_id;
-        IF old.status = "booking" THEN
-        UPDATE kamar SET status = "0" WHERE id = old.kamar_id;
-        END IF;
-        IF old.status = "checkin" THEN
-        UPDATE kamar SET status = "0" WHERE id = old.kamar_id;
-        END IF;
-        IF new.status = "booking" THEN
-        UPDATE kamar SET status = "1" WHERE id = new.kamar_id;
-        END IF;
-        IF new.status = "checkin" THEN
-        UPDATE kamar SET status = "1" WHERE id = new.kamar_id;
-        END IF;
         END'
         );
 

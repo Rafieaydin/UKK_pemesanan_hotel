@@ -98,9 +98,9 @@
                             @foreach ($tipe as $value)
                             <option value="{{ $value->id }}" @if (old('tipe_id',$reservasi->tipekamar->id) == $value->id)
                                 selected
-                            @endif @if($value->total_jumlah_kamar_tersedia <= 0) disabled
+                            @endif @if($value->total_jumlah_kamar_tersedia <= 0 && $value->id != $reservasi->tipekamar->id ) disabled
                             @endif>
-                            {{ ($value->total_jumlah_kamar_tersedia <= 0) ? $value->nama_tipe.' | Kosong' : $value->nama_tipe }}</option>
+                            {{ ($value->total_jumlah_kamar_tersedia <= 0 && $value->id != $reservasi->tipekamar->id ) ? $value->nama_tipe.' | Kosong' : $value->nama_tipe }}</option>
                             @endforeach
                         </select>
                         @error('tipe_id')
@@ -315,7 +315,7 @@
 @endsection
 @push('js')
 <script>
-    function validation($name, $id, $error = null){
+function validation($name, $id, $error = null){
     if($error && $($id).val()){
         console.log(true);
         $($id).addClass('is-invalid');
@@ -335,12 +335,88 @@
         );
         console.log(true);
         return 1;
+    }else if ($name == "Nomor Hp") {
+        if ($($id).val().toString().length == 0) {
+            $error = "No HP tidak boleh kosong";
+        } else if ($($id).val().toString().length < 10) {
+            $error = "No HP minimal 10 digit";
+        }
+        if ($error) {
+            $($id).addClass('is-invalid');
+            $($id).closest('.input-group').find('.invalid-feedback').remove();
+            $($id).closest('.input-group').append(
+            '<div class="invalid-feedback">'+
+                  $error +
+            '</div>'
+        );
+        } else {
+            $($id).removeClass('is-invalid');
+            $($id).closest('.input-group').find('.invalid-feedback').remove();
+            return 0;
+        }
+    } else if ($name == "Email Pemesan") {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        console.log(Array.isArray($($id).val().match(validRegex)));
+        if (Array.isArray($($id).val().match(validRegex))) {
+            $($id).removeClass('is-invalid');
+              $($id).closest('.input-group').find('.invalid-feedback').remove();
+            return 0;
+        } else {
+            $($id).addClass('is-invalid');
+             $($id).closest('.input-group').find('.invalid-feedback').remove();
+            $($id).closest('.input-group').append(
+                '<div class="invalid-feedback">' +
+                'Silahkan Masukan Format Email yang benar' +
+                '</div>'
+            );
+        }
+    } else if ($id == "#tanggal_checkin") {
+        var checkin = $($id).val();
+        var t_checkin = new Date(checkin);
+        var t_now = new Date();
+        var t_now_iso = t_now.toISOString().slice(0, 10);
+
+        if (t_checkin.getTime() < t_now.getTime() && checkin !== t_now_iso) {
+            var erorr = "tanggal checkin tidak boleh kurang hari ini"
+            $($id).addClass('is-invalid');
+             $($id).closest('.input-group').find('.invalid-feedback').remove();
+            $($id).closest('.input-group').append(
+                '<div class="invalid-feedback">' +
+                erorr +
+                '</div>'
+            );
+            return 1;
+        } else {
+            $($id).removeClass('is-invalid');
+             $($id).closest('.input-group').find('.invalid-feedback').remove();
+            return 0;
+        }
+    } else if($id == "#tanggal_checkout"){
+        var checkin = $('#tanggal_checkin').val();
+        var checkout = $($id).val();
+        var t_checkin = new Date(checkin);
+        var t_checkout = new Date(checkout);
+        if (t_checkout <= t_checkin) {
+            var erorr = "Tanggal checkout harus lebih dari tanggal checkin"
+            $($id).addClass('is-invalid');
+            $($id).closest('.input-group').find('.invalid-feedback').remove();
+            $($id).closest('.input-group').append(
+                '<div class="invalid-feedback">' +
+                erorr +
+                '</div>'
+            );
+            return 1;
+        } else {
+            $($id).removeClass('is-invalid');
+            $($id).closest('.input-group').find('.invalid-feedback').remove();
+            return 0;
+        }
     }else{
         $($id).removeClass('is-invalid');
         $($id).closest('.input-group').find('.invalid-feedback').remove();
         return 0;
     }
-}
+    }
 
 function formatRupiah(angka, prefix ){
     var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -386,13 +462,13 @@ $('#tipe_id').change(function(e){
 
 $('#next-button').click(function (e) {
     e.preventDefault();
-    var tipe_id = validation('tipe_id','#tipe_id');
-    var nama_pemesan = validation('nama_pemesan','#nama_pemesan');
-    var tanggal_checkin = validation('tanggal_checkin','#tanggal_checkin');
-    var tanggal_checkout = validation('tanggal_checkout','#tanggal_checkout');
-    var nama_tamu = validation('nama_tamu','#nama_tamu') ;
-    var email_pemesanan = validation('email_pemesan','#email_pemesan');
-    var no_hp = validation('nomor_hp_pemesan','#nomor_hp_pemesan');
+    var tipe_id = validation('Tipe','#tipe_id');
+    var nama_pemesan = validation('Nama Pemesan','#nama_pemesan');
+    var tanggal_checkin = validation('Tanggal Checkiin','#tanggal_checkin');
+    var tanggal_checkout = validation('Tanggal checkout','#tanggal_checkout');
+    var nama_tamu = validation('Nama Tamu','#nama_tamu') ;
+    var email_pemesanan = validation('Email Pemesan','#email_pemesan');
+    var no_hp = validation('Nomor Hp','#nomor_hp_pemesan');
 
     if(tipe_id == 0 &&
     nama_pemesan == 0 &&
@@ -409,7 +485,7 @@ $('#next-button').click(function (e) {
     var tipe_id = $('#tipe_id :selected').val();
     var reservasi_id = $('#reservasi_id').val();
     // get data booking
-    axios.post('/api/admin/kamar/', {
+    axios.post('/api/admin/kamar', {
             tipe_id: tipe_id,
             reservasi_id: reservasi_id
         }, {
@@ -432,7 +508,7 @@ $('#next-button').click(function (e) {
                                     '</div>' +
                                     '</div>'
                                 );
-                            } 
+                            }
                             else { // i same but status booking
                                 $('.booking-space').append(
                                     '<div class="col-md-2">' +
@@ -454,7 +530,7 @@ $('#next-button').click(function (e) {
                             );
                         }
                     });
-                }else{ 
+                }else{
                     $('.booking-space').append(
                         '<div class="col-md-2">' +
                         '<div class="mb-2 text-center text-white kode_kamar green-active" data-id="' +

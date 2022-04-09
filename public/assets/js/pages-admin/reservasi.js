@@ -23,7 +23,7 @@ $(document).ready(function () {
         }else{
             $(this).html( '<input type="text" placeholder="'+title+'" data-index="'+i+'" />' );
         }
-       
+
     } );
 
     // main table
@@ -140,7 +140,7 @@ $(document).ready(function () {
         '<a href="' + root + '/admin/reservasi/create"class="btn btn-primary"> Tambah Data <i class="fas fa-plus"></i></button></a>' +
         '<a href="' + root + '/admin/pdf/reservasi"class="btn btn-danger ml-3"> Export PDF <i class="fas fa-file-pdf"></i></button></a>' +
         '<a href="' + root + '/admin/excel/reservasi"class="btn btn-success ml-3"> Export Excel <i class="fas fa-file-excel"></i></button></a>' +
-        '</div>' 
+        '</div>'
     );
 
     // search engine
@@ -184,56 +184,56 @@ $(document).ready(function () {
         })
     });
 
-    $('body').on('click', '#statusb', function () {
-        var title = '';
-        var tk = '';
-        if($(this).data('status') == "konfirmasi"){
-            var title = "Apa yakin untuk konfirmasi reservasi?";
-            var tk = "Reservasi Berhasil di konfirmasi";
-        }else if($(this).data('status') == "batal"){
-            var title = 'Apa anda yakin untuk membatalkan reservasi?'
-            var tk = "Reservasi Berhasil di batalkan";
-        }
-        // sweet alert
-        Swal.fire({
-            title: title,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yakin',
-            cancelButtonText: 'Tidak'
-        }).then((result) => {
-            if (result.value) {
-                var id_kamar = $(this).data('id');
-                var status = $(this).data('status');
-                var id_reservasi = $(this).data('id_reservasi');
-               
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: root + "/api/admin/status",
-                    type: "POST",
-                    data: {
-                        id_kamar: id_kamar,
-                        status: status,
-                        reservasi_id: id_reservasi
-                    },
-                    success: function (data) {
-                        console.log(data);
-                        table.draw();
-                        Swal.fire(
-                            'success',
-                            tk,
-                            'success'
-                        )
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {}
-        })
-    });
+    // $('body').on('click', '#statusb', function () {
+    //     var title = '';
+    //     var tk = '';
+    //     if($(this).data('status') == "konfirmasi"){
+    //         var title = "Apa yakin untuk konfirmasi reservasi?";
+    //         var tk = "Reservasi Berhasil di konfirmasi";
+    //     }else if($(this).data('status') == "batal"){
+    //         var title = 'Apa anda yakin untuk membatalkan reservasi?'
+    //         var tk = "Reservasi Berhasil di batalkan";
+    //     }
+    //     // sweet alert
+    //     Swal.fire({
+    //         title: title,
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonText: 'Yakin',
+    //         cancelButtonText: 'Tidak'
+    //     }).then((result) => {
+    //         if (result.value) {
+    //             var id_kamar = $(this).data('id');
+    //             var status = $(this).data('status');
+    //             var id_reservasi = $(this).data('id_reservasi');
+
+    //             $.ajax({
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 },
+    //                 url: root + "/api/admin/status",
+    //                 type: "POST",
+    //                 data: {
+    //                     id_kamar: id_kamar,
+    //                     status: status,
+    //                     reservasi_id: id_reservasi
+    //                 },
+    //                 success: function (data) {
+    //                     console.log(data);
+    //                     table.draw();
+    //                     Swal.fire(
+    //                         'success',
+    //                         tk,
+    //                         'success'
+    //                     )
+    //                 },
+    //                 error: function (data) {
+    //                     console.log('Error:', data);
+    //                 }
+    //             });
+    //         } else if (result.dismiss === Swal.DismissReason.cancel) {}
+    //     })
+    // });
 
     // detail 2 table
     var detailtable = $('#table3').DataTable({

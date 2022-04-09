@@ -153,7 +153,7 @@ class ResevasiController extends Controller
                     $button = '<button class="btn btn-danger"  disabled  data-id="'.$data->id.'" >dibatalkan</button>';}
                     return $button;
                 })
-                ->rawColumns(['nama_tipe','kode_kamar','harga','action','status','checkin','checkout'])
+                ->rawColumns(['nama_tipe','kode_kamar','harga','status','checkin','checkout','action'])
                 ->addIndexColumn()->make(true);
         }
     }
@@ -292,7 +292,7 @@ class ResevasiController extends Controller
                 $old_kamar[] = $val->id;
             }
         }
-     
+
             foreach (json_decode($request->kode_kamar) as $key => $val) {
                 $kamar = Kamar::where('id',$val)->first();
                     if(!in_array($kamar->id,$old_kamar)){ // jika kamar == kamar_id
@@ -314,9 +314,12 @@ class ResevasiController extends Controller
                     }
             }
             if(count($new_kamar) > 0){
-                $deleted_kamars = array_diff($old_kamar,$new_kamar); 
+                $deleted_kamars = array_diff($old_kamar,$new_kamar);
                 $resev->KamarBooking()->detach($deleted_kamars);
+            }else{
+                $resev->KamarBooking()->detach($old_kamar);
             }
+
 
 
         return response()->json([
@@ -376,7 +379,7 @@ class ResevasiController extends Controller
                 'checkout' => Carbon::parse($val->pivot->checkout)->format('Y-m-d H:i:s'),
             ]);
         }
-    
+
         Reservasi::where('uuid',$id)->delete();
         ReservasiLog::where('kode_booking',$re->kode_booking)->update([
             'jumlah_kamar' => $counting,

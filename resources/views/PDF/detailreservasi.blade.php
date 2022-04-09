@@ -99,7 +99,7 @@
             @endphp
             <tr style="">
                 <td>{{ $reservasi->tipekamar->nama_tipe }}</td>
-                <td>{{ $value->kamar->kode_kamar  }}</td>
+                <td>{{ $value->kode_kamar  }}</td>
                 <td>{{ $reservasi->tanggal_checkin->format('d-m-Y') }}</td>
                 <td>{{ $reservasi->tanggal_checkout->format('d-m-Y') }}</td>
                 <td>{{ $jumlah_hari }}</td>

@@ -18,11 +18,11 @@
 
 </style>
 @endpush
-@section('judul','Edit Admin')
+@section('judul','Edit Resepsionis')
 @section('breadcrump')
 <div class="breadcrumb-item "><a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i>
         DASBOARD</a></div>
-<div class="breadcrumb-item"> <i class="fas fa-user"></i> RESEPSINIS</div>
+<div class="breadcrumb-item"> <i class="fas fa-user"></i>RESEPSIONIS</div>
 @endsection
 @section('content')
 <div class="card">
@@ -40,7 +40,7 @@
                         </div>
                         <input type="text" name="email" value="{{ old('email',$resepsionis->email) }}" class="form-control @error('email')
                             is-invalid
-                        @enderror email" id="inlineFormInputGroup" placeholder="Jumlah Kamar">
+                        @enderror email" id="inlineFormInputGroup" placeholder="Email">
                         @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -56,7 +56,7 @@
                         </div>
                         <input type="text" name="username" value="{{ old('username',$resepsionis->username) }}" class="form-control @error('username')
                             is-invalid
-                        @enderror username" id="inlineFormInputGroup" readonly placeholder="Jumlah Kamar">
+                        @enderror username" id="inlineFormInputGroup" readonly placeholder="Username">
                         @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -72,7 +72,7 @@
                         </div>
                         <input type="text" name="nama_resepsionis" value="{{ old('nama_resepsionis',$resepsionis->nama_resepsionis) }}" class="form-control @error('nama_resepsionis')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="nama_resepsionis">
+                        @enderror" id="inlineFormInputGroup" placeholder="Nama Resepsionis">
                         @error('nama_resepsionis')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -89,7 +89,7 @@
                         </div>
                         <input type="text" name="no_hp" value="{{ old('no_hp',$resepsionis->no_hp) }}" class="form-control @error('no_hp')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="no_hp">
+                        @enderror" id="inlineFormInputGroup" placeholder="Nomor HP">
                         @error('no_hp')
                         <div class="invalid-feedback">
                             {{ $message }}

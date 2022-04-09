@@ -72,7 +72,7 @@
   <div class="card-body seaction-reservasi" class="mt-5">
         <form action="{{ route('resepsionis.reservasi.store') }}" method="POST" enctype="multipart/form-data" id="form-reservasi">
             @csrf
-            
+
             <div class="row">
                 <div class="col-md-6">
                     <label for="">Tipe Kamar</label>
@@ -234,7 +234,7 @@
                         @enderror
                     </div>
                 </div>
-              
+
 
 
             </div>
@@ -303,6 +303,7 @@
 @endsection
 @push('js')
 <script>
+
     function validation($name, $id, $error = null){
     if($error && $($id).val()){
         console.log(true);
@@ -323,12 +324,88 @@
         );
         console.log(true);
         return 1;
+    }else if ($name == "Nomor Hp") {
+        if ($($id).val().toString().length == 0) {
+            $error = "No HP tidak boleh kosong";
+        } else if ($($id).val().toString().length < 10) {
+            $error = "No HP minimal 10 digit";
+        }
+        if ($error) {
+            $($id).addClass('is-invalid');
+            $($id).closest('.input-group').find('.invalid-feedback').remove();
+            $($id).closest('.input-group').append(
+            '<div class="invalid-feedback">'+
+                  $error +
+            '</div>'
+        );
+        } else {
+            $($id).removeClass('is-invalid');
+            $($id).closest('.input-group').find('.invalid-feedback').remove();
+            return 0;
+        }
+    } else if ($name == "Email Pemesan") {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        console.log(Array.isArray($($id).val().match(validRegex)));
+        if (Array.isArray($($id).val().match(validRegex))) {
+            $($id).removeClass('is-invalid');
+              $($id).closest('.input-group').find('.invalid-feedback').remove();
+            return 0;
+        } else {
+            $($id).addClass('is-invalid');
+             $($id).closest('.input-group').find('.invalid-feedback').remove();
+            $($id).closest('.input-group').append(
+                '<div class="invalid-feedback">' +
+                'Silahkan Masukan Format Email yang benar' +
+                '</div>'
+            );
+        }
+    } else if ($id == "#tanggal_checkin") {
+        var checkin = $($id).val();
+        var t_checkin = new Date(checkin);
+        var t_now = new Date();
+        var t_now_iso = t_now.toISOString().slice(0, 10);
+
+        if (t_checkin.getTime() < t_now.getTime() && checkin !== t_now_iso) {
+            var erorr = "tanggal checkin tidak boleh kurang hari ini"
+            $($id).addClass('is-invalid');
+             $($id).closest('.input-group').find('.invalid-feedback').remove();
+            $($id).closest('.input-group').append(
+                '<div class="invalid-feedback">' +
+                erorr +
+                '</div>'
+            );
+            return 1;
+        } else {
+            $($id).removeClass('is-invalid');
+             $($id).closest('.input-group').find('.invalid-feedback').remove();
+            return 0;
+        }
+    } else if($id == "#tanggal_checkout"){
+        var checkin = $('#tanggal_checkin').val();
+        var checkout = $($id).val();
+        var t_checkin = new Date(checkin);
+        var t_checkout = new Date(checkout);
+        if (t_checkout <= t_checkin) {
+            var erorr = "Tanggal checkout harus lebih dari tanggal checkin"
+            $($id).addClass('is-invalid');
+            $($id).closest('.input-group').find('.invalid-feedback').remove();
+            $($id).closest('.input-group').append(
+                '<div class="invalid-feedback">' +
+                erorr +
+                '</div>'
+            );
+            return 1;
+        } else {
+            $($id).removeClass('is-invalid');
+            $($id).closest('.input-group').find('.invalid-feedback').remove();
+            return 0;
+        }
     }else{
         $($id).removeClass('is-invalid');
         $($id).closest('.input-group').find('.invalid-feedback').remove();
         return 0;
     }
-}
+    }
 
 function formatRupiah(angka, prefix ){
     var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -366,7 +443,7 @@ $('#tipe_id').change(function(e){
         $('#kamar_terisi').val(response.data.tipe.total_jumlah_kamar_booking);
     }).catch(err =>{
 
-    }); 
+    });
 });
 $('#next-button').click(function (e) {
     e.preventDefault();
@@ -392,7 +469,7 @@ $('#next-button').click(function (e) {
     // get data booking
     var tipe_id = $('#tipe_id :selected').val();
     // get data booking
-    axios.post('/api/admin/kamar/', {tipe_id:tipe_id,reservasi_id:'0'},{
+    axios.post('/api/admin/kamar', {tipe_id:tipe_id,reservasi_id:'0'},{
         "X-Requested-With": "XMLHttpRequest",
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }).then(response => {
@@ -446,7 +523,7 @@ $('#next-button').click(function (e) {
             var formdata = new FormData(form)
             formdata.append('kode_kamar', JSON.stringify(kode_kamars))
             console.log(formdata);
-            axios.post('/admin/reservasi/', formdata, {
+            axios.post('/admin/reservasi', formdata, {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }).then(response => {
                 window.location.href = '/admin/reservasi?create=true';

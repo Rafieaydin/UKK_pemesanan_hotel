@@ -18,18 +18,19 @@ return new class extends Migration
         DROP PROCEDURE IF EXISTS `cek_tipe_kamar`;
         CREATE PROCEDURE cek_tipe_kamar()
         BEGIN
-        SELECT id,nama_tipe FROM tipe_kamar;
+        SELECT id,nama_tipe,total_jumlah_kamar_tersedia,
+        total_jumlah_kamar_booking FROM tipe_kamar;
         END'
         );
         DB::unprepared('
         DROP PROCEDURE IF EXISTS `cek_kamar_dipesan`;
         CREATE PROCEDURE cek_kamar_dipesan()
         BEGIN
-        SELECT nama_tipe,count(resevarsi.jumlah_kamar) AS jumlah_kamar FROM resevarsi RIGHT JOIN tipe_kamar ON resevarsi.tipe_id = tipe_kamar.id GROUP BY nama_tipe;
+        SELECT nama_tipe,SUM(reservasi.jumlah_kamar) AS jumlah_kamar FROM reservasi RIGHT JOIN tipe_kamar ON reservasi.tipe_id = tipe_kamar.id GROUP BY tipe_kamar.id;
         END'
         );
     }
-
+    
     /**
      * Reverse the migrations.
      *

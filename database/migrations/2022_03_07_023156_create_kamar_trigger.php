@@ -48,6 +48,7 @@ return new class extends Migration
         AFTER UPDATE ON kamar
         FOR EACH ROW
         BEGIN
+        IF new.status != old.status THEN
         IF NEW.status = "0"  THEN
         UPDATE tipe_kamar SET total_jumlah_kamar_tersedia = total_jumlah_kamar_tersedia + 1 WHERE id = new.tipe_id;
         UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking - 1 WHERE id = new.tipe_id;
@@ -57,6 +58,7 @@ return new class extends Migration
         UPDATE tipe_kamar SET total_jumlah_kamar_booking = total_jumlah_kamar_booking + 1 WHERE id = new.tipe_id;
         UPDATE tipe_kamar SET total_jumlah_kamar_tersedia = total_jumlah_kamar_tersedia - 1 WHERE id = new.tipe_id;
         ## UPDATE reservasi SET jumlah_kamar = jumlah_kamar + 1 WHERE uuid = new.reservasi_id;
+        END IF;
         END IF;
         END'
         );

@@ -19,17 +19,20 @@ class FasilitasKamarSeeder extends Seeder
             [
             'nama'=> 'Supperior',
             'gambar'=>  'kamar_supperior.jpg',
-            'nama_fasilitas' => "TV 32 ichi",
+            'nama_fasilitas' => "Bath",
+            'icon'=> 'fas fa-bath'
             ],
             [
             'nama'=> 'Deluxe',
             'gambar'=>  'kamar_deluxe.jpg',
-            'nama_fasilitas' => "TV 32 ichi",
+            'nama_fasilitas' => "TV",
+            'icon' => 'fas fa-tv'
             ],
             [
             'nama'=> 'Condotel One Bedroom',
             'gambar'=>  'kamar_one_bedroom.jpg',
-            'nama_fasilitas' => "TV 32 ichi",
+            'nama_fasilitas' => "Bed",
+            'icon' => 'fas fa-bed'
             ],
         ];
         $faker = Faker::create('id_ID');
@@ -38,7 +41,7 @@ class FasilitasKamarSeeder extends Seeder
                 'nama_fasilitas' => $data[$i]['nama_fasilitas'],
                 // 'gambar'=> $data[$i]['gambar'],
                 'admin_id'=> 1,
-                'icon_fasilitas' => 'fas fa-tv'
+                'icon_fasilitas' => $data[$i]['icon'],
             ]);
         }
     }

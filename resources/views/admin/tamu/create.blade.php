@@ -71,7 +71,7 @@
                         </div>
                         <input type="text" name="nama_tamu" value="{{ old('nama_tamu') }}" class="form-control @error('nama_tamu')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="nama_tamu">
+                        @enderror" id="inlineFormInputGroup" placeholder="Nama Tamu">
                         @error('nama_tamu')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -88,7 +88,7 @@
                         </div>
                         <input type="number" name="no_hp" value="{{ old('no_hp') }}" class="form-control @error('no_hp')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="no_hp">
+                        @enderror" id="inlineFormInputGroup" placeholder="Nomor HP">
                         @error('no_hp')
                         <div class="invalid-feedback">
                             {{ $message }}

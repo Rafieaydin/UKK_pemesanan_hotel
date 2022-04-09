@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
+        // Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,

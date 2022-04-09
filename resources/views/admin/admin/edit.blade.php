@@ -40,7 +40,7 @@
                         </div>
                         <input type="text" name="email" value="{{ old('email',$admin->email) }}" class="form-control @error('email')
                             is-invalid
-                        @enderror email" id="inlineFormInputGroup" placeholder="Jumlah Kamar">
+                        @enderror email" id="inlineFormInputGroup" placeholder="Email">
                         @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -56,7 +56,7 @@
                         </div>
                         <input type="text" name="username" value="{{ old('username',$admin->username) }}" class="form-control @error('username')
                             is-invalid
-                        @enderror username" id="inlineFormInputGroup" placeholder="Jumlah Kamar" readonly>
+                        @enderror username" id="inlineFormInputGroup" placeholder="Username" readonly>
                         @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -72,7 +72,7 @@
                         </div>
                         <input type="password" name="password" value="{{ old('password') }}" class="form-control @error('password')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="Jumlah Kamar">
+                        @enderror" id="inlineFormInputGroup" placeholder="Password">
                         @error('password')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -88,7 +88,7 @@
                         </div>
                         <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control @error('password_confirmation')
                             is-invalid
-                        @enderror" id="inlineFormInputGroup" placeholder="Jumlah Kamar">
+                        @enderror" id="inlineFormInputGroup" placeholder="Konfirmasi Password">
                         @error('password_confirmation')
                         <div class="invalid-feedback">
                             {{ $message }}

@@ -137,8 +137,11 @@ $('#backs-button').click(function () {
     $('.seaction-reservasi').addClass('d-none');
 });
 
+var tipekamar = [];
 $('#tipe_id').change(function(e){
     axios.get('api/tipe/harga/' + $(this).val()).then(response=>{
+        tipekamar.splice(0, tipekamar.length);
+        tipekamar.push(response.data.tipe);
         $('#harga').val(formatRupiah(response.data.tipe.harga));
         $('#kamar_tersedia').val(response.data.tipe.total_jumlah_kamar_tersedia);
         $('#kamar_terisi').val(response.data.tipe.total_jumlah_kamar_booking);
@@ -151,21 +154,38 @@ $('#tipe_id').change(function(e){
             '</ul>'+
             '</div>')
         });
-
+        console.log(tipekamar);
     }).catch(err =>{
 
     });
 });
 
-$('#back-button').click(function () {
-    $('.seaction-reservasi').removeClass('d-none');
-    $('.section-booking').addClass('d-none');
-});
+
+
+
+function days_between(date1, date2) {
+    console.log(date1,date2);
+    // The number of milliseconds in one day
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+
+    // Calculate the difference in milliseconds
+    const differenceMs = Math.abs(date1 - date2);
+
+    // Convert back to days and return
+    return Math.round(differenceMs / ONE_DAY);
+
+}
+
+
 
 $('#reservasi-button').click(function () {
     var tipe_id = validation('Tipe','#tipe_id');
     var tanggal_checkin = validation('Tanggal Checkiin','#tanggal_checkin');
-    var tanggal_checkout = validation('Tanggal checkout','#tanggal_checkout');
+    var tanggal_checkout = validation('Tanggal checkout','#tanggal_checkout');  
+    var checkin = new Date($('#tanggal_checkin').val());
+    var checkout = new Date($('#tanggal_checkout').val());
+    $('#harga_malam').html(formatRupiah(tipekamar[0].harga));
+    $('#jumlah_malam').html(days_between(checkin,checkout) + ' malam');
 
     if(tipe_id == 0 &&
     tanggal_checkin == 0 &&
@@ -173,7 +193,8 @@ $('#reservasi-button').click(function () {
         $('.seaction-reservasi').addClass('d-none');
         $('.section-booking').removeClass('d-none');
     }
-
+    var total_harga = $('#harga').val();
+    
     // booking
     var tipe_id = $('#tipe_id :selected').val();
     // get data booking
@@ -214,55 +235,69 @@ $('#reservasi-button').click(function () {
     }).catch(error => {
         console.log(error);
     });
-
-    // active class booking kamar
-    $(document).on('click', '.kode_kamar', function () {
-        if (!$(this).hasClass('book-active')) {
-            if ($(this).hasClass('green-active')) {
-                $(this).removeClass('green-active');
-                $(this).addClass('red-active');
-            } else {
-                $(this).removeClass('red-active');
-                $(this).addClass('green-active');
-            }
-        }
-    });
-
-    //post data booking
-    $('#booking-button').click(function () {
-        // var form = $('.form-reservasi').serialize();
-        var form = $('#form-reservasi')[0]; //htmlformelement
-        console.log(form);
-        var kode_kamars = [];
-        var kode_kamar = $('.red-active');
-        for (i = 0; i < kode_kamar.length; i++) {
-            kode_kamars.push(kode_kamar[i].dataset.id);
-        }
-        console.log(kode_kamars.length);
-        if (kode_kamars.length == 0) {
-            $('.alert-booking').removeClass('d-none');
-            $('.alert-booking').html('Silahkan pilih nomor kamar yang ingin di reservasi');
-        }else{
-            var formdata = new FormData(form)
-            formdata.append('kode_kamar', JSON.stringify(kode_kamars))
-            console.log(formdata);
-            axios.post('/api/admin/booking', formdata, {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }).then(response => {
-                window.location.href = '/resevarsi/detail/' + response.data.reservasi.uuid +'?berhasil=true';
-            }).catch(res => {
-                $('.seaction-reservasi').removeClass('d-none');
-                $('.section-booking').addClass('d-none');
-                    $.each(res.response.data.errors, function (key,value) {
-                        console.log(key,value);
-                        validation(key, '#'+key,value);
-                    })
-            })
-
-        }
-    })
-
 });
+
+var counting = [];
+// active class booking kamar
+$(document).on('click', '.kode_kamar', function () {
+    if (!$(this).hasClass('book-active')) {
+        if ($(this).hasClass('green-active')) {
+            counting.push(parseInt(tipekamar[0].harga));
+            $(this).removeClass('green-active');
+            $(this).addClass('red-active');
+        } else {
+            counting.pop();
+            $(this).removeClass('red-active');
+            $(this).addClass('green-active');
+        }
+    }
+    var total = counting.reduce((a, b) => a + b, 0);
+    // $('#total_harga').html('');  
+    var checkin = new Date($('#tanggal_checkin').val());
+    var checkout = new Date($('#tanggal_checkout').val());
+    var total_harga = total * days_between(checkin,checkout);
+    $('#total_harga').html(formatRupiah(total_harga.toString()));  
+});
+
+
+$('#back-button').click(function () {
+    counting.splice(0, counting.length);
+    $('.seaction-reservasi').removeClass('d-none');
+    $('.section-booking').addClass('d-none');
+});
+
+ //post data booking
+ $('#booking-button').click(function () {
+    // var form = $('.form-reservasi').serialize();
+    var form = $('#form-reservasi')[0]; //htmlformelement
+    var kode_kamars = [];
+    var kode_kamar = $('.red-active');
+    for (i = 0; i < kode_kamar.length; i++) {
+        kode_kamars.push(kode_kamar[i].dataset.id);
+    }
+    console.log(kode_kamars.length);
+    if (kode_kamars.length == 0) {
+        $('.alert-booking').removeClass('d-none');
+        $('.alert-booking').html('Silahkan pilih nomor kamar yang ingin di reservasi');
+    }else{
+        var formdata = new FormData(form)
+        formdata.append('kode_kamar', JSON.stringify(kode_kamars))
+        console.log(formdata);
+        axios.post('/api/admin/booking', formdata, {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }).then(response => {
+            window.location.href = '/resevarsi/detail/' + response.data.reservasi.uuid +'?berhasil=true';
+        }).catch(res => {
+            $('.seaction-reservasi').removeClass('d-none');
+            $('.section-booking').addClass('d-none');
+                $.each(res.response.data.errors, function (key,value) {
+                    console.log(key,value);
+                    validation(key, '#'+key,value);
+                })
+        })
+
+    }
+})
 
 
 

@@ -106,19 +106,10 @@ class AuthController extends Controller
         );
 
         return redirect()->route('auth.login')->with('success','Berhasil Reset Password');
-        // return $status == Password::PASSWORD_RESET
-        //     ? response()->json([
-        //         'status' => 'success',
-        //         'message' =>  __($status)
-        //     ], 200)
-        //     : response()->json([
-        //         'status' => 'error',
-        //         'message' => __($status),
-        //     ], 422);
     }
 
     public function logout(){
-    
+
         $tamu = 0;
         if (Auth::guard('tamu')->check()){
             $tamu = 1;

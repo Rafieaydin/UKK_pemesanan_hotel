@@ -23,16 +23,8 @@ class KamarController extends Controller
     public function ApiIndex(Request $request)
     {
         $kamar = kamar::with('reservasi')->where('tipe_id',$request->tipe_id)->orderby('created_at','desc')->get();
-        // $reservasis = Reservasi::where('uuid',$request->reservasi_id)->first();
-        // $reservasi = $reservasis->KamarBooking;
-        // $kamar_booked =[];
-        // for($i = 0 ; $i < count($reservasi) ; $i++){
-        //     $kamar_booked[] = $reservasi[$i]['kamar_id'];
-        // }
         return response()->json(
             ['kamar' => $kamar]
-            // 'kamar_booked' => $kamar_booked,
-            // 'status' => 'sukses']
         );
     }
 
