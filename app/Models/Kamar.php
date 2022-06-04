@@ -7,24 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
  * @property integer $admin_id
- * @property string $nomor_kamar
+ * @property integer $tipe_id
+ * @property string $kode_kamar
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property TipeKamar $tipeKamar
  * @property Admin $admin
+ * @property ReservarsiKamar[] $reservarsiKamars
  */
 class Kamar extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'kamar';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -32,7 +35,15 @@ class Kamar extends Model
     /**
      * @var array
      */
-    protected $fillable = ['admin_id', 'nomor_kamar', 'status', 'created_at', 'updated_at'];
+    protected $fillable = ['admin_id', 'tipe_id', 'kode_kamar', 'status', 'created_at', 'updated_at','reservasi_id'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tipeKamar()
+    {
+        return $this->belongsTo('App\Models\TipeKamar', 'tipe_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -40,5 +51,10 @@ class Kamar extends Model
     public function admin()
     {
         return $this->belongsTo('App\Models\Admin');
+    }
+
+    public function reservasi()
+    {
+        return $this->belongsToMany(Reservasi::class,'reservasi_kamar','kamar_id','reservasi_id','id','uuid')->withPivot('checkin','checkout','status');;
     }
 }

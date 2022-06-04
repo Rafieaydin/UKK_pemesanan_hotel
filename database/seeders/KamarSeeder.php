@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class KamarSeeder extends Seeder
 {
@@ -15,14 +16,18 @@ class KamarSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create('id_ID');
+
         for ($i=0; $i < 99 ; $i++) {
-            $counter = Floor($i/30);
+            $counter = Floor($i/30); // kelipatan 30
             $nomor = ['A','B','C','D','E','F'];
             $nomor_kamar = $nomor[$counter];
             DB::table('kamar')->insert([
-                'nomor_kamar'=> ($i>=10) ? $nomor_kamar.'00'.$i : $nomor_kamar.'0'.$i,
-                'status'=> '1',
+                'kode_kamar'=> $nomor_kamar.$i,
+                'tipe_id' => $faker->randomElement(['1','2','3']),
+                'status'=> '0',
                 'admin_id'=> 1,
+                // 'reservasi_id' => 0
             ]);
         }
 

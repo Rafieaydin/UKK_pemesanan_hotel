@@ -27,7 +27,7 @@ return new class extends Migration
         });
 
         Schema::table('resevarsi', function (Blueprint $table) {
-            $table->foreignId('tamu_id')->constrained('tamu')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('tamu_id')->constrained('tamu')->nullable()->onDelete('nullable')->onUpdate('cascade');
         });
     }
 

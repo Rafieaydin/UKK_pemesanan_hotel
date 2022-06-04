@@ -19,10 +19,12 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             FasilitasHotelSeeder::class,
             FasilitasKamarSeeder::class,
+            TipeSeeder::class,
             KamarSeeder::class,
             TamuSeeder::class,
             ResepsionisSeeder::class,
             ResevarsiSeeder::class,
+            KamarReservasi::class,
         ]);
 
     }

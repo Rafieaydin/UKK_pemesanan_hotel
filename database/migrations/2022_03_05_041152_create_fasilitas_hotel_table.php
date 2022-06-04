@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_fasilitas');
             $table->string('gambar');
+            $table->longText('keterangan');
             $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
